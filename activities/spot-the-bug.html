@@ -10,13 +10,20 @@
   <link rel="stylesheet" href="../assets/activity.css">
   <style>
 
+    .code { font-family: var(--font-mono); font-size: 0.95rem; background: var(--ink); border-radius: var(--radius-sm); padding: var(--s2); }
+    .code button { display: grid; grid-template-columns: 2rem 1fr; width: 100%; text-align: left; font: inherit; color: #e8ecf5; background: none; border: 0; border-radius: 6px; padding: 0.4rem 0.6rem; cursor: pointer; white-space: pre; }
+    .code button:hover { background: rgba(255,255,255,.08); }
+    .code button span:first-child { color: #93a4c4; }
+    .code button.is-wrong { background: rgba(228,96,42,.35); }
+    .code button.is-right { background: rgba(55,204,149,.35); }
+    body.projector .code { font-size: 1.3rem; }
+
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
   <main id="main">
-    <section class="page-hero on-dark">
+    <section class="page-hero act-hero on-dark">
       <header class="site-header site-header--hero">
         <div class="container">
           <a class="logo" href="../index.html" aria-label="Computer Vision for Developers — course home">
@@ -29,17 +36,48 @@
           </span>
         </div>
       </header>
-
-      <div class="container page-hero-inner">
+      <div class="container act-hero-inner">
         <a class="back" href="./index.html">← All activities</a>
-        <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
-        <h1>Spot the Bug</h1>
-        <p>Coming soon.</p>
+        <div class="act-meta">
+          <span class="badge badge--day1">Day 1</span>
+          <span class="badge badge--time">20 minutes</span>
+          <span class="badge badge--time">Max 10 points</span>
+        </div>
+        <h1>Activity 04 · Spot the Bug</h1>
+        <p>Five short pieces of vision code, each with one real bug that does not crash — it just gives wrong results. Click the buggy line: right first time = 2 points, second try = 1. Then read the fix.</p>
       </div>
     </section>
 
-    <section class="section--tight"><div class="container"><div class="card" style="padding:var(--s4)"><p class="muted">This activity is being built.</p></div></div></section>
+    <div class="scorestrip">
+      <div class="container">
+        <div class="scorestrip__item"><span class="scorestrip__label">Round</span><span class="scorestrip__value" id="act-round">—</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Score</span><span class="scorestrip__value" id="act-score">0</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Best</span><span class="scorestrip__value scorestrip__value--muted" id="act-best">—</span></div>
+        <div class="act-tools">
+          <label for="act-team">Team</label>
+          <input type="text" id="act-team" placeholder="Team name" autocomplete="off" maxlength="40">
+          <button type="button" class="btn btn--ghost btn--sm" id="act-projector" aria-pressed="false">Projector mode</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="act-reset">Reset best</button>
+        </div>
+      </div>
+    </div>
 
+    <section class="section--tight">
+      <div class="container">
+        <div class="panel" id="play">
+          <h2 id="title">Bug</h2>
+          <p class="small muted">Click the line that contains the bug.</p>
+          <div class="code" id="code"></div>
+          <div class="verdict hidden" id="verdict"></div>
+          <p><button type="button" class="btn hidden" id="next">Next snippet →</button></p>
+        </div>
+        <div class="panel finish hidden" id="finish">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">All bugs found</h2>
+          <p class="finish__score" id="final">0 / 10</p>
+          <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -56,5 +94,61 @@
     </div>
   </footer>
 
+  <script src="../assets/store.js"></script>
+  <script src="../assets/activities.js"></script>
+  <script src="../assets/act-common.js"></script>
+
+  <script>
+
+(function () {
+  'use strict';
+  var BUGS = [{"title": "Colours look wrong", "lines": ["import cv2", "import matplotlib.pyplot as plt", "img = cv2.imread(\"palm.jpg\")", "plt.imshow(img)", "plt.title(\"Palm tree\")", "plt.show()"], "bug": 3, "fix": "plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))", "why": "OpenCV loads images as B, G, R. Matplotlib expects R, G, B, so blue and red swap: green palms, orange sky. Convert before showing (slide 1.27)."}, {"title": "Brightening makes it darker", "lines": ["import numpy as np", "img = cv2.imread(\"x_ray.png\", 0)   # uint8", "brighter = img + 100", "brighter = np.clip(brighter, 0, 255)", "cv2.imwrite(\"brighter.png\", brighter)"], "bug": 2, "fix": "brighter = img.astype(np.int16) + 100", "why": "uint8 wraps around at 256: 200 + 100 becomes 44, so bright pixels turn dark. Clipping afterwards is too late \u2014 convert to a larger type first, add, then clip (slide 1.26)."}, {"title": "The crop is in the wrong place", "lines": ["# box from a detector: x1, y1, x2, y2 = 200, 50, 400, 150", "x1, y1, x2, y2 = box", "crop = img[x1:x2, y1:y2]", "cv2.imwrite(\"crop.png\", crop)"], "bug": 2, "fix": "crop = img[y1:y2, x1:x2]", "why": "NumPy indexes rows first: img[y, x]. Swapping them crops a different region and raises no error (slide 1.24)."}, {"title": "Predictions change every run", "lines": ["model = SmallCNN()", "model.load_state_dict(torch.load(\"best.pt\"))", "with torch.no_grad():", "    logits = model(images)", "preds = logits.argmax(dim=1)"], "bug": 1, "fix": "model.load_state_dict(torch.load(\"best.pt\")); model.eval()", "why": "A new model starts in training mode: dropout stays on and BatchNorm uses batch statistics, so the same image gets different predictions. Call model.eval() before inference (slide 1.98)."}, {"title": "A suspiciously great test score", "lines": ["best_lr, best_acc = None, 0", "for lr in [1e-2, 1e-3, 1e-4]:", "    model = train(train_set, lr)", "    acc = evaluate(model, test_set)", "    if acc > best_acc: best_lr, best_acc = lr, acc", "print(\"final test accuracy:\", best_acc)"], "bug": 3, "fix": "acc = evaluate(model, val_set)   # tune on validation; test once at the end", "why": "Choosing the learning rate by the test score leaks the test set into your decisions, so the final number is optimistic \u2014 a lie. Tune on the validation set, keep the test set sealed (slide 1.56)."}], MAX = 10, i, score, tries, done;
+  function load() {
+    var b = BUGS[i]; tries = 0; done = false;
+    document.getElementById('title').textContent = (i + 1) + ' · ' + b.title;
+    var box = document.getElementById('code'); box.innerHTML = '';
+    b.lines.forEach(function (line, k) {
+      var btn = document.createElement('button'); btn.type = 'button';
+      btn.innerHTML = '<span>' + (k + 1) + '</span><span>' + Act.esc(line) + '</span>';
+      btn.addEventListener('click', function () { click(btn, k); });
+      box.appendChild(btn);
+    });
+    document.getElementById('verdict').classList.add('hidden');
+    document.getElementById('next').classList.add('hidden');
+    Act.setRound((i + 1) + ' / ' + BUGS.length);
+  }
+  function click(btn, k) {
+    if (done) return;
+    var b = BUGS[i]; tries++;
+    if (k !== b.bug && tries < 2) { btn.classList.add('is-wrong'); return; }
+    done = true;
+    var pts = k === b.bug ? (tries === 1 ? 2 : 1) : 0;
+    score += pts; Act.setScore(score);
+    if (k !== b.bug) btn.classList.add('is-wrong');
+    document.querySelectorAll('#code button')[b.bug].classList.add('is-right');
+    var v = document.getElementById('verdict');
+    v.className = 'verdict ' + (pts ? 'verdict--good' : 'verdict--bad');
+    v.innerHTML = '<h3>' + (pts ? 'Found it: +' + pts : 'The bug is on line ' + (b.bug + 1) + '. +0') + '</h3><p><strong>Fix:</strong> <code>' + Act.esc(b.fix) + '</code></p><p>' + Act.esc(b.why) + '</p>';
+    var nb = document.getElementById('next'); nb.classList.remove('hidden'); nb.focus();
+  }
+  document.getElementById('next').addEventListener('click', function () { i++; if (i >= BUGS.length) finish(); else load(); });
+  document.getElementById('again').addEventListener('click', start);
+  function finish() {
+    Act.finish(score);
+    document.getElementById('play').classList.add('hidden');
+    document.getElementById('finish').classList.remove('hidden');
+    document.getElementById('final').textContent = score + ' / ' + MAX;
+  }
+  function start() {
+    i = 0; score = 0; Act.setScore(0);
+    document.getElementById('play').classList.remove('hidden');
+    document.getElementById('finish').classList.add('hidden');
+    load();
+  }
+  Act.init({ id: 'spot-the-bug', max: MAX });
+  start();
+})();
+
+  </script>
 </body>
 </html>

@@ -10,13 +10,18 @@
   <link rel="stylesheet" href="../assets/activity.css">
   <style>
 
+    .bk-row { display: flex; gap: var(--s5); align-items: center; flex-wrap: wrap; margin-bottom: var(--s4); }
+    .bk-op { font-family: var(--font-display); font-size: 2.4rem; color: var(--text-muted); }
+    .bk-label { font-size: 0.72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    body.projector .matrix td { width: 4.6rem; height: 4.6rem; font-size: 1.8rem; }
+    .bk-work { font-family: var(--font-mono); font-size: 0.9rem; }
+
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
   <main id="main">
-    <section class="page-hero on-dark">
+    <section class="page-hero act-hero on-dark">
       <header class="site-header site-header--hero">
         <div class="container">
           <a class="logo" href="../index.html" aria-label="Computer Vision for Developers — course home">
@@ -29,17 +34,59 @@
           </span>
         </div>
       </header>
-
-      <div class="container page-hero-inner">
+      <div class="container act-hero-inner">
         <a class="back" href="./index.html">← All activities</a>
-        <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
-        <h1>Be the Kernel</h1>
-        <p>Coming soon.</p>
+        <div class="act-meta">
+          <span class="badge badge--day1">Day 1</span>
+          <span class="badge badge--time">10 minutes</span>
+          <span class="badge badge--time">Max 40 points</span>
+        </div>
+        <h1>Activity 02 · Be the Kernel</h1>
+        <p>You are the convolution. Each round shows a 3 × 3 image patch and a kernel (Sobel-x, blur or sharpen). Multiply, add, and type the one output pixel. Ten rounds, with a timer and streak bonuses.</p>
       </div>
     </section>
 
-    <section class="section--tight"><div class="container"><div class="card" style="padding:var(--s4)"><p class="muted">This activity is being built.</p></div></div></section>
+    <div class="scorestrip">
+      <div class="container">
+        <div class="scorestrip__item"><span class="scorestrip__label">Round</span><span class="scorestrip__value" id="act-round">—</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Score</span><span class="scorestrip__value" id="act-score">0</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Best</span><span class="scorestrip__value scorestrip__value--muted" id="act-best">—</span></div>
+        <div class="act-tools">
+          <label for="act-team">Team</label>
+          <input type="text" id="act-team" placeholder="Team name" autocomplete="off" maxlength="40">
+          <button type="button" class="btn btn--ghost btn--sm" id="act-projector" aria-pressed="false">Projector mode</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="act-reset">Reset best</button>
+        </div>
+      </div>
+    </div>
 
+    <section class="section--tight">
+      <div class="container">
+        <div class="panel" id="play">
+          <p class="rowline"><span class="badge badge--plain" id="kname">kernel</span> <span class="timer muted" id="timer">0 s</span> <span class="muted small" id="streak">streak 0</span></p>
+          <div class="bk-row">
+            <div><p class="bk-label">Image patch</p><table class="matrix" id="patch"></table></div>
+            <span class="bk-op">⊛</span>
+            <div><p class="bk-label">Kernel</p><table class="matrix" id="kernel"></table></div>
+            <span class="bk-op">=</span>
+            <form id="form" class="field">
+              <label for="answer">One output pixel</label>
+              <input type="number" id="answer" step="any" required autocomplete="off">
+              <button type="submit" class="btn">Check</button>
+            </form>
+          </div>
+          <p class="small muted">Multiply each pair of numbers in the same position, then add all nine products. For the blur kernel, add the nine numbers and divide by 9.</p>
+          <div class="verdict hidden" id="verdict"></div>
+          <p><button type="button" class="btn hidden" id="next">Next round →</button></p>
+        </div>
+        <div class="panel finish hidden" id="finish">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">Convolution complete</h2>
+          <p class="finish__score" id="final">0 / 40</p>
+          <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
+        </div>
+        <div class="panel"><h2>Scoring</h2><p class="small muted">Correct answer: 2 points. Answered within 20 seconds: +1. Three or more correct in a row (a streak): +1. Ten rounds, so 40 points at most. This multiply-and-add is exactly what every convolution layer does millions of times (slide 1.40).</p></div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -56,5 +103,82 @@
     </div>
   </footer>
 
+  <script src="../assets/store.js"></script>
+  <script src="../assets/activities.js"></script>
+  <script src="../assets/act-common.js"></script>
+
+  <script>
+
+(function () {
+  'use strict';
+  var KERNELS = [
+    { name: 'Sobel-x (vertical edges)', k: [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], div: 1 },
+    { name: 'Box blur (÷ 9)', k: [[1, 1, 1], [1, 1, 1], [1, 1, 1]], div: 9 },
+    { name: 'Sharpen', k: [[0, -1, 0], [-1, 5, -1], [0, -1, 0]], div: 1 }
+  ];
+  var MAX = 40, ROUNDS = 10, round, score, streak, rand, cur, t0, timerId;
+
+  function table(id, m, cls) {
+    document.getElementById(id).innerHTML = m.map(function (r) {
+      return '<tr>' + r.map(function (v) { return '<td' + (cls ? ' class="' + cls + '"' : '') + '>' + v + '</td>'; }).join('') + '</tr>';
+    }).join('');
+  }
+
+  function load() {
+    var K = KERNELS[round % 3];
+    var p = [0, 1, 2].map(function () { return [0, 1, 2].map(function () { return Math.floor(rand() * 10); }); });
+    if (K.div === 9) {                      // make the blur answer a whole number
+      var s = 0; p.forEach(function (r, y) { r.forEach(function (v, x) { if (y !== 1 || x !== 1) s += v; }); });
+      p[1][1] = (9 - s % 9) % 9;
+    }
+    var sum = 0, work = [];
+    for (var y = 0; y < 3; y++) for (var x = 0; x < 3; x++) { sum += p[y][x] * K.k[y][x]; if (K.k[y][x] !== 0) work.push(p[y][x] + '·' + K.k[y][x]); }
+    cur = { K: K, p: p, ans: sum / K.div, work: work.join(' + ').replace(/\+ -/g, '− ').replace(/·-/g, '·−') };
+    table('patch', p); table('kernel', K.k, 'k');
+    document.getElementById('kname').textContent = K.name;
+    document.getElementById('verdict').classList.add('hidden');
+    document.getElementById('next').classList.add('hidden');
+    document.getElementById('form').classList.remove('hidden');
+    var a = document.getElementById('answer'); a.value = ''; a.focus();
+    Act.setRound((round + 1) + ' / ' + ROUNDS);
+    t0 = Date.now(); clearInterval(timerId);
+    timerId = setInterval(function () { document.getElementById('timer').textContent = Math.floor((Date.now() - t0) / 1000) + ' s'; }, 250);
+  }
+
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearInterval(timerId);
+    var v = parseFloat(document.getElementById('answer').value), secs = (Date.now() - t0) / 1000;
+    var right = Math.abs(v - cur.ans) < 0.01, pts = 0;
+    if (right) { streak++; pts = 2 + (secs <= 20 ? 1 : 0) + (streak >= 3 ? 1 : 0); } else streak = 0;
+    score += pts; Act.setScore(score);
+    document.getElementById('streak').textContent = 'streak ' + streak;
+    var el = document.getElementById('verdict');
+    el.className = 'verdict ' + (right ? 'verdict--good' : 'verdict--bad');
+    el.innerHTML = '<h3>' + (right ? 'Correct: +' + pts + (secs <= 20 ? ' (fast)' : '') + (streak >= 3 ? ' (streak)' : '') : 'The answer is ' + cur.ans + '. +0') + '</h3>' +
+      '<p class="bk-work">' + cur.work + (cur.K.div === 9 ? ' = ' + (cur.ans * 9) + ', ÷ 9 = ' + cur.ans : ' = ' + cur.ans) + '</p>';
+    document.getElementById('form').classList.add('hidden');
+    var nb = document.getElementById('next'); nb.classList.remove('hidden'); nb.focus();
+  });
+  document.getElementById('next').addEventListener('click', function () { round++; if (round >= ROUNDS) finish(); else load(); });
+  document.getElementById('again').addEventListener('click', start);
+
+  function finish() {
+    Act.finish(score);
+    document.getElementById('play').classList.add('hidden');
+    document.getElementById('finish').classList.remove('hidden');
+    document.getElementById('final').textContent = score + ' / ' + MAX;
+  }
+  function start() {
+    rand = Act.rng(4013); round = 0; score = 0; streak = 0; Act.setScore(0);
+    document.getElementById('play').classList.remove('hidden');
+    document.getElementById('finish').classList.add('hidden');
+    load();
+  }
+  Act.init({ id: 'be-the-kernel', max: MAX });
+  start();
+})();
+
+  </script>
 </body>
 </html>

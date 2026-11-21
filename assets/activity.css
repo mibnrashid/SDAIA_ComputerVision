@@ -156,3 +156,34 @@ input[type="number"] { width: 10rem; font-variant-numeric: tabular-nums; }
   .scorestrip .container { gap: var(--s3); }
   .scorestrip__value { font-size: 1.3rem; }
 }
+
+/* ---- Team, projector and reset controls ------------------ */
+.act-tools { display: flex; gap: var(--s2); align-items: center; flex-wrap: wrap; }
+.act-tools input[type="text"] { width: 11rem; padding: 0.4rem 0.6rem; }
+.act-tools label { font-size: 0.7rem; font-weight: 700; letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--text-muted); }
+
+/* ---- Projector mode: big type for the room screen --------- */
+body.projector { font-size: 1.35rem; }
+body.projector .page-hero { display: none; }
+body.projector .site-footer { display: none; }
+body.projector .scorestrip__value { font-size: 2.3rem; }
+body.projector .container { max-width: 1500px; }
+body.projector .panel h2 { font-size: 1.6rem; }
+body.projector .btn { font-size: 1.15rem; padding: 0.8rem 1.4rem; }
+body.projector input[type="number"], body.projector input[type="text"] { font-size: 1.3rem; }
+
+/* ---- Shared bits for the CV activities -------------------- */
+.choices { display: grid; gap: var(--s2); grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+.choice {
+  text-align: left; font: inherit; padding: 0.8rem 1rem; border-radius: var(--radius-sm);
+  border: 2px solid var(--border); background: var(--card); cursor: pointer;
+}
+.choice:hover { border-color: var(--teal); }
+.choice.is-right { border-color: var(--teal); background: rgba(14, 130, 100, 0.12); }
+.choice.is-wrong { border-color: var(--coral); background: rgba(228, 96, 42, 0.10); }
+.choice:disabled { cursor: default; }
+.matrix { border-collapse: collapse; font-family: var(--font-mono); }
+.matrix td { width: 3.2rem; height: 3.2rem; text-align: center; border: 1px solid var(--border); font-size: 1.15rem; background: var(--card); }
+.matrix td.k { background: #fdf3e2; }
+.timer { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.hidden { display: none !important; }

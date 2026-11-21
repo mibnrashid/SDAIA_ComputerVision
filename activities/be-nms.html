@@ -10,13 +10,26 @@
   <link rel="stylesheet" href="../assets/activity.css">
   <style>
 
+    .board { width: 100%; max-width: 760px; aspect-ratio: 3 / 2; display: block; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .board .bx { fill: rgba(102,204,255,.06); stroke: #1a6fa0; stroke-width: 2.5; cursor: pointer; }
+    .board .bx:hover { stroke-width: 4; }
+    .board .bx.kept { stroke: #0b7457; stroke-width: 5; fill: rgba(55,204,149,.18); }
+    .board .bx.gone { stroke: #c9d1dc; stroke-dasharray: 5 5; fill: none; }
+    .board text { font: 700 15px var(--font-sans); fill: #14181f; pointer-events: none; }
+    .nms-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 9rem; gap: var(--s4); align-items: start; }
+    .legend { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; font-family: var(--font-mono); }
+    .legend li { padding: 4px 8px; border-radius: 6px; background: var(--card-2); }
+    .legend li.kept { background: rgba(55,204,149,.3); }
+    .legend li.gone { opacity: .45; text-decoration: line-through; }
+    .seq { font-family: var(--font-mono); font-size: 1.1rem; }
+    body.projector .board { max-width: 1100px; }
+
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
   <main id="main">
-    <section class="page-hero on-dark">
+    <section class="page-hero act-hero on-dark">
       <header class="site-header site-header--hero">
         <div class="container">
           <a class="logo" href="../index.html" aria-label="Computer Vision for Developers — course home">
@@ -29,17 +42,53 @@
           </span>
         </div>
       </header>
-
-      <div class="container page-hero-inner">
+      <div class="container act-hero-inner">
         <a class="back" href="./index.html">← All activities</a>
-        <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
-        <h1>Be NMS</h1>
-        <p>Coming soon.</p>
+        <div class="act-meta">
+          <span class="badge badge--day2">Day 2</span>
+          <span class="badge badge--time">8 minutes</span>
+          <span class="badge badge--time">Max 25 points</span>
+        </div>
+        <h1>Activity 06 · Be NMS</h1>
+        <p>A detector fired several overlapping, scored boxes on each object. You are Non-Maximum Suppression: click the boxes to keep, in the right order, at IoU 0.5. Five rounds; the correct sequence is shown after each one.</p>
       </div>
     </section>
 
-    <section class="section--tight"><div class="container"><div class="card" style="padding:var(--s4)"><p class="muted">This activity is being built.</p></div></div></section>
+    <div class="scorestrip">
+      <div class="container">
+        <div class="scorestrip__item"><span class="scorestrip__label">Round</span><span class="scorestrip__value" id="act-round">—</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Score</span><span class="scorestrip__value" id="act-score">0</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Best</span><span class="scorestrip__value scorestrip__value--muted" id="act-best">—</span></div>
+        <div class="act-tools">
+          <label for="act-team">Team</label>
+          <input type="text" id="act-team" placeholder="Team name" autocomplete="off" maxlength="40">
+          <button type="button" class="btn btn--ghost btn--sm" id="act-projector" aria-pressed="false">Projector mode</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="act-reset">Reset best</button>
+        </div>
+      </div>
+    </div>
 
+    <section class="section--tight">
+      <div class="container">
+        <div class="panel" id="play">
+          <p>Click the boxes you would <strong>keep</strong>, in the order NMS keeps them (IoU threshold <strong>0.5</strong>). Then press Check.</p>
+          <div class="nms-wrap">
+            <svg class="board" id="board" viewBox="0 0 600 400" aria-label="Scored boxes"></svg>
+            <div><p class="small muted" style="margin-bottom:6px">Box · confidence</p><ol class="legend" id="legend"></ol></div>
+          </div>
+          <p class="seq">Your order: <span id="mine">—</span></p>
+          <div class="rowline"><button type="button" class="btn btn--ghost" id="undo">Undo</button><button type="button" class="btn" id="check">Check</button></div>
+          <div class="verdict hidden" id="verdict"></div>
+          <p><button type="button" class="btn hidden" id="next">Next round →</button></p>
+        </div>
+        <div class="panel finish hidden" id="finish">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">Suppression complete</h2>
+          <p class="finish__score" id="final">0 / 25</p>
+          <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
+        </div>
+        <div class="panel"><h2>The rule</h2><p class="small muted">Keep the highest-confidence box, delete every remaining box that overlaps it by more than IoU 0.5, then repeat with the next highest box left (slide 2.47). Perfect order: 5 points. Each wrong, missing or out-of-order box costs 1.</p></div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -56,5 +105,77 @@
     </div>
   </footer>
 
+  <script src="../assets/store.js"></script>
+  <script src="../assets/activities.js"></script>
+  <script src="../assets/act-common.js"></script>
+
+  <script>
+
+(function () {
+  'use strict';
+  var ROUNDS = [{"boxes": [{"b": [181, 233, 354, 373], "s": 0.92, "id": "A"}, {"b": [163, 227, 337, 362], "s": 0.89, "id": "B"}, {"b": [189, 235, 365, 368], "s": 0.88, "id": "C"}, {"b": [162, 220, 325, 363], "s": 0.79, "id": "D"}, {"b": [322, 184, 440, 271], "s": 0.69, "id": "E"}, {"b": [308, 180, 429, 266], "s": 0.59, "id": "F"}, {"b": [321, 183, 432, 269], "s": 0.58, "id": "G"}, {"b": [189, 232, 348, 373], "s": 0.57, "id": "H"}, {"b": [325, 186, 447, 274], "s": 0.54, "id": "I"}], "keep": ["A", "E"]}, {"boxes": [{"b": [309, 100, 435, 233], "s": 0.92, "id": "A"}, {"b": [75, 263, 209, 386], "s": 0.91, "id": "B"}, {"b": [169, 150, 279, 258], "s": 0.87, "id": "C"}, {"b": [75, 246, 211, 363], "s": 0.86, "id": "D"}, {"b": [176, 158, 285, 267], "s": 0.79, "id": "E"}, {"b": [94, 263, 224, 384], "s": 0.78, "id": "F"}, {"b": [309, 106, 438, 252], "s": 0.71, "id": "G"}, {"b": [337, 102, 457, 235], "s": 0.7, "id": "H"}, {"b": [171, 155, 282, 264], "s": 0.67, "id": "I"}, {"b": [311, 108, 443, 242], "s": 0.55, "id": "J"}], "keep": ["A", "B", "C"]}, {"boxes": [{"b": [208, 246, 356, 348], "s": 0.83, "id": "A"}, {"b": [84, 17, 247, 122], "s": 0.81, "id": "B"}, {"b": [55, 30, 222, 145], "s": 0.76, "id": "C"}, {"b": [175, 250, 334, 352], "s": 0.66, "id": "D"}, {"b": [61, 31, 219, 141], "s": 0.57, "id": "E"}, {"b": [96, 20, 254, 121], "s": 0.55, "id": "F"}, {"b": [187, 234, 339, 339], "s": 0.53, "id": "G"}], "keep": ["A", "B"]}, {"boxes": [{"b": [184, 209, 325, 323], "s": 0.9, "id": "A"}, {"b": [180, 53, 310, 161], "s": 0.63, "id": "B"}, {"b": [198, 75, 323, 185], "s": 0.62, "id": "C"}, {"b": [164, 209, 314, 328], "s": 0.6, "id": "D"}, {"b": [179, 196, 327, 311], "s": 0.59, "id": "E"}, {"b": [49, 102, 180, 229], "s": 0.54, "id": "F"}, {"b": [74, 107, 201, 243], "s": 0.53, "id": "G"}], "keep": ["A", "B", "F"]}, {"boxes": [{"b": [91, 202, 234, 337], "s": 0.92, "id": "A"}, {"b": [287, 256, 433, 366], "s": 0.91, "id": "B"}, {"b": [302, 242, 445, 352], "s": 0.9, "id": "C"}, {"b": [382, 100, 517, 222], "s": 0.86, "id": "D"}, {"b": [394, 92, 519, 212], "s": 0.8, "id": "E"}, {"b": [372, 89, 498, 202], "s": 0.79, "id": "F"}, {"b": [86, 223, 226, 352], "s": 0.63, "id": "G"}, {"b": [92, 197, 242, 334], "s": 0.53, "id": "H"}], "keep": ["A", "B", "D"]}], MAX = 25, r, score, picked, locked;
+  var svg = document.getElementById('board');
+  function draw() {
+    var R = ROUNDS[r], html = '';
+    R.boxes.slice().reverse().forEach(function (b) {
+      var cls = 'bx' + (picked.indexOf(b.id) >= 0 ? ' kept' : '') + (locked && R.keep.indexOf(b.id) < 0 ? ' gone' : '');
+      html += '<rect class="' + cls + '" data-id="' + b.id + '" x="' + b.b[0] + '" y="' + b.b[1] + '" width="' + (b.b[2] - b.b[0]) + '" height="' + (b.b[3] - b.b[1]) + '"/>';
+    });
+    R.boxes.forEach(function (b, k) {
+      var c = k % 4, x = c % 2 ? b.b[2] - 16 : b.b[0] + 4, y = c < 2 ? b.b[1] + 17 : b.b[3] - 6;
+      html += '<text x="' + x + '" y="' + y + '">' + b.id + '</text>';
+    });
+    svg.innerHTML = html;
+    document.getElementById('legend').innerHTML = R.boxes.map(function (b) {
+      return '<li class="' + (picked.indexOf(b.id) >= 0 ? 'kept' : '') + (locked && R.keep.indexOf(b.id) < 0 ? ' gone' : '') + '"><b>' + b.id + '</b> ' + b.s.toFixed(2) + '</li>';
+    }).join('');
+    document.getElementById('mine').textContent = picked.length ? picked.join(' → ') : '—';
+  }
+  svg.addEventListener('click', function (e) {
+    var id = e.target.getAttribute && e.target.getAttribute('data-id');
+    if (!id || locked) return;
+    var k = picked.indexOf(id);
+    if (k >= 0) picked.splice(k, 1); else picked.push(id);
+    draw();
+  });
+  document.getElementById('undo').addEventListener('click', function () { if (!locked) { picked.pop(); draw(); } });
+  document.getElementById('check').addEventListener('click', function () {
+    if (locked) return; locked = true;
+    var K = ROUNDS[r].keep, errors = 0;
+    var n = Math.max(K.length, picked.length);
+    for (var k = 0; k < n; k++) if (picked[k] !== K[k]) errors++;
+    var pts = Math.max(0, 5 - errors);
+    score += pts; Act.setScore(score);
+    draw();
+    var el = document.getElementById('verdict');
+    el.className = 'verdict ' + (pts === 5 ? 'verdict--good' : pts >= 3 ? 'verdict--warn' : 'verdict--bad');
+    el.innerHTML = '<h3>' + (pts === 5 ? 'Perfect NMS: +5' : '+' + pts) + '</h3><p class="seq">Correct sequence: ' + K.join(' → ') + '</p><p>Dashed boxes are the ones NMS suppresses: each overlaps a higher-scoring kept box by more than 0.5.</p>';
+    var nb = document.getElementById('next'); nb.classList.remove('hidden'); nb.focus();
+  });
+  function load() {
+    picked = []; locked = false; draw();
+    document.getElementById('verdict').classList.add('hidden');
+    document.getElementById('next').classList.add('hidden');
+    Act.setRound((r + 1) + ' / ' + ROUNDS.length);
+  }
+  document.getElementById('next').addEventListener('click', function () { r++; if (r >= ROUNDS.length) finish(); else load(); });
+  document.getElementById('again').addEventListener('click', start);
+  function finish() {
+    Act.finish(score);
+    document.getElementById('play').classList.add('hidden');
+    document.getElementById('finish').classList.remove('hidden');
+    document.getElementById('final').textContent = score + ' / ' + MAX;
+  }
+  function start() {
+    r = 0; score = 0; Act.setScore(0);
+    document.getElementById('play').classList.remove('hidden');
+    document.getElementById('finish').classList.add('hidden');
+    load();
+  }
+  Act.init({ id: 'be-nms', max: MAX });
+  start();
+})();
+
+  </script>
 </body>
 </html>

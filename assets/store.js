@@ -7,7 +7,8 @@
    API:
      Store.set(key, value)
      Store.get(key, fallback)
-     Store.saveScore(activityId, score, max)   // keeps the BEST score
+     Store.saveScore(activityId, score, max, team)   // keeps the BEST score
+     Store.clearScore(activityId)
      Store.getScore(activityId)                // -> {score, max} | null
      Store.allScores()                         // -> { id: {score, max} }
      Store.reset()
@@ -81,17 +82,24 @@ var Store = (function () {
 
   /* Best-score semantics: replaying an activity can only improve the
      stored result, so a student can retry without losing their record. */
-  function saveScore(activityId, score, max) {
+  function saveScore(activityId, score, max, team) {
     var scores = allScores();
     var existing = scores[activityId];
     if (!existing || score > existing.score) {
-      scores[activityId] = { score: score, max: max, at: new Date().toISOString() };
+      scores[activityId] = { score: score, max: max, team: team || '', at: new Date().toISOString() };
       set(SCORES_KEY, scores);
     } else if (existing.max !== max) {
       existing.max = max;                 // activity was re-scored
       set(SCORES_KEY, scores);
     }
     return getScore(activityId);
+  }
+
+  /* Clears one activity's saved best score. */
+  function clearScore(activityId) {
+    var scores = allScores();
+    delete scores[activityId];
+    set(SCORES_KEY, scores);
   }
 
   /* Clears every cvd: key, including test results — not just scores. */
@@ -114,6 +122,7 @@ var Store = (function () {
     get: get,
     remove: remove,
     saveScore: saveScore,
+    clearScore: clearScore,
     getScore: getScore,
     allScores: allScores,
     reset: reset

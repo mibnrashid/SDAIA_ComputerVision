@@ -10,13 +10,20 @@
   <link rel="stylesheet" href="../assets/activity.css">
   <style>
 
+    .zs { display: grid; grid-template-columns: 260px 1fr; gap: var(--s4); align-items: start; }
+    @media (max-width: 760px) { .zs { grid-template-columns: 1fr; } }
+    .zs svg { width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    body.projector .zs { grid-template-columns: 420px 1fr; }
+    .bar { height: 10px; border-radius: 5px; background: var(--teal-bright); margin-top: 4px; }
+    .setup { border-left: 6px solid var(--amber); }
+    .setup pre { background: var(--ink); color: #e8ecf5; padding: var(--s3); border-radius: var(--radius-sm); overflow-x: auto; }
+
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
   <main id="main">
-    <section class="page-hero on-dark">
+    <section class="page-hero act-hero on-dark">
       <header class="site-header site-header--hero">
         <div class="container">
           <a class="logo" href="../index.html" aria-label="Computer Vision for Developers — course home">
@@ -29,17 +36,66 @@
           </span>
         </div>
       </header>
-
-      <div class="container page-hero-inner">
+      <div class="container act-hero-inner">
         <a class="back" href="./index.html">← All activities</a>
-        <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
-        <h1>Zero-Shot Showdown</h1>
-        <p>Coming soon.</p>
+        <div class="act-meta">
+          <span class="badge badge--day3">Day 3</span>
+          <span class="badge badge--time">12 minutes</span>
+          <span class="badge badge--time">Max 10 points</span>
+        </div>
+        <h1>Activity 08 · Zero-Shot Showdown</h1>
+        <p>Ten simple scenes, four captions each. Pick the caption a real CLIP model (openai/clip-vit-base-patch32) ranks highest. Think like the model, not like a person: 1 point per scene.</p>
       </div>
     </section>
 
-    <section class="section--tight"><div class="container"><div class="card" style="padding:var(--s4)"><p class="muted">This activity is being built.</p></div></div></section>
+    <div class="scorestrip">
+      <div class="container">
+        <div class="scorestrip__item"><span class="scorestrip__label">Round</span><span class="scorestrip__value" id="act-round">—</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Score</span><span class="scorestrip__value" id="act-score">0</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Best</span><span class="scorestrip__value scorestrip__value--muted" id="act-best">—</span></div>
+        <div class="act-tools">
+          <label for="act-team">Team</label>
+          <input type="text" id="act-team" placeholder="Team name" autocomplete="off" maxlength="40">
+          <button type="button" class="btn btn--ghost btn--sm" id="act-projector" aria-pressed="false">Projector mode</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="act-reset">Reset best</button>
+        </div>
+      </div>
+    </div>
 
+    <section class="section--tight">
+      <div class="container">
+        <div class="panel setup hidden" id="setup">
+          <h2>Teacher setup needed</h2>
+          <p>This activity shows how a real CLIP model ranks the captions, so its scores must come from running CLIP — they are never made up. The scores file has not been generated yet.</p>
+          <ol>
+            <li>Open a new Colab notebook (a CPU runtime is enough).</li>
+            <li>Run: <pre>!git clone https://github.com/mibnrashid/SDAIA_ComputerVision
+%cd SDAIA_ComputerVision
+!pip install -q cairosvg
+!python tools/precompute_clip.py</pre></li>
+            <li>Download the two files it writes, <code>activities/data/showdown.json</code> and <code>activities/data/showdown.js</code>, commit them to the repo (replacing the placeholder <code>showdown.js</code>), and reload this page.</li>
+          </ol>
+          <p class="small muted">The ten scenes are already on this page below the line; you can show them to the room while you set up.</p>
+        </div>
+        <div class="panel" id="play">
+          <div class="zs">
+            <div id="scene"></div>
+            <div>
+              <h2 id="qtitle">Which caption does CLIP rank highest?</h2>
+              <div class="choices" id="choices" style="grid-template-columns:1fr"></div>
+              <div class="verdict hidden" id="verdict"></div>
+              <p><button type="button" class="btn hidden" id="next">Next scene →</button></p>
+            </div>
+          </div>
+        </div>
+        <div class="panel finish hidden" id="finish">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">Showdown over</h2>
+          <p class="finish__score" id="final">0 / 10</p>
+          <p class="muted">CLIP likes caption-style wording, notices which words appear more than how they relate, struggles with counting and left/right, and can be hijacked by written text (slides 3.48–3.51).</p>
+          <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -56,5 +112,75 @@
     </div>
   </footer>
 
+  <script src="../assets/store.js"></script>
+  <script src="../assets/activities.js"></script>
+  <script src="../assets/act-common.js"></script>
+  <script src="./data/showdown-scenes.js"></script>
+  <script src="./data/showdown.js"></script>
+  <script>
+
+(function () {
+  'use strict';
+  var SCENES = window.SHOWDOWN_SCENES || [], DATA = window.SHOWDOWN || null, MAX = 10, i, score;
+  Act.init({ id: 'zero-shot-showdown', max: MAX });
+  if (!DATA || !DATA.scenes) {
+    document.getElementById('setup').classList.remove('hidden');
+    document.getElementById('qtitle').textContent = 'Preview of the scenes (no scores yet)';
+    i = 0;
+    var show = function () {
+      document.getElementById('scene').innerHTML = SCENES[i].svg;
+      document.getElementById('choices').innerHTML = SCENES[i].captions.map(function (c) { return '<div class="choice">' + Act.esc(c) + '</div>'; }).join('');
+      Act.setRound((i + 1) + ' / ' + SCENES.length);
+    };
+    var nb = document.getElementById('next'); nb.classList.remove('hidden'); nb.textContent = 'Next scene (preview) →';
+    nb.addEventListener('click', function () { i = (i + 1) % SCENES.length; show(); });
+    show();
+    return;
+  }
+  var byId = {}; DATA.scenes.forEach(function (s) { byId[s.id] = s; });
+  function load() {
+    var S = SCENES[i], D = byId[S.id];
+    document.getElementById('scene').innerHTML = S.svg;
+    var box = document.getElementById('choices'); box.innerHTML = '';
+    S.captions.forEach(function (c, k) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'choice'; b.textContent = c;
+      b.addEventListener('click', function () { pick(k); });
+      box.appendChild(b);
+    });
+    document.getElementById('verdict').classList.add('hidden');
+    document.getElementById('next').classList.add('hidden');
+    Act.setRound((i + 1) + ' / ' + SCENES.length);
+  }
+  function pick(k) {
+    var S = SCENES[i], D = byId[S.id], best = D.best, right = k === best;
+    if (right) { score++; Act.setScore(score); }
+    Array.prototype.forEach.call(document.querySelectorAll('.choice'), function (c, j) {
+      c.disabled = true;
+      if (j === best) c.classList.add('is-right'); else if (j === k) c.classList.add('is-wrong');
+      c.innerHTML = Act.esc(S.captions[j]) + ' <span class="small muted">' + (D.probs[j] * 100).toFixed(1) + '%</span><div class="bar" style="width:' + (D.probs[j] * 100).toFixed(1) + '%"></div>';
+    });
+    var v = document.getElementById('verdict');
+    v.className = 'verdict ' + (right ? 'verdict--good' : 'verdict--bad');
+    v.innerHTML = '<h3>' + (right ? 'You think like CLIP: +1' : 'CLIP preferred: “' + Act.esc(S.captions[best]) + '”') + '</h3><p>Probabilities from ' + Act.esc(DATA.model) + ' (softmax over these four captions).</p>';
+    var nb = document.getElementById('next'); nb.classList.remove('hidden'); nb.focus();
+  }
+  document.getElementById('next').addEventListener('click', function () { i++; if (i >= SCENES.length) finish(); else load(); });
+  document.getElementById('again').addEventListener('click', start);
+  function finish() {
+    Act.finish(score);
+    document.getElementById('play').classList.add('hidden');
+    document.getElementById('finish').classList.remove('hidden');
+    document.getElementById('final').textContent = score + ' / ' + MAX;
+  }
+  function start() {
+    i = 0; score = 0; Act.setScore(0);
+    document.getElementById('play').classList.remove('hidden');
+    document.getElementById('finish').classList.add('hidden');
+    load();
+  }
+  start();
+})();
+
+  </script>
 </body>
 </html>

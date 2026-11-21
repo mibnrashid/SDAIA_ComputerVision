@@ -10,13 +10,18 @@
   <link rel="stylesheet" href="../assets/activity.css">
   <style>
 
+    .fm { display: grid; grid-template-columns: 150px 1fr; gap: var(--s4); align-items: start; }
+    .fm svg { width: 100%; height: auto; }
+    .fm p.case { font-size: 1.2rem; }
+    body.projector .fm { grid-template-columns: 240px 1fr; }
+    body.projector .fm p.case { font-size: 1.7rem; }
+
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
   <main id="main">
-    <section class="page-hero on-dark">
+    <section class="page-hero act-hero on-dark">
       <header class="site-header site-header--hero">
         <div class="container">
           <a class="logo" href="../index.html" aria-label="Computer Vision for Developers — course home">
@@ -29,17 +34,58 @@
           </span>
         </div>
       </header>
-
-      <div class="container page-hero-inner">
+      <div class="container act-hero-inner">
         <a class="back" href="./index.html">← All activities</a>
-        <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
-        <h1>Fool the Model</h1>
-        <p>Coming soon.</p>
+        <div class="act-meta">
+          <span class="badge badge--day3">Day 3</span>
+          <span class="badge badge--time">10 minutes</span>
+          <span class="badge badge--time">Max 12 points</span>
+        </div>
+        <h1>Activity 09 · Fool the Model</h1>
+        <p>Twelve real ways vision models fail. For each case, label the failure type: out-of-distribution, typographic attack, counting/spatial, bias/shortcut, or hallucination. An explanation appears after every answer.</p>
       </div>
     </section>
 
-    <section class="section--tight"><div class="container"><div class="card" style="padding:var(--s4)"><p class="muted">This activity is being built.</p></div></div></section>
+    <div class="scorestrip">
+      <div class="container">
+        <div class="scorestrip__item"><span class="scorestrip__label">Round</span><span class="scorestrip__value" id="act-round">—</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Score</span><span class="scorestrip__value" id="act-score">0</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Best</span><span class="scorestrip__value scorestrip__value--muted" id="act-best">—</span></div>
+        <div class="act-tools">
+          <label for="act-team">Team</label>
+          <input type="text" id="act-team" placeholder="Team name" autocomplete="off" maxlength="40">
+          <button type="button" class="btn btn--ghost btn--sm" id="act-projector" aria-pressed="false">Projector mode</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="act-reset">Reset best</button>
+        </div>
+      </div>
+    </div>
 
+    <section class="section--tight">
+      <div class="container">
+        <div class="panel" id="play">
+          <div class="fm">
+            <div id="icon"></div>
+            <div>
+              <p class="case" id="case"></p>
+              <div class="choices" id="choices"></div>
+              <div class="verdict hidden" id="verdict"></div>
+              <p><button type="button" class="btn hidden" id="next">Next case →</button></p>
+            </div>
+          </div>
+        </div>
+        <div class="panel finish hidden" id="finish">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">Case files closed</h2>
+          <p class="finish__score" id="final">0 / 12</p>
+          <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
+        </div>
+        <div class="panel"><h2>The five failure types</h2><ul class="small muted">
+          <li><strong>Out-of-distribution</strong> — the input is unlike the training data (new object, camera, season, weather).</li>
+          <li><strong>Typographic attack</strong> — written text in the image hijacks the prediction.</li>
+          <li><strong>Counting / spatial</strong> — the model ignores how many, or where things are relative to each other.</li>
+          <li><strong>Bias / shortcut</strong> — the model learned a spurious cue or reflects unbalanced data.</li>
+          <li><strong>Hallucination</strong> — a vision-language model states things that are not in the image.</li></ul></div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -56,5 +102,57 @@
     </div>
   </footer>
 
+  <script src="../assets/store.js"></script>
+  <script src="../assets/activities.js"></script>
+  <script src="../assets/act-common.js"></script>
+
+  <script>
+
+(function () {
+  'use strict';
+  var CARDS = [{"text": "A cat-vs-dog classifier is shown a photo of a car. It answers \"dog, 97%\".", "type": 0, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><rect x=\"25\" y=\"38\" width=\"70\" height=\"20\" rx=\"6\" fill=\"#d62828\"/><circle cx=\"42\" cy=\"60\" r=\"7\"/><circle cx=\"80\" cy=\"60\" r=\"7\"/><path d=\"M40,38 L50,26 L74,26 L84,38 Z\" fill=\"#d62828\"/></svg>", "why": "A car is unlike anything in its training data, and softmax must split 100% between \"cat\" and \"dog\". High confidence on an unknown input is the closed-set problem (slides 3.09\u20133.11)."}, {"text": "An apple with a paper label reading \"iPod\" stuck on it is classified by CLIP as an iPod.", "type": 1, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><circle cx=\"60\" cy=\"42\" r=\"26\" fill=\"#d7263d\"/><rect x=\"38\" y=\"34\" width=\"44\" height=\"16\" fill=\"#fff\"/><text x=\"60\" y=\"46\" font-size=\"11\" font-weight=\"700\" text-anchor=\"middle\">iPod</text></svg>", "why": "CLIP learned to read text from captions, and written words in the image can outweigh the object itself (slide 3.51)."}, {"text": "CLIP gives almost the same score to \"a photo of three apples\" and \"a photo of five apples\" for a picture of three apples.", "type": 2, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><circle cx=\"35\" cy=\"42\" r=\"12\" fill=\"#d7263d\"/><circle cx=\"60\" cy=\"42\" r=\"12\" fill=\"#d7263d\"/><circle cx=\"85\" cy=\"42\" r=\"12\" fill=\"#d7263d\"/><text x=\"60\" y=\"74\" font-size=\"12\" text-anchor=\"middle\">3 or 5?</text></svg>", "why": "CLIP matches which words appear, not precise quantities. Counting is a known blind spot (slide 3.50)."}, {"text": "A \"husky vs wolf\" classifier is 95% accurate \u2014 until you notice it calls any animal on snow a wolf.", "type": 3, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><rect y=\"50\" width=\"120\" height=\"30\" fill=\"#ffffff\"/><polygon points=\"40,50 50,30 60,40 70,30 80,50\" fill=\"#777\"/><text x=\"60\" y=\"20\" font-size=\"11\" text-anchor=\"middle\">snow = wolf?</text></svg>", "why": "The model learned a shortcut: the background (snow) correlated with the label in training, so it never learned the animal itself."}, {"text": "A vision-language model is shown a green banana and asked \"What colour is the banana?\". It answers \"Yellow\".", "type": 4, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><path d=\"M30,30 Q60,75 95,30 Q60,58 30,30 Z\" fill=\"#7cb342\"/><text x=\"60\" y=\"74\" font-size=\"11\" text-anchor=\"middle\">\"yellow\"</text></svg>", "why": "Language prior: the model answered from what bananas usually are instead of looking at the image (slide 3.78)."}, {"text": "A factory defect detector trained in summer fails after the camera is moved and winter light changes the images.", "type": 0, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><rect x=\"20\" y=\"25\" width=\"40\" height=\"30\" rx=\"4\" fill=\"#555\"/><polygon points=\"60,32 80,22 80,58 60,48\" fill=\"#555\"/><text x=\"95\" y=\"45\" font-size=\"18\">\u2744</text></svg>", "why": "The new images come from a different distribution (data drift). Accuracy drops silently with no error message (slide 3.96)."}, {"text": "A pneumonia model performs brilliantly in one hospital. It turns out it learned to spot the text marker that hospital's scanner prints in the corner.", "type": 3, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><rect x=\"35\" y=\"12\" width=\"50\" height=\"58\" rx=\"4\" fill=\"#222\"/><ellipse cx=\"60\" cy=\"42\" rx=\"16\" ry=\"20\" fill=\"#888\"/><text x=\"44\" y=\"24\" font-size=\"8\" fill=\"#ff0\">L \u25b2</text></svg>", "why": "A shortcut again: the marker correlated with sick patients in the training data. It does not transfer to other hospitals."}, {"text": "CLIP scores \"a dog to the left of a cat\" and \"a cat to the left of a dog\" almost identically.", "type": 2, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><circle cx=\"35\" cy=\"42\" r=\"14\" fill=\"#a0703c\"/><circle cx=\"85\" cy=\"42\" r=\"14\" fill=\"#777\"/><text x=\"60\" y=\"47\" font-size=\"14\" text-anchor=\"middle\">\u21c4</text></svg>", "why": "Spatial relations are weak in CLIP: it notices the words \"dog\" and \"cat\", not how they relate (bag of words, slide 3.50)."}, {"text": "Asked to describe a photo of an empty plate, a VLM writes: \"A plate with a fork and a knife next to it.\" There is no cutlery.", "type": 4, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><ellipse cx=\"60\" cy=\"42\" rx=\"34\" ry=\"24\" fill=\"#fff\" stroke=\"#999\" stroke-width=\"3\"/><text x=\"60\" y=\"47\" font-size=\"10\" text-anchor=\"middle\">fork?</text></svg>", "why": "Object hallucination: plates usually come with cutlery in captions, so the model mentions objects that are not there."}, {"text": "A T-shirt with the word \"dog\" printed on it makes a zero-shot classifier label the person as a dog.", "type": 1, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><path d=\"M35,20 L50,14 L70,14 L85,20 L95,34 L82,40 L80,70 L40,70 L38,40 L25,34 Z\" fill=\"#2a9d8f\"/><text x=\"60\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#fff\" text-anchor=\"middle\">dog</text></svg>", "why": "Text in the image hijacks the prediction \u2014 the same typographic attack as the iPod apple."}, {"text": "A face-recognition system makes far more errors on darker-skinned women, because most training faces were lighter-skinned men.", "type": 3, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><circle cx=\"40\" cy=\"38\" r=\"16\" fill=\"#f1c27d\"/><circle cx=\"80\" cy=\"38\" r=\"16\" fill=\"#8d5524\"/><text x=\"80\" y=\"72\" font-size=\"10\" text-anchor=\"middle\">more errors</text></svg>", "why": "Bias from unbalanced training data: the model is accurate on the groups it saw most and worse on the rest."}, {"text": "A vehicle detector trained only on sunny daytime video misses half the cars at night in the rain.", "type": 0, "icon": "<svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" aria-hidden=\"true\"><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#eef1f5\"/><rect width=\"120\" height=\"80\" rx=\"8\" fill=\"#16213e\"/><line x1=\"20\" y1=\"10\" x2=\"15\" y2=\"25\" stroke=\"#9cf\"/><line x1=\"60\" y1=\"8\" x2=\"55\" y2=\"23\" stroke=\"#9cf\"/><line x1=\"95\" y1=\"12\" x2=\"90\" y2=\"27\" stroke=\"#9cf\"/><rect x=\"35\" y=\"45\" width=\"50\" height=\"16\" rx=\"5\" fill=\"#444\"/></svg>", "why": "Night and rain are outside the training distribution. Include the hard conditions in your data (slide 2.113)."}], TYPES = ["Out-of-distribution", "Typographic attack", "Counting / spatial", "Bias / shortcut", "Hallucination"], MAX = 12, i, score;
+  function load() {
+    var C = CARDS[i];
+    document.getElementById('icon').innerHTML = C.icon;
+    document.getElementById('case').textContent = C.text;
+    var box = document.getElementById('choices'); box.innerHTML = '';
+    TYPES.forEach(function (t, k) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'choice'; b.textContent = t;
+      b.addEventListener('click', function () { pick(k, b); });
+      box.appendChild(b);
+    });
+    document.getElementById('verdict').classList.add('hidden');
+    document.getElementById('next').classList.add('hidden');
+    Act.setRound((i + 1) + ' / ' + CARDS.length);
+  }
+  function pick(k, btn) {
+    var C = CARDS[i], right = k === C.type;
+    if (right) { score++; Act.setScore(score); }
+    Array.prototype.forEach.call(document.querySelectorAll('.choice'), function (c, j) { c.disabled = true; if (j === C.type) c.classList.add('is-right'); });
+    if (!right) btn.classList.add('is-wrong');
+    var v = document.getElementById('verdict');
+    v.className = 'verdict ' + (right ? 'verdict--good' : 'verdict--bad');
+    v.innerHTML = '<h3>' + (right ? 'Correct: +1' : 'It is: ' + TYPES[C.type]) + '</h3><p>' + Act.esc(C.why) + '</p>';
+    var nb = document.getElementById('next'); nb.classList.remove('hidden'); nb.focus();
+  }
+  document.getElementById('next').addEventListener('click', function () { i++; if (i >= CARDS.length) finish(); else load(); });
+  document.getElementById('again').addEventListener('click', start);
+  function finish() {
+    Act.finish(score);
+    document.getElementById('play').classList.add('hidden');
+    document.getElementById('finish').classList.remove('hidden');
+    document.getElementById('final').textContent = score + ' / ' + MAX;
+  }
+  function start() {
+    i = 0; score = 0; Act.setScore(0);
+    document.getElementById('play').classList.remove('hidden');
+    document.getElementById('finish').classList.add('hidden');
+    load();
+  }
+  Act.init({ id: 'fool-the-model', max: MAX });
+  start();
+})();
+
+  </script>
 </body>
 </html>

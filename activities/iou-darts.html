@@ -10,13 +10,16 @@
   <link rel="stylesheet" href="../assets/activity.css">
   <style>
 
+    .board { width: 100%; max-width: 760px; aspect-ratio: 3 / 2; display: block; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); touch-action: none; cursor: crosshair; user-select: none; }
+    .target { font-family: var(--font-display); font-size: 2.6rem; color: var(--coral); line-height: 1; }
+    body.projector .board { max-width: 1100px; }
+
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
   <main id="main">
-    <section class="page-hero on-dark">
+    <section class="page-hero act-hero on-dark">
       <header class="site-header site-header--hero">
         <div class="container">
           <a class="logo" href="../index.html" aria-label="Computer Vision for Developers — course home">
@@ -29,17 +32,57 @@
           </span>
         </div>
       </header>
-
-      <div class="container page-hero-inner">
+      <div class="container act-hero-inner">
         <a class="back" href="./index.html">← All activities</a>
-        <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
-        <h1>IoU Darts</h1>
-        <p>Coming soon.</p>
+        <div class="act-meta">
+          <span class="badge badge--day2">Day 2</span>
+          <span class="badge badge--time">10 minutes</span>
+          <span class="badge badge--time">Max 40 points</span>
+        </div>
+        <h1>Activity 05 · IoU Darts</h1>
+        <p>A green ground-truth box sits on the board. Drag your own box so that its IoU with the ground truth hits the target: 0.3, 0.5, 0.75, then 0.9. Up to 10 points per throw — closeness wins.</p>
       </div>
     </section>
 
-    <section class="section--tight"><div class="container"><div class="card" style="padding:var(--s4)"><p class="muted">This activity is being built.</p></div></div></section>
+    <div class="scorestrip">
+      <div class="container">
+        <div class="scorestrip__item"><span class="scorestrip__label">Round</span><span class="scorestrip__value" id="act-round">—</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Score</span><span class="scorestrip__value" id="act-score">0</span></div>
+        <div class="scorestrip__item"><span class="scorestrip__label">Best</span><span class="scorestrip__value scorestrip__value--muted" id="act-best">—</span></div>
+        <div class="act-tools">
+          <label for="act-team">Team</label>
+          <input type="text" id="act-team" placeholder="Team name" autocomplete="off" maxlength="40">
+          <button type="button" class="btn btn--ghost btn--sm" id="act-projector" aria-pressed="false">Projector mode</button>
+          <button type="button" class="btn btn--ghost btn--sm" id="act-reset">Reset best</button>
+        </div>
+      </div>
+    </div>
 
+    <section class="section--tight">
+      <div class="container">
+        <div class="panel" id="play">
+          <div class="rowline" style="justify-content:space-between;margin-bottom:var(--s3)">
+            <div><span class="small muted">Target IoU</span><div class="target" id="target">0.50</div></div>
+            <div class="rowline"><button type="button" class="btn btn--ghost" id="clear">Clear my box</button><button type="button" class="btn" id="throw" disabled>Throw!</button></div>
+          </div>
+          <svg class="board" id="board" viewBox="0 0 600 400" aria-label="Drag to draw a box">
+            <rect id="gt" fill="rgba(11,116,87,.12)" stroke="#0b7457" stroke-width="3"/>
+            <text id="gtlabel" font-size="14" font-weight="700" fill="#0b7457">ground truth</text>
+            <rect id="inter" fill="rgba(240,160,60,.45)" stroke="none" visibility="hidden"/>
+            <rect id="mine" fill="rgba(228,96,42,.12)" stroke="#e4602a" stroke-width="3" stroke-dasharray="8 5" visibility="hidden"/>
+          </svg>
+          <p class="small muted">Press and drag on the board to draw your box. Redraw as often as you like, then press <strong>Throw!</strong></p>
+          <div class="verdict hidden" id="verdict"></div>
+          <p><button type="button" class="btn hidden" id="next">Next target →</button></p>
+        </div>
+        <div class="panel finish hidden" id="finish">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">Darts done</h2>
+          <p class="finish__score" id="final">0 / 40</p>
+          <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
+        </div>
+        <div class="panel"><h2>Scoring</h2><p class="small muted">Four throws at IoU 0.3, 0.5, 0.75 and 0.9. Hitting the target exactly scores 10; every 0.02 you are off costs 1 point (0.2 off or more scores 0). IoU = overlap area ÷ combined area (slide 2.20) — most people are surprised how much overlap 0.5 needs.</p></div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -56,5 +99,85 @@
     </div>
   </footer>
 
+  <script src="../assets/store.js"></script>
+  <script src="../assets/activities.js"></script>
+  <script src="../assets/act-common.js"></script>
+
+  <script>
+
+(function () {
+  'use strict';
+  var TARGETS = [0.3, 0.5, 0.75, 0.9], GTS = [[180, 110, 380, 270], [240, 80, 400, 330], [120, 140, 420, 260], [210, 90, 390, 310]];
+  var MAX = 40, round, score, box, drag;
+  var svg = document.getElementById('board');
+  function setRect(el, b) { el.setAttribute('x', b[0]); el.setAttribute('y', b[1]); el.setAttribute('width', Math.max(0, b[2] - b[0])); el.setAttribute('height', Math.max(0, b[3] - b[1])); }
+  function iou(a, b) {
+    var w = Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0])), h = Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1]));
+    var inter = w * h, u = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter;
+    return u > 0 ? inter / u : 0;
+  }
+  function pt(e) {
+    var p = svg.createSVGPoint(), t = e.touches ? e.touches[0] : e;
+    p.x = t.clientX; p.y = t.clientY;
+    var q = p.matrixTransform(svg.getScreenCTM().inverse());
+    return [Math.max(0, Math.min(600, q.x)), Math.max(0, Math.min(400, q.y))];
+  }
+  function down(e) { if (svg.dataset.locked) return; e.preventDefault(); drag = pt(e); move(e); }
+  function move(e) {
+    if (!drag) return; e.preventDefault();
+    var p = pt(e);
+    box = [Math.min(drag[0], p[0]), Math.min(drag[1], p[1]), Math.max(drag[0], p[0]), Math.max(drag[1], p[1])];
+    var m = document.getElementById('mine'); setRect(m, box); m.setAttribute('visibility', 'visible');
+    document.getElementById('throw').disabled = (box[2] - box[0]) < 4 || (box[3] - box[1]) < 4;
+  }
+  function up() { drag = null; }
+  svg.addEventListener('mousedown', down); window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
+  svg.addEventListener('touchstart', down, { passive: false }); svg.addEventListener('touchmove', move, { passive: false }); svg.addEventListener('touchend', up);
+
+  function load() {
+    var g = GTS[round]; box = null; delete svg.dataset.locked;
+    setRect(document.getElementById('gt'), g);
+    var lab = document.getElementById('gtlabel'); lab.setAttribute('x', g[0]); lab.setAttribute('y', g[1] - 8);
+    ['mine', 'inter'].forEach(function (id) { document.getElementById(id).setAttribute('visibility', 'hidden'); });
+    document.getElementById('target').textContent = TARGETS[round].toFixed(2);
+    document.getElementById('throw').disabled = true;
+    document.getElementById('verdict').classList.add('hidden');
+    document.getElementById('next').classList.add('hidden');
+    Act.setRound((round + 1) + ' / 4');
+  }
+  document.getElementById('clear').addEventListener('click', function () { if (!svg.dataset.locked) { box = null; document.getElementById('mine').setAttribute('visibility', 'hidden'); document.getElementById('throw').disabled = true; } });
+  document.getElementById('throw').addEventListener('click', function () {
+    if (!box || svg.dataset.locked) return;
+    svg.dataset.locked = '1';
+    var g = GTS[round], v = iou(box, g), d = Math.abs(v - TARGETS[round]);
+    var pts = Math.max(0, Math.round(10 - d / 0.02));
+    score += pts; Act.setScore(score);
+    var ib = [Math.max(box[0], g[0]), Math.max(box[1], g[1]), Math.min(box[2], g[2]), Math.min(box[3], g[3])];
+    var ie = document.getElementById('inter'); setRect(ie, ib); ie.setAttribute('visibility', ib[2] > ib[0] && ib[3] > ib[1] ? 'visible' : 'hidden');
+    var el = document.getElementById('verdict');
+    el.className = 'verdict ' + (pts >= 7 ? 'verdict--good' : pts >= 3 ? 'verdict--warn' : 'verdict--bad');
+    el.innerHTML = '<h3>Your IoU: ' + v.toFixed(3) + ' (target ' + TARGETS[round] + ') · +' + pts + '</h3><p>Orange = intersection. IoU = intersection ÷ (your area + ground-truth area − intersection).</p>';
+    document.getElementById('throw').disabled = true;
+    var nb = document.getElementById('next'); nb.classList.remove('hidden'); nb.focus();
+  });
+  document.getElementById('next').addEventListener('click', function () { round++; if (round >= 4) finish(); else load(); });
+  document.getElementById('again').addEventListener('click', start);
+  function finish() {
+    Act.finish(score);
+    document.getElementById('play').classList.add('hidden');
+    document.getElementById('finish').classList.remove('hidden');
+    document.getElementById('final').textContent = score + ' / ' + MAX;
+  }
+  function start() {
+    round = 0; score = 0; Act.setScore(0);
+    document.getElementById('play').classList.remove('hidden');
+    document.getElementById('finish').classList.add('hidden');
+    load();
+  }
+  Act.init({ id: 'iou-darts', max: MAX });
+  start();
+})();
+
+  </script>
 </body>
 </html>

@@ -25,3 +25,11 @@ Nothing blocked.
   see "Run before class" in `content/notebooks-spec.md` and `content/RUN-BEFORE-CLASS.md`.
 - **Lab 2B timing** (8 epochs of RT-DETRv2-R18 at 480 px ≈ 5 min on a T4) is an estimate; confirm on Colab.
 - **Colab links** only work once the repo is public and pushed (they point at `main`).
+
+## Prompt 6 — activities
+
+- All nine activities and `print-signs.html` load from disk with zero console errors; best scores persist across
+  reloads (verified headless: a saved score appears on the activity page, the hub and the home progress list);
+  every page has Team, Projector mode and Reset best.
+- **Zero-Shot Showdown needs Ice:** run `tools/precompute_clip.py` once in Colab (instructions on the page and in
+  `content/RUN-BEFORE-CLASS.md`). Until then the page correctly shows "Teacher setup needed" — no scores are invented.
