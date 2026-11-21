@@ -33,3 +33,17 @@ Nothing blocked.
   every page has Team, Projector mode and Reset best.
 - **Zero-Shot Showdown needs Ice:** run `tools/precompute_clip.py` once in Colab (instructions on the page and in
   `content/RUN-BEFORE-CLASS.md`). Until then the page correctly shows "Teacher setup needed" — no scores are invented.
+
+## Prompt 9 — resources and final QA
+
+- All QA checks pass: `tools/qa.py` (links, no network assets, no leftovers, no 9:15, no Arabic, slide counts,
+  both Colab links on all 7 lab cards, home progress reads every activity and assessment key),
+  `tools/check_decks.py` (128 / 121 / 105, zero overflow at 1280×720, keys/notes/print, one PDF page per slide),
+  `tools/check_notebooks.py`, `tools/build_assessments.py`, and `tools/browser_check.py` (21/21 pages, zero console output).
+- **Lab 1B escape weights are not in the repo yet** (`notebooks/weights/*.pt`). Training them locally was blocked by
+  the flaky network (CIFAR download) and the end of the overnight window. Until they exist, the three
+  `USE_PRETRAINED` escape cells in Lab 1B fail with a download error; everything else works. Fix: run
+  `python tools/train_1b_weights.py` once in Colab on a T4 (~10 min), then commit `notebooks/weights/`.
+- **Lab 1B and Lab 2B were not executed end to end here** (network + no GPU). A Windows-only issue was found and fixed in
+  2B (Trainer dataloader workers set to 0 on Windows). Run both on a Colab T4 before class.
+- **GitHub Pages** must be enabled by Ice: Settings → Pages → main / root.

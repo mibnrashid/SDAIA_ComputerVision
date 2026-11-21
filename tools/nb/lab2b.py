@@ -122,7 +122,7 @@ args = TrainingArguments(
     save_strategy="no",
     logging_steps=10,
     remove_unused_columns=False,
-    dataloader_num_workers=2,
+    dataloader_num_workers=0 if os.name == "nt" else 2,   # Windows cannot pickle notebook functions into workers
     report_to="none",
 )
 trainer = Trainer(model=model, args=args, train_dataset=train_t, eval_dataset=val_t, data_collator=collate_fn)

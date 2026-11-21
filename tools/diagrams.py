@@ -185,7 +185,6 @@ def d_channels(sid):  # 1.21
     for k, (name, cls) in enumerate([('Red', 'dg-fill-coral'), ('Green', 'dg-fill-teal'), ('Blue', 'dg-fill-ink')]):
         x, y = 30 + k * 26, 60 + k * 26
         b += f'<rect class="{cls}" x="{x}" y="{y}" width="200" height="200" rx="6" opacity="0.85"/>'
-        b += t(x + 100, y + 230 - (2 - k) * 0 + 0, '') if False else ''
     b += t(130, 345, 'R · G · B channels', 'dg-s')
     for k, name in enumerate(['R', 'G', 'B']):
         b += t(48 + k * 26, 82 + k * 26, name, 'dg-t dg-t--light', 'start')
@@ -302,7 +301,7 @@ def d_prcurve(sid):  # 2.73
     bad = 'M70,120 L150,120 L150,190 L260,190 L260,250 L360,250 L360,300'
     b += f'<path class="dg-line dg-line--teal" stroke-width="4" d="{good}"/>'
     b += f'<path class="dg-line dg-line--coral dg-line--dash" stroke-width="3" d="{bad}"/>'
-    b += t(530, 240, 'good detector', 'dg-t', 'start') if False else t(430, 120, 'good detector', 'dg-t', 'start')
+    b += t(430, 120, 'good detector', 'dg-t', 'start')
     b += t(370, 296, 'weaker detector', 'dg-s', 'start')
     for k, v in enumerate(['0', '0.5', '1']):
         b += t(70 + k * 270, 362, v, 'dg-s')
@@ -362,7 +361,7 @@ def d_fpn(sid):  # 2.45
     b += t(160, 372, 'backbone: fine → coarse', 'dg-s')
     b += t(480, 372, 'FPN: meaning flows back down', 'dg-s')
     b += t(160, 30, 'deep: strong meaning', 'dg-s')
-    b += t(608, 318, 'small objects', 'dg-s', 'end') if False else t(480, 30, 'large objects ↑ · small objects ↓', 'dg-s')
+    b += t(480, 30, 'large objects ↑ · small objects ↓', 'dg-s')
     return svg(sid, b)
 
 

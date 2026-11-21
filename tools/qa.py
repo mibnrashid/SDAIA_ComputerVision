@@ -8,6 +8,9 @@ Checks
   leftover  no Applied-GenAI text left on student pages
   time      no "9:15" on any page
   arabic    no Arabic characters anywhere in the site
+  slides    slide counts in the decks match the md files and their Total lines
+  cards     every lab card has both Colab links and both notebook files exist
+  progress  the home page progress reads every activity id and assessment key
 Exit code is non-zero if any check fails.
 """
 import os
@@ -156,12 +159,71 @@ def check_arabic():
     return errors
 
 
+def check_slides():
+    errors = []
+    for d in (1, 2, 3):
+        md = open(os.path.join(ROOT, 'content', f'slides-day{d}.md'), encoding='utf-8').read()
+        heads = len(re.findall(r'^### ', md, re.M))
+        total = int(re.search(r'^Total slides:\s*(\d+)', md, re.M).group(1))
+        deck = open(os.path.join(ROOT, 'slides', f'day{d}.html'), encoding='utf-8').read()
+        n = len(re.findall(r'<section class="slide[ "]', deck))
+        if not heads == total == n:
+            errors.append(f'day{d}: md {heads}, Total line {total}, HTML {n}')
+    return errors
+
+
+def check_cards():
+    """Every lab card on notebooks/index.html has both Colab links (and both files exist)."""
+    errors = []
+    text = open(os.path.join(ROOT, 'notebooks', 'index.html'), encoding='utf-8').read()
+    cards = re.findall(r'<article class="card lab.*?</article>', text, re.S)
+    if len(cards) != 7:
+        errors.append(f'{len(cards)} lab cards, expected 7')
+    for c in cards:
+        lab = re.search(r'lab__id">([^<]+)', c).group(1)
+        for kind in ('unsolved', 'solved'):
+            url = f'https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_{lab}_{kind}.ipynb'
+            if url not in c:
+                errors.append(f'Lab {lab}: missing Colab link for {kind}')
+            if not os.path.exists(os.path.join(ROOT, 'notebooks', f'Lab_{lab}_{kind}.ipynb')):
+                errors.append(f'Lab {lab}: file Lab_{lab}_{kind}.ipynb missing')
+    return errors
+
+
+def check_progress():
+    """The home page progress section reads every activity id and every assessment key."""
+    errors = []
+    reg = open(os.path.join(ROOT, 'assets', 'activities.js'), encoding='utf-8').read()
+    home = open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()
+    ids = re.findall(r"id: '([^']+)', num:", reg)
+    keys = re.findall(r"key: '([^']+)'", reg)
+    for needle in ('ACTIVITIES.forEach', 'ASSESSMENTS.forEach', 'Store.getScore(a.id)', 'Store.get(t.key'):
+        if needle not in home:
+            errors.append(f'index.html does not use {needle}')
+    for i in ids:
+        page = os.path.join(ROOT, 'activities', i + '.html')
+        if not os.path.exists(page) or f"id: '{i}'" not in open(page, encoding='utf-8').read():
+            errors.append(f'activity {i}: page missing or does not save under this id')
+    tjs = open(os.path.join(ROOT, 'assessment', 'test.js'), encoding='utf-8').read()
+    for k in keys:
+        if not os.path.exists(os.path.join(ROOT, 'assessment', k + '.html')):
+            errors.append(f'assessment page {k}.html missing')
+    if 'Store.set(MODE' not in tjs:
+        errors.append('test.js does not save results under the mode key')
+    if len(ids) != 9 or sorted(keys) != ['exam', 'posttest', 'pretest']:
+        errors.append(f'registry has {len(ids)} activities and keys {keys}')
+    return errors
+
+
 CHECKS = {
     'links': check_links,
     'network': check_network,
     'leftover': check_leftover,
     'time': check_time,
     'arabic': check_arabic,
+    'slides': check_slides,
+    'cards': check_cards,
+    'progress': check_progress,
 }
 
 

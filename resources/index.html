@@ -9,7 +9,26 @@
   <link rel="stylesheet" href="../assets/site.css">
 
   <style>
-
+    .res-group { margin-bottom: var(--s6); }
+    .res-group > h2 { margin-bottom: var(--s2); }
+    .res-group > .note { color: var(--text-muted); max-width: 70ch; margin-bottom: var(--s4); }
+    .res-grid { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+    .res { display: flex; flex-direction: column; padding: var(--s4); }
+    .res h3 { font-size: 1.08rem; margin: 0 0 var(--s2); }
+    .res h3 a { text-decoration: none; }
+    .res h3 a:hover { text-decoration: underline; }
+    .res p { color: var(--text-muted); font-size: var(--fs-small); margin: 0; }
+    .lic { align-self: flex-start; margin-bottom: var(--s2); font-size: 0.7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; background: var(--card-2); color: var(--text-muted); }
+    .lic--agpl { background: rgba(228,96,42,.15); color: var(--coral-ink); }
+    .adv { display: inline-block; margin-left: var(--s2); font-size: 0.7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; background: var(--ink); color: var(--teal-bright); vertical-align: middle; }
+    .gsearch { width: 100%; max-width: 28rem; font: inherit; padding: 0.7rem 0.9rem; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: var(--s4); }
+    .gloss { display: grid; gap: var(--s2); }
+    .gloss div { padding: var(--s3) var(--s4); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .gloss dt { font-weight: 700; }
+    .gloss dd { margin: var(--s1) 0 0; color: var(--text-muted); font-size: var(--fs-small); }
+    .gloss .src { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); }
+    .quick { display: flex; flex-wrap: wrap; gap: var(--s2); }
+    .quick a { text-decoration: none; font-weight: 600; font-size: var(--fs-small); padding: 0.4rem 0.9rem; border-radius: 999px; border: 1px solid var(--border); background: var(--card); }
   </style>
 </head>
 <body>
@@ -34,13 +53,42 @@
         <a class="back" href="../index.html">← Course home</a>
         <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
         <h1>Resources</h1>
-        <p>Library documentation, a glossary of every term defined in the slides, and where to go deeper after the course.</p>
+        <p>Library documentation with licences, the datasets behind the labs, where to go deeper, and a glossary of every term defined in the slides.</p>
       </div>
     </section>
 
     <section class="section--tight">
       <div class="container">
-        <div class="card" style="padding:var(--s4)"><p class="muted">Links and the glossary are added here.</p></div>
+        <div class="res-group">
+          <h2>Course material</h2>
+          <div class="quick">
+            <a href="../slides/day1.html">Day 1 slides</a><a href="../slides/day2.html">Day 2 slides</a><a href="../slides/day3.html">Day 3 slides</a>
+            <a href="../notebooks/index.html">Labs (Colab)</a><a href="../activities/index.html">Activities</a><a href="../project/index.html">Project brief</a>
+          </div>
+        </div>
+        <div class="res-group" id="docs">
+          <h2>Library documentation</h2>
+          <p class="note">The official docs for every library in the labs, with its licence. Check the licence before you build a product on a library (slide 2.66).</p>
+          <div class="res-grid"><article class="card res"><span class="lic">BSD</span><h3><a href="https://docs.pytorch.org/docs/stable/index.html" target="_blank" rel="noopener">PyTorch ↗</a></h3><p>Tensors, nn.Module, training loops, DataLoader (Day 1).</p></article><article class="card res"><span class="lic">BSD</span><h3><a href="https://docs.pytorch.org/vision/stable/index.html" target="_blank" rel="noopener">torchvision ↗</a></h3><p>Datasets, transforms, ResNet, Faster/Mask/Keypoint R-CNN, ops.nms and box_iou (Days 1–2).</p></article><article class="card res"><span class="lic">Apache 2.0</span><h3><a href="https://huggingface.co/docs/transformers/index" target="_blank" rel="noopener">Hugging Face Transformers ↗</a></h3><p>RT-DETRv2, CLIP, SigLIP, Grounding DINO, SAM, Depth Anything (Days 2–3).</p></article><article class="card res"><span class="lic">Apache 2.0</span><h3><a href="https://huggingface.co/docs/transformers/tasks/object_detection" target="_blank" rel="noopener">Transformers · object detection guide ↗</a></h3><p>The fine-tuning recipe Lab 2B adapts (CPPE-5).</p></article><article class="card res"><span class="lic">Apache 2.0</span><h3><a href="https://huggingface.co/docs/datasets/index" target="_blank" rel="noopener">Hugging Face Datasets ↗</a></h3><p>load_dataset for CPPE-5 and Imagenette.</p></article><article class="card res"><span class="lic">MIT</span><h3><a href="https://supervision.roboflow.com/latest/" target="_blank" rel="noopener">supervision ↗</a></h3><p>Detections, LineZone, annotators, sample videos (Lab 2B).</p></article><article class="card res"><span class="lic">Apache 2.0</span><h3><a href="https://github.com/roboflow/trackers" target="_blank" rel="noopener">trackers ↗</a></h3><p>ByteTrackTracker — the replacement for sv.ByteTrack (Lab 2B).</p></article><article class="card res"><span class="lic">Apache 2.0</span><h3><a href="https://docs.opencv.org/4.x/" target="_blank" rel="noopener">OpenCV ↗</a></h3><p>imread, cvtColor, filter2D, thresholding, Canny (Lab 1A).</p></article><article class="card res"><span class="lic lic--agpl">AGPL-3.0</span><h3><a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">Ultralytics (YOLO26, YOLOE-26) ↗</a></h3><p>Lab 2C only. <strong>AGPL note:</strong> free to learn with; if you ship it in a product you must open-source your whole application or buy an enterprise licence.</p></article></div>
+        </div>
+        <div class="res-group" id="data">
+          <h2>Datasets used in the labs</h2>
+          <div class="res-grid"><article class="card res"><h3><a href="https://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="noopener">CIFAR-10 ↗</a></h3><p>Lab 1B — 60,000 tiny images, 10 classes (downloaded by torchvision).</p></article><article class="card res"><h3><a href="https://huggingface.co/datasets/rishitdagli/cppe-5" target="_blank" rel="noopener">CPPE-5 ↗</a></h3><p>Lab 2B — medical PPE boxes, 5 classes.</p></article><article class="card res"><h3><a href="https://huggingface.co/datasets/frgfm/imagenette" target="_blank" rel="noopener">Imagenette ↗</a></h3><p>Lab 3A — 10 easy ImageNet classes.</p></article><article class="card res"><h3><a href="https://cocodataset.org/" target="_blank" rel="noopener">COCO ↗</a></h3><p>The 80-class benchmark behind every pretrained detector we use.</p></article></div>
+        </div>
+        <div class="res-group" id="deeper">
+          <h2>Go deeper <span class="adv">Advanced</span></h2>
+          <p class="note">For after the course, when you want the full theory: university-level lectures that go well beyond these three days.</p>
+          <div class="res-grid">
+            <article class="card res"><span class="lic">Advanced</span><h3><a href="https://github.com/KAUST-Academy/Artificial-Intelligence-Courses/tree/main/Lectures/Computer_Vision" target="_blank" rel="noopener">KAUST Academy · Computer Vision lectures ↗</a></h3>
+              <p>The KAUST Academy computer vision lecture series (slides and notebooks). Expect more maths than in this course — a good next step once the labs feel easy.</p></article>
+          </div>
+        </div>
+        <div class="res-group" id="glossary">
+          <h2>Glossary</h2>
+          <p class="note">Every term defined on a slide in the three decks, extracted automatically from the definition slides. <span id="gcount">39 terms</span></p>
+          <input type="search" id="gsearch" class="gsearch" placeholder="Filter terms, e.g. IoU, anchor, CLIP" aria-label="Filter the glossary">
+          <dl class="gloss" id="gloss"><div><dt>Anchor</dt><dd>a pre-defined template box placed at every feature-map position. The RPN predicts, for each anchor, "is there an object?" and how to nudge the anchor to fit it.</dd><span class="src">Day 2 · slide 2.38</span></div><div><dt>Attention</dt><dd>each part of the input looks at every other part, decides how relevant each one is, and builds its new meaning as a weighted mix of the relevant parts.</dd><span class="src">Day 3 · slide 3.16</span></div><div><dt>BatchNorm</dt><dd>rescale each layer's outputs to a steady range (mean 0, spread 1) using the current batch, then let the network adjust with two learned numbers. Training becomes faster and more stable.</dd><span class="src">Day 1 · slide 1.97</span></div><div><dt>Bounding box</dt><dd>the smallest axis-aligned rectangle that contains an object, described by four numbers.</dd><span class="src">Day 2 · slide 2.16</span></div><div><dt>CLIP (Contrastive Language–Image Pre-training)</dt><dd>two encoders, one for images and one for text, trained so that an image and its caption produce similar embeddings. Trained on about 400 million image–text pairs.</dd><span class="src">Day 3 · slide 3.43</span></div><div><dt>Closed-set assumption</dt><dd>a classifier assumes every input belongs to one of its training classes. It has no way to say "none of these".</dd><span class="src">Day 3 · slide 3.09</span></div><div><dt>[CLS] token</dt><dd>an extra learned token added to the sequence. Through attention it gathers information from all patches, and its final value is used for classification.</dd><span class="src">Day 3 · slide 3.24</span></div><div><dt>Computer vision</dt><dd>teaching computers to extract meaning from images and video: what is there, where it is, and what is happening.</dd><span class="src">Day 1 · slide 1.12</span></div><div><dt>Convolution</dt><dd>slide a small grid of weights (the kernel) over the image; at each position multiply the overlapping numbers and add them up. That sum is one output pixel.</dd><span class="src">Day 1 · slide 1.40</span></div><div><dt>Convolution layer</dt><dd>a set of kernels whose numbers are learned during training. Each kernel produces one feature map showing where its pattern appears.</dd><span class="src">Day 1 · slide 1.68</span></div><div><dt>Dilated convolution</dt><dd>spread the kernel's taps apart so a 3 × 3 kernel covers a 5 × 5 area with no extra weights.</dd><span class="src">Day 1 · slide 1.74</span></div><div><dt>Dropout</dt><dd>during training, randomly set a fraction of neurons (e.g. 50%) to zero each step. The network cannot rely on any single neuron.</dd><span class="src">Day 1 · slide 1.96</span></div><div><dt>Embedding</dt><dd>a list of numbers (a vector) that represents an image's meaning. Similar images get vectors that are close together.</dd><span class="src">Day 3 · slide 3.35</span></div><div><dt>Histogram</dt><dd>a bar chart of how many pixels have each value (0–255).</dd><span class="src">Day 1 · slide 1.36</span></div><div><dt>IoU (Intersection over Union)</dt><dd>the area where two boxes overlap divided by the area they cover together. 0 = no overlap</dd><span class="src">Day 2 · slide 2.20</span></div><div><dt>Keypoint detection</dt><dd>predicting the location of specific points on an object, such as 17 body joints for a person. Joined together they give a pose.</dd><span class="src">Day 2 · slide 2.12</span></div><div><dt>Latent space</dt><dd>the compressed space of codes inside a generative model. Nearby codes produce similar images; moving through it changes the image smoothly.</dd><span class="src">Day 3 · slide 3.83</span></div><div><dt>Loss</dt><dd>one number that says how wrong the model is on an example. Training means making this number small.</dd><span class="src">Day 1 · slide 1.57</span></div><div><dt>mAP (mean Average Precision)</dt><dd>compute AP separately for each class, then take the mean. One number for the whole detector.</dd><span class="src">Day 2 · slide 2.77</span></div><div><dt>Motion model</dt><dd>a guess of where each tracked object will be in the next frame, based on its recent speed and direction. The Kalman filter is the classic way to do this.</dd><span class="src">Day 2 · slide 2.104</span></div><div><dt>NMS</dt><dd>keep the highest-confidence box, delete every other box that overlaps it by more than an IoU threshold, then repeat with the next highest remaining box.</dd><span class="src">Day 2 · slide 2.47</span></div><div><dt>ONNX</dt><dd>a standard file format for trained models, so a model trained in PyTorch can run in other runtimes (on servers, phones, browsers) without PyTorch.</dd><span class="src">Day 3 · slide 3.94</span></div><div><dt>Open-vocabulary detection</dt><dd>a detector that takes text prompts and returns boxes for whatever the text describes, including classes it never saw in box-labelled training data.</dd><span class="src">Day 3 · slide 3.56</span></div><div><dt>Out-of-distribution (OOD)</dt><dd>an input unlike anything in the training data: a new object, a new camera, night instead of day. Models often fail on these silently and confidently.</dd><span class="src">Day 3 · slide 3.11</span></div><div><dt>Overfitting</dt><dd>the model memorises the training examples, including their noise, instead of learning patterns that work on new images.</dd><span class="src">Day 1 · slide 1.92</span></div><div><dt>Pixel</dt><dd>the smallest unit of an image: one position holding one number (gray) or three numbers (color).</dd><span class="src">Day 1 · slide 1.19</span></div><div><dt>Receptive field</dt><dd>the region of the original image that one neuron can "see". It grows with every layer.</dd><span class="src">Day 1 · slide 1.84</span></div><div><dt>Region proposal</dt><dd>a candidate box that might contain an object, found by a fast method that groups similar pixels (e.g. selective search). About 2,000 per image instead of 100,000+.</dd><span class="src">Day 2 · slide 2.31</span></div><div><dt>ReLU</dt><dd>ReLU(x) = max(0, x) · negatives become 0, positives pass through · simple, fast, and trains well in deep networks</dd><span class="src">Day 1 · slide 1.79</span></div><div><dt>RoI pooling</dt><dd>take a region of the feature map of any size and pool it into a fixed grid (e.g. 7 × 7), so every proposal gives the same-sized input to the head.</dd><span class="src">Day 2 · slide 2.35</span></div><div><dt>SAM (Segment Anything Model)</dt><dd>a model that returns a precise mask for whatever you point at: a click, a box, or (in newer versions) a text phrase.</dd><span class="src">Day 3 · slide 3.59</span></div><div><dt>Self-supervised learning</dt><dd>training on a task created automatically from the data itself, so no human labels are needed. The real goal is the features the model learns along the way.</dd><span class="src">Day 3 · slide 3.30</span></div><div><dt>Semantic segmentation</dt><dd>assigning a class label to every pixel in the image. The output is a label map the same size as the input.</dd><span class="src">Day 2 · slide 2.85</span></div><div><dt>Stride</dt><dd>how many pixels the kernel jumps each step. Stride 1 visits every position; stride 2 skips every other one and halves the output size.</dd><span class="src">Day 1 · slide 1.73</span></div><div><dt>Thresholding</dt><dd>turning a grayscale image into black and white: every pixel above T becomes 255, every pixel below becomes 0.</dd><span class="src">Day 1 · slide 1.38</span></div><div><dt>Transfer learning</dt><dd>reuse a network trained on a huge dataset (like ImageNet) as a starting point for your own task, instead of starting from random weights.</dd><span class="src">Day 1 · slide 1.118</span></div><div><dt>Vision-language model (VLM)</dt><dd>a model that takes an image and text as input and produces text: descriptions, answers, extracted fields, or coordinates.</dd><span class="src">Day 3 · slide 3.71</span></div><div><dt>YOLO</dt><dd>a one-stage detector: one forward pass of one network predicts all boxes and classes at once, with no separate proposal step.</dd><span class="src">Day 2 · slide 2.55</span></div><div><dt>Zero-shot classification</dt><dd>classifying images into classes the model was never explicitly trained on, by describing the classes in words.</dd><span class="src">Day 3 · slide 3.46</span></div></dl>
+        </div>
       </div>
     </section>
 
@@ -59,6 +107,16 @@
       </span>
     </div>
   </footer>
-
+  <script>
+    (function () {
+      'use strict';
+      var input = document.getElementById('gsearch'), items = document.querySelectorAll('#gloss > div'), count = document.getElementById('gcount');
+      input.addEventListener('input', function () {
+        var q = input.value.trim().toLowerCase(), n = 0;
+        Array.prototype.forEach.call(items, function (it) { var hit = it.textContent.toLowerCase().indexOf(q) >= 0; it.hidden = !hit; if (hit) n++; });
+        count.textContent = n + ' of ' + items.length + ' terms';
+      });
+    })();
+  </script>
 </body>
 </html>
