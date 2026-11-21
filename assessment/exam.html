@@ -34,13 +34,72 @@
         <a class="back" href="../index.html">← Course home</a>
         <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
         <h1>Theory exam</h1>
-        <p>Thirty questions on Days 1 and 2. Closed book, 40 minutes. Type your full name before you start.</p>
+        <p>30 questions on Days 1 and 2. Closed book, 40 minutes. Type your full name exactly as on the attendance sheet.</p>
       </div>
     </section>
 
     <section class="section--tight">
-      <div class="container">
-        <div class="card" style="padding:var(--s4)"><p class="muted">The questions are added here.</p></div>
+      <div class="container narrow">
+
+        <div class="card tcard" id="t-start" hidden>
+          <h2>Before you start</h2>
+          <p class="muted">You can move between questions freely until you submit. You submit once. Explanations are not shown for the exam.</p>
+          <ul class="small muted">
+            <li>One question per screen. Use <kbd>A</kbd>–<kbd>D</kbd> to answer and the arrow keys to move.</li>
+            <li>Every answer is saved on this device as you go — a refresh loses nothing.</li>
+          </ul>
+          <form id="t-start-form" class="tstart">
+            <label for="t-name">Your full name</label>
+            <input type="text" id="t-name" maxlength="80" autocomplete="name" required>
+            <button type="submit" class="btn">Start →</button>
+          </form>
+          <p class="small" id="t-resume" hidden>You have saved answers on this device — Start continues where you left off.</p>
+        </div>
+
+        <div id="t-question" hidden>
+          <div class="tbar">
+            <span class="small muted" id="t-count">0 answered</span>
+            <div class="meter" id="t-meter" role="progressbar" aria-label="Questions answered" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0"><span id="t-bar"></span></div>
+          </div>
+          <div class="qdots" id="t-dots" aria-label="Jump to a question"></div>
+          <div class="card tcard">
+            <p class="q__meta"><span id="t-qnum">Question 1</span> <span class="q__topic" id="t-topic"></span></p>
+            <h2 class="q__text" id="t-q"></h2>
+            <div class="opts" id="t-opts" role="radiogroup" aria-labelledby="t-q"></div>
+            <div class="tnav">
+              <button type="button" class="btn btn--ghost" id="t-prev">← Previous</button>
+              <button type="button" class="btn" id="t-next">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card tcard" id="t-review" hidden>
+          <h2>Ready to submit?</h2>
+          <p id="t-review-text"></p>
+          <div class="tnav">
+            <button type="button" class="btn btn--ghost" id="t-back">← Back to the questions</button>
+            <button type="button" class="btn" id="t-submit">Submit my answers</button>
+          </div>
+        </div>
+
+        <div class="card tcard result" id="t-result" hidden>
+          <p class="small muted" id="t-who"></p>
+          <p class="result__score" id="t-score">0 / 30</p>
+          <p class="result__delta" id="t-delta" hidden></p>
+          <p class="muted">Press <strong>Copy results</strong> and paste them where your instructor asks (name, score and your answer string).</p>
+          <div class="result__actions">
+            <button type="button" class="btn" id="t-copy">Copy results</button>
+            <a class="btn btn--ghost" href="../index.html">Course home</a>
+            <button type="button" class="btn btn--ghost" id="t-restart">Take it again</button>
+          </div>
+          <p class="small" id="t-copy-status" aria-live="polite"></p>
+        </div>
+
+        <div id="t-answers-wrap" hidden>
+          <h2 class="review-title">Answers and explanations</h2>
+          <ol class="rvlist" id="t-answers"></ol>
+        </div>
+
       </div>
     </section>
 
@@ -59,6 +118,10 @@
       </span>
     </div>
   </footer>
-
+  <script src="../assets/store.js"></script>
+  <script src="./questions.js"></script>
+  <script src="./keys.js"></script>
+  <script>window.TEST_MODE = "exam";</script>
+  <script src="./test.js"></script>
 </body>
 </html>
