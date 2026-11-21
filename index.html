@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Computer Vision for Developers · SDAIA Academy</title>
+  <meta name="description" content="Three days teaching a machine to see. SDAIA Academy, 22–24 November 2026.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/theme.css">
+  <link rel="stylesheet" href="./assets/site.css">
+  <style>
+    /* ---- Home page only ------------------------------------ */
+    .hero-meta {
+      margin-top: var(--s5);
+      color: var(--text-muted-on-dark);
+      font-size: var(--fs-small);
+    }
+    .hero p.hero-meta { margin-bottom: 0; }
+    .hero .hero-meta + .hero-meta { margin-top: var(--s1); }
+
+    /* ---- Pre-test call to action --------------------------- */
+    .cta {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--s4); flex-wrap: wrap;
+      background: var(--teal); color: #fff;
+      border-radius: var(--radius); padding: var(--s4) var(--s5);
+      box-shadow: var(--shadow-md);
+    }
+    .cta h2 { margin: 0 0 var(--s2); color: #fff; font-size: var(--fs-h3); font-family: var(--font-sans); }
+    .cta p { margin: 0; max-width: 60ch; color: rgba(255, 255, 255, 0.94); }
+
+    /* ---- Day cards ----------------------------------------- */
+    .grid { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+    .daycard { display: flex; flex-direction: column; overflow: hidden; }
+    .daycard__head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: var(--s3); padding: var(--s3) var(--s4); color: #fff;
+    }
+    .daycard__num { font-family: var(--font-display); font-size: 2.6rem; font-weight: 700; line-height: 1; }
+    .daycard__badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: var(--tracking-eyebrow);
+      text-transform: uppercase; padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill); background: rgba(0, 0, 0, 0.22);
+    }
+    .daycard--teal   .daycard__head { background: var(--teal); }
+    .daycard--ink    .daycard__head { background: var(--ink); }
+    .daycard--bright .daycard__head { background: var(--teal-bright); color: var(--ink); }
+    .daycard--bright .daycard__badge { background: rgba(255, 255, 255, 0.55); }
+
+    .daycard__body { padding: var(--s4); flex: 1 1 auto; }
+    .daycard__body h3 { margin: 0 0 var(--s2); font-family: var(--font-display); font-size: 1.32rem; font-weight: 700; }
+    .daycard__theme { margin: 0 0 var(--s2); font-size: var(--fs-small); font-style: italic; color: var(--teal); }
+    .daycard__body p { color: var(--text-muted); font-size: var(--fs-small); margin: 0; }
+    .daycard__when {
+      display: block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: var(--s1);
+    }
+    .daycard__foot {
+      display: flex; gap: var(--s3); flex-wrap: wrap;
+      padding: var(--s3) var(--s4); border-top: 1px solid var(--border);
+      background: var(--card-2); font-size: var(--fs-small); font-weight: 600;
+    }
+    .daycard__foot a { text-decoration: none; }
+    .daycard__foot a:hover { text-decoration: underline; }
+
+    /* ---- Link cards ---------------------------------------- */
+    .duo { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+    .linkcard { display: block; padding: var(--s5); text-decoration: none; color: inherit; }
+    .linkcard:hover { border-color: var(--teal); }
+    .linkcard h3 { font-family: var(--font-display); font-size: 1.5rem; margin: 0 0 var(--s2); color: var(--text); }
+    .linkcard p { color: var(--text-muted); margin: 0 0 var(--s3); }
+    .linkcard .go { color: var(--teal); font-weight: 700; }
+
+    /* ---- Progress ------------------------------------------ */
+    .progress { padding: var(--s4) var(--s5); }
+    .progress__row { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); flex-wrap: wrap; }
+    .progress h2 { font-family: var(--font-sans); font-size: var(--fs-h3); margin: 0 0 var(--s1); }
+    .progress__stats { margin: 0; color: var(--text-muted); }
+    .progress__stats strong { color: var(--text); }
+    .progress__list {
+      list-style: none; padding: 0; margin: var(--s4) 0 0;
+      display: grid; gap: var(--s2); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+    .progress__list li {
+      display: flex; justify-content: space-between; gap: var(--s3);
+      padding: var(--s2) var(--s3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--card-2); font-size: var(--fs-small);
+    }
+    .progress__list li b { font-variant-numeric: tabular-nums; }
+    .progress__list li.is-done b { color: var(--teal-dark); }
+
+    .section-head { margin-bottom: var(--s4); }
+    .section-head h2 { margin-bottom: var(--s2); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <!-- ---------- Hero (the header lives inside it) ---------- -->
+    <section class="hero on-dark">
+      <header class="site-header site-header--hero">
+        <div class="container">
+          <a class="logo" href="./index.html" aria-label="Computer Vision for Developers — course home">
+            <img class="logo--dark"  src="./assets/academy_color.png" alt="SDAIA Academy">
+            <img class="logo--light" src="./assets/academy_white.png" alt="SDAIA Academy">
+          </a>
+          <span class="logo">
+            <img class="logo--dark"  src="./assets/sdaia_color.png" alt="Saudi Data and AI Authority (SDAIA)">
+            <img class="logo--light" src="./assets/sdaia_white.png" alt="Saudi Data and AI Authority (SDAIA)">
+          </span>
+        </div>
+      </header>
+
+      <div class="container hero-inner">
+        <p class="eyebrow">SDAIA Academy</p>
+        <h1>Computer Vision for Developers</h1>
+        <p>Teaching a machine to see. Three days from "an image is a grid of numbers" to models that
+           find, outline, count and follow objects — and then models that understand words.
+           Slides, labs, activities, tests and the project brief all live here.</p>
+        <ul class="chips">
+          <li class="chip">Pixels &amp; CNNs</li>
+          <li class="chip">Detection</li>
+          <li class="chip">Segmentation</li>
+          <li class="chip">Tracking</li>
+          <li class="chip">CLIP &amp; open vocabulary</li>
+        </ul>
+        <p class="hero-meta">Sunday 22 – Tuesday 24 November 2026 · every day 9:00 – 3:00</p>
+        <p class="hero-meta">Instructor: Musa Ibn Rashid</p>
+      </div>
+    </section>
+
+    <!-- ---------- Pre-test CTA ---------- -->
+    <section class="section--tight">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>New here? Take the pre-test first</h2>
+            <p>20 questions across all three days. It is not graded — it shows what you already know, and we compare it with the post-test on Day 3.</p>
+          </div>
+          <a class="btn btn--on-teal" href="./assessment/pretest.html">Start pre-test →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- Three days ---------- -->
+    <section class="section--tight">
+      <div class="container">
+        <div class="section-head">
+          <h2>The three days</h2>
+          <p class="muted">Each day: one deck, Colab labs (solved and unsolved), and scored activities.</p>
+        </div>
+
+        <div class="grid">
+
+          <article class="card daycard daycard--teal" id="day1">
+            <div class="daycard__head">
+              <span class="daycard__num" aria-hidden="true">01</span>
+              <span class="daycard__badge">Day 1</span>
+            </div>
+            <div class="daycard__body">
+              <span class="daycard__when">Sunday 22 November</span>
+              <h3>From pixels to features</h3>
+              <p class="daycard__theme">“Why is seeing hard, and how did we stop hand-writing the rules?”</p>
+              <p>Images as arrays, convolution by hand, why an MLP fails, the CNN, training it properly, and transfer learning.</p>
+            </div>
+            <div class="daycard__foot">
+              <a href="./slides/day1.html">Slides →</a>
+              <a href="./notebooks/index.html#day1">Labs →</a>
+              <a href="./activities/index.html#day1">Activities →</a>
+            </div>
+          </article>
+
+          <article class="card daycard daycard--ink" id="day2">
+            <div class="daycard__head">
+              <span class="daycard__num" aria-hidden="true">02</span>
+              <span class="daycard__badge">Day 2</span>
+            </div>
+            <div class="daycard__body">
+              <span class="daycard__when">Monday 23 November</span>
+              <h3>Where is it, what shape is it, where is it going?</h3>
+              <p class="daycard__theme">“Knowing what isn't enough. Find it, outline it, count it, follow it.”</p>
+              <p>Boxes and IoU, two-stage and one-stage detectors, NMS, mAP by hand, segmentation and tracking.</p>
+            </div>
+            <div class="daycard__foot">
+              <a href="./slides/day2.html">Slides →</a>
+              <a href="./notebooks/index.html#day2">Labs →</a>
+              <a href="./activities/index.html#day2">Activities →</a>
+            </div>
+          </article>
+
+          <article class="card daycard daycard--bright" id="day3">
+            <div class="daycard__head">
+              <span class="daycard__num" aria-hidden="true">03</span>
+              <span class="daycard__badge">Day 3</span>
+            </div>
+            <div class="daycard__body">
+              <span class="daycard__when">Tuesday 24 November</span>
+              <h3>Seeing beyond labels</h3>
+              <p class="daycard__theme">“What if the model could learn without labels and understand words?”</p>
+              <p>Theory exam at 9:00, then attention and ViT, self-supervision, CLIP, open-vocabulary detection with SAM, and your presentations.</p>
+            </div>
+            <div class="daycard__foot">
+              <a href="./slides/day3.html">Slides →</a>
+              <a href="./notebooks/index.html#day3">Labs →</a>
+              <a href="./activities/index.html#day3">Activities →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- Project + resources ---------- -->
+    <section class="section--tight">
+      <div class="container">
+        <div class="duo">
+          <a class="card linkcard" href="./project/index.html">
+            <h3>The project</h3>
+            <p>A vision system for a real problem. Teams of 2–3, a GitHub repo, a 5-minute presentation on Day 3 at 2:00.</p>
+            <span class="go">Open the brief →</span>
+          </a>
+          <a class="card linkcard" href="./activities/index.html">
+            <h3>All activities</h3>
+            <p>Nine browser activities. They run offline and keep your best score on this device.</p>
+            <span class="go">See all activities →</span>
+          </a>
+          <a class="card linkcard" href="./resources/index.html">
+            <h3>Resources</h3>
+            <p>Library docs, a glossary of every term from the slides, and where to go deeper.</p>
+            <span class="go">Open resources →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- Progress ---------- -->
+    <section class="section--tight">
+      <div class="container">
+        <div class="card progress">
+          <div class="progress__row">
+            <div>
+              <h2 id="progress-label">Your progress</h2>
+              <p class="progress__stats" id="progress-stats" role="status">Loading your saved progress…</p>
+            </div>
+            <button type="button" class="btn btn--ghost" id="reset-progress">Reset my progress</button>
+          </div>
+          <ul class="progress__list" id="progress-list" aria-labelledby="progress-label"></ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span class="logo">
+        <img class="logo--dark"  src="./assets/academy_color.png" alt="SDAIA Academy">
+        <img class="logo--light" src="./assets/academy_white.png" alt="SDAIA Academy">
+      </span>
+      <p class="footer-text">Computer Vision for Developers · SDAIA Academy · Instructor: Musa Ibn Rashid</p>
+      <span class="logo">
+        <img class="logo--dark"  src="./assets/sdaia_color.png" alt="Saudi Data and AI Authority (SDAIA)">
+        <img class="logo--light" src="./assets/sdaia_white.png" alt="Saudi Data and AI Authority (SDAIA)">
+      </span>
+    </div>
+  </footer>
+
+  <script src="./assets/store.js"></script>
+  <script src="./assets/activities.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      /* ACTIVITIES and ASSESSMENTS come from assets/activities.js — one
+         registry shared with the activities hub, so ids cannot drift. */
+      var statsEl = document.getElementById('progress-stats');
+      var listEl = document.getElementById('progress-list');
+      var resetBtn = document.getElementById('reset-progress');
+
+      function item(label, value, done, href) {
+        var li = document.createElement('li');
+        if (done) li.className = 'is-done';
+        var a = document.createElement('a');
+        a.href = href;
+        a.textContent = label;
+        var b = document.createElement('b');
+        b.textContent = value;
+        li.appendChild(a);
+        li.appendChild(b);
+        listEl.appendChild(li);
+      }
+
+      function render() {
+        var attempted = 0, total = 0;
+        listEl.innerHTML = '';
+
+        ASSESSMENTS.forEach(function (t) {
+          var r = Store.get(t.key, null);
+          var done = r && typeof r.score === 'number';
+          item(t.title, done ? r.score + ' / ' + r.max : 'not done', done, './' + t.file);
+        });
+
+        ACTIVITIES.forEach(function (a) {
+          var r = Store.getScore(a.id);
+          if (r) { attempted += 1; total += r.score; }
+          item(a.title, r ? r.score + ' / ' + r.max : '—', !!r, './activities/' + a.file);
+        });
+
+        var testsDone = ASSESSMENTS.filter(function (t) {
+          var r = Store.get(t.key, null);
+          return r && typeof r.score === 'number';
+        }).length;
+
+        statsEl.innerHTML =
+          '<strong>' + attempted + '</strong> of ' + ACTIVITIES.length + ' activities attempted · ' +
+          '<strong>' + testsDone + '</strong> of ' + ASSESSMENTS.length + ' tests done · ' +
+          'activity total <strong>' + total + ' / ' + ACTIVITIES_MAX + '</strong>';
+      }
+
+      resetBtn.addEventListener('click', function () {
+        if (window.confirm('Clear every saved score and test result on this device?')) {
+          Store.reset();
+          render();
+        }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
