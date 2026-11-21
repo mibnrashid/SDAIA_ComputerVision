@@ -149,7 +149,7 @@ transformers 5.23, datasets 5.2, supervision 0.32 and trackers. Differences from
 | 18 | code | TODO 3: push a dummy image through each layer and print shapes | TODO: `pass  # TODO: pass x through this layer (x = layer(x))` | Conv2d (1, 32, 32, 32) → MaxPool2d (1, 32, 16, 16) → … → Flatten (1, 2048) → Linear (1, 10) | Printing before applying the layer shifts every line by one |
 | 19 | code | Checks the TODO above and prints ✅ or a hint | PRE-WRITTEN | ✅ Final output is (1, 10): ten class scores. | Prints the hint until the TODO line is right |
 | 20 | code | Trains the CNN (about 2 min on a T4) **[Run before class]** | PRE-WRITTEN | Eight epoch lines; val accuracy ends around 0.70–0.74; train accuracy runs ahead of val | CUDA out of memory is very unlikely here; if it happens, Runtime → Restart and rerun |
-| 21 | code | Escape: load our trained CNN weights instead | PRE-WRITTEN | Nothing unless USE_PRETRAINED = True; then accuracy ~0.72 | — |
+| 21 | code | Escape: load our trained CNN weights instead | PRE-WRITTEN | Nothing unless USE_PRETRAINED = True; then accuracy ~0.77 | — |
 | 22 | markdown | Explains the next step | PRE-WRITTEN | — | — |
 | 23 | code | Plots train/val loss and val accuracy for MLP vs CNN | PRE-WRITTEN | Two plots; the CNN is clearly higher; CNN val loss flattens or rises while train loss keeps falling | If you used the escape cells, the history is from the shorter run you did — that is fine |
 | 24 | markdown | Explains the next step | PRE-WRITTEN | — | — |

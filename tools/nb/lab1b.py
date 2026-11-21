@@ -157,7 +157,7 @@ final_shape = tuple(x.shape)''',
          'Trains the CNN (about 2 min on a T4)', 'Eight epoch lines; val accuracy ends around 0.70–0.74; train accuracy runs ahead of val',
          'CUDA out of memory is very unlikely here; if it happens, Runtime → Restart and rerun', run=True),
     code(ESCAPE.format(raw=RAW, fname='cnn_cifar10.pt', model='cnn'),
-         'Escape: load our trained CNN weights instead', 'Nothing unless USE_PRETRAINED = True; then accuracy ~0.72', '—'),
+         'Escape: load our trained CNN weights instead', 'Nothing unless USE_PRETRAINED = True; then accuracy ~0.77', '—'),
 
     md('''## 6 · Training it properly
 

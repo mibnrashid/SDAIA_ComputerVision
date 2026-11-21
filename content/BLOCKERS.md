@@ -55,4 +55,6 @@ Nothing blocked.
   Chrome, since cairosvg cannot load its DLL on Windows). `activities/data/showdown.json` / `.js` are committed.
 - **Lab 2A:** ran end to end on CPU; the only error was a dropped Mask R-CNN weight download (network), since retried
   successfully. Re-run on Colab to see the detector images.
-- Still open: Lab 1B weights (training in progress on CPU at the time of writing) and a Colab T4 timing run of 1B and 2B.
+- **Lab 1B weights: done.** Trained with `tools/train_1b_weights.py` (test accuracy MLP 0.528, CNN 0.768, augmented CNN 0.778) and committed in `notebooks/weights/`.
+- **Icebreaker** is now an introductions round (no printing).
+- Still open: one Colab T4 run of Lab 1B and Lab 2B to confirm timing (see RUN-BEFORE-CLASS.md).
