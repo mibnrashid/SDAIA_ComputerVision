@@ -9,7 +9,25 @@
   <link rel="stylesheet" href="../assets/site.css">
 
   <style>
-
+    .brief { margin-bottom: var(--s4); }
+    .brief h2 { font-family: var(--font-display); font-size: var(--fs-h2); margin-bottom: var(--s3); }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s4); }
+    .brief p, .brief li { max-width: 78ch; }
+    .tablewrap { overflow-x: auto; margin: var(--s3) 0; }
+    .brief table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+    .brief th, .brief td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; font-size: var(--fs-small); }
+    .brief thead th { background: var(--ink); color: var(--text-on-dark); font-size: 0.72rem; letter-spacing: .08em; text-transform: uppercase; }
+    .brief tbody tr:nth-child(even) td { background: var(--card-2); }
+    pre.tree { background: var(--ink); color: #e8ecf5; padding: var(--s3); border-radius: var(--radius-sm); overflow-x: auto; font-size: 0.85rem; }
+    .toc { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s4); }
+    .toc a { font-size: var(--fs-small); font-weight: 600; text-decoration: none; padding: 0.3rem 0.8rem; border: 1px solid var(--border); border-radius: 999px; background: var(--card); }
+    .tform { display: grid; gap: var(--s3); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+    .tform label { display: grid; gap: 4px; font-size: var(--fs-small); font-weight: 700; }
+    .tform .wide { grid-column: 1 / -1; }
+    .tform input, .tform select, #out { font: inherit; font-weight: 400; padding: 0.55rem 0.7rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--paper); }
+    #out { width: 100%; margin-top: var(--s3); font-family: var(--font-mono); font-size: 0.85rem; }
+    .hidden { display: none; }
+    .rowline { display: flex; gap: var(--s3); align-items: center; flex-wrap: wrap; }
   </style>
 </head>
 <body>
@@ -34,13 +52,89 @@
         <a class="back" href="../index.html">← Course home</a>
         <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
         <h1>A vision system for a real problem</h1>
-        <p>Teams of 2–3. A GitHub repo built at night, presented on Day 3 at 2:00. The full brief, the rubric and the team form live on this page.</p>
+        <p>Teams of 2–3. A GitHub repo built at night, presented on Day 3 at 2:00. Below: what it must include, how it is graded, ideas, a repo template, the presentation structure, deadlines and the AI-use policy — and the form to register your team.</p>
       </div>
     </section>
 
     <section class="section--tight">
       <div class="container">
-        <div class="card" style="padding:var(--s4)"><p class="muted">The brief is added here.</p></div>
+        <nav class="toc" aria-label="On this page"><a href="#must-include">Must include</a><a href="#grading-course-total-100">Grading (course total 100)</a><a href="#build-rubric-60">Build rubric (60)</a><a href="#deadlines">Deadlines</a><a href="#example-project-ideas-pick-one-or-bring-your-own">Example project ideas (pick one or bring your own)</a><a href="#repo-template">Repo template</a><a href="#5-minute-presentation-structure">5-minute presentation structure</a><a href="#ai-use-policy">AI-use policy</a><a href="#team">Team &amp; idea</a></nav>
+<p><strong>Brief: "A vision system for a real problem."</strong> Teams of 2–3 (about 7 teams). The deliverable is a GitHub repo, built at night and presented Day 3 at 2:00.</p>
+<section class="panel brief" id="must-include"><div><h2>Must include</h2>
+<ol><li><strong>Use case card:</strong> who the user is, what goes in, what comes out, what a wrong answer costs, and how success is measured.</li><li><strong>A trained or fine-tuned model</strong> using Day 1 or Day 2 techniques: a CNN / transfer-learning classifier, or a fine-tuned detector or segmenter.</li><li><strong>A foundation-model component</strong> from Day 3: CLIP zero-shot or search, open-vocabulary detection, SAM, or a VLM.</li><li><strong>Evaluation with numbers:</strong> a test set kept separate, the right metric for the task (accuracy/F1, mAP, IoU) and a confusion matrix or PR curve.</li><li><strong>Failure analysis:</strong> at least 5 failure images, each with a written cause and one fix the team tried or would try.</li><li><strong>Honest limitations</strong> and a README that lets someone else run it.</li></ol>
+</div></section><section class="panel brief" id="grading-course-total-100"><div><h2>Grading (course total 100)</h2>
+<p><strong>Grading (course total 100):</strong> build 60 · presentation 10 · theory exam 30 · optional deploy +5 (Hugging Face Spaces or Streamlit), capped at 100. Every team member gets the same build mark.</p>
+<div class="tablewrap"><table><thead><tr><th>Part</th><th>Points</th></tr></thead><tbody><tr><td>Project build</td><td>60</td></tr><tr><td>Presentation</td><td>10</td></tr><tr><td>Theory exam (Day 3 morning, Days 1–2)</td><td>30</td></tr><tr><td><strong>Total</strong></td><td><strong>100</strong></td></tr><tr><td>Optional deploy bonus (Hugging Face Spaces or Streamlit)</td><td>+5 (total capped at 100)</td></tr></tbody></table></div>
+</div></section><section class="panel brief" id="build-rubric-60"><div><h2>Build rubric (60)</h2>
+<div class="tablewrap"><table><thead><tr><th>Criterion</th><th>Points</th><th>Full marks looks like</th></tr></thead><tbody><tr><td>Use case card</td><td>8</td><td>Specific user, input, output, cost of error, and a measurable success metric</td></tr><tr><td>Trained or fine-tuned model</td><td>14</td><td>Training ran, curves shown, baseline compared, choices justified</td></tr><tr><td>Foundation-model component</td><td>10</td><td>Integrated, not a separate demo; a clear reason why it was needed</td></tr><tr><td>Evaluation</td><td>14</td><td>Separate test set, correct metric, real numbers, threshold chosen deliberately</td></tr><tr><td>Failure analysis + limitations</td><td>10</td><td>5+ failures with causes and a fix attempted; limits stated plainly</td></tr><tr><td>Repo quality</td><td>4</td><td>README with run steps, requirements, no secrets committed</td></tr></tbody></table></div>
+<p><strong>Presentation (10):</strong> clarity 4 · live demo or recorded fallback 3 · answers to questions 3. Five minutes, strict.</p>
+<p>Evidence is weighted heavily on purpose. Numbers, curves and failure images are hard to fake with an AI-written repo.</p>
+</div></section><section class="panel brief" id="deadlines"><div><h2>Deadlines</h2>
+<div class="tablewrap"><table><thead><tr><th>When</th><th>What</th></tr></thead><tbody><tr><td><strong>Day 1 night</strong> (Sun 22 Nov)</td><td>Team formed and project idea submitted on the site (project page → "Team &amp; idea", then paste the exported text in the class group)</td></tr><tr><td><strong>Day 2 night</strong> (Mon 23 Nov)</td><td>GitHub repo exists with a README containing the use case card and the data source</td></tr><tr><td><strong>Day 3 at 2:00</strong> (Tue 24 Nov)</td><td>Final repo pushed; 5-minute presentation</td></tr></tbody></table></div>
+</div></section><section class="panel brief" id="example-project-ideas-pick-one-or-bring-your-own"><div><h2>Example project ideas (pick one or bring your own)</h2>
+<div class="tablewrap"><table><thead><tr><th>#</th><th>Idea</th><th>Trained model (Day 1–2)</th><th>Foundation component (Day 3)</th><th>Metric</th></tr></thead><tbody><tr><td>1</td><td><strong>PPE compliance on a site camera</strong> — flag workers without a helmet or vest</td><td>Fine-tuned detector (RT-DETRv2) on helmet/vest boxes</td><td>Grounding DINO to pre-label new site photos, or to catch items not in the label set</td><td>mAP@0.5, recall on "no helmet"</td></tr><tr><td>2</td><td><strong>Parking occupancy</strong> — count free spaces in a car park</td><td>Classifier on space crops (free/occupied) or a car detector</td><td>CLIP zero-shot as a baseline; SAM to outline irregular spaces</td><td>Accuracy/F1 per space, count error</td></tr><tr><td>3</td><td><strong>Crack detection on walls or roads</strong></td><td>Segmenter (U-Net-style) or crack/no-crack classifier</td><td>SAM to refine crack masks; area measurement</td><td>Mask IoU / Dice, recall</td></tr><tr><td>4</td><td><strong>Date-palm leaf disease</strong></td><td>Transfer-learning classifier (ResNet-18) on leaf photos</td><td>CLIP search to find similar cases; Grounding DINO to crop leaves</td><td>Per-class F1, confusion matrix</td></tr><tr><td>5</td><td><strong>Shelf product counting</strong></td><td>Detector for products or gaps on shelves</td><td>Open-vocabulary detection for new products without retraining</td><td>mAP, count error per shelf</td></tr><tr><td>6</td><td><strong>X-ray image triage</strong> (public dataset only)</td><td>Classifier normal / abnormal with a chosen operating threshold</td><td>DINOv2/CLIP embeddings for few-shot rare classes</td><td>Recall at a fixed precision, PR curve</td></tr><tr><td>7</td><td><strong>Waste sorting</strong> — plastic, paper, metal, glass</td><td>Transfer-learning classifier or detector</td><td>CLIP zero-shot comparison; SAM to isolate items</td><td>Accuracy, confusion matrix</td></tr><tr><td>8</td><td><strong>CLIP-powered photo search for a club archive</strong></td><td>A fine-tuned classifier for the club's own categories (events, teams)</td><td>CLIP text → image and image → image search</td><td>Recall@5 on a labelled query set, classifier F1</td></tr></tbody></table></div>
+<p>Use public data or data you have the right to use. No faces of people who did not agree to it; blur faces if identity is not needed.</p>
+</div></section><section class="panel brief" id="repo-template"><div><h2>Repo template</h2>
+<pre class="tree">your-project/
+├── README.md               # the sections below, in this order
+├── requirements.txt        # pinned versions
+├── data/
+│   └── README.md           # where the data comes from, licence, how to download (do not commit large data)
+├── notebooks/
+│   ├── 01_data.ipynb       # explore, split (train / val / test), check labels
+│   ├── 02_train.ipynb      # baseline + trained/fine-tuned model, curves
+│   ├── 03_foundation.ipynb # the Day 3 component, integrated with the model
+│   └── 04_evaluate.ipynb   # test-set numbers, confusion matrix or PR curve, threshold, failures
+├── src/                    # optional: reusable code (dataset, model, inference)
+├── results/
+│   ├── curves.png
+│   ├── confusion_matrix.png  (or pr_curve.png)
+│   └── failures/           # 5+ failure images
+└── app.py                  # optional deploy bonus (Streamlit or Gradio on HF Spaces)</pre>
+<p><strong>README sections:</strong></p>
+<ol><li><strong>Use case card</strong> — user · input · output · cost of a wrong answer (false positive vs false negative) · success metric and target.</li><li><strong>Data</strong> — source, licence, size, classes, how it was split (by video/location, not by frame), known problems.</li><li><strong>Model</strong> — baseline, what you trained or fine-tuned, key settings, training curves.</li><li><strong>Foundation component</strong> — which model (CLIP, Grounding DINO, SAM, a VLM), what it does in the system, and why it was needed.</li><li><strong>Evaluation</strong> — test-set numbers with the right metric, confusion matrix or PR curve, the operating threshold and why.</li><li><strong>Failure analysis</strong> — at least 5 failure images, each with a cause and a fix tried or proposed.</li><li><strong>Limitations</strong> — where it will not work; what you would need to make it production-ready.</li><li><strong>How to run</strong> — exact steps from a fresh Colab or machine, including how to get the data.</li></ol>
+</div></section><section class="panel brief" id="5-minute-presentation-structure"><div><h2>5-minute presentation structure</h2>
+<div class="tablewrap"><table><thead><tr><th>Time</th><th>Slide(s)</th><th>Content</th></tr></thead><tbody><tr><td>0:00–0:45</td><td>1</td><td>The problem and the use case card: who, input, output, cost of a mistake</td></tr><tr><td>0:45–1:30</td><td>1</td><td>Data: source, size, split, one example image</td></tr><tr><td>1:30–2:30</td><td>1–2</td><td>Model + foundation component: what you trained, what the foundation model adds, why</td></tr><tr><td>2:30–3:30</td><td>1–2</td><td>Numbers: test metric, curve or confusion matrix, chosen threshold</td></tr><tr><td>3:30–4:15</td><td>1</td><td>Failures: two of your five failure images, cause and fix</td></tr><tr><td>4:15–5:00</td><td>1</td><td>Live demo (or recorded fallback) and what's next</td></tr><tr><td>then</td><td>—</td><td>One question from the room (1 minute)</td></tr></tbody></table></div>
+<p>Strict: at 5:00 the next team starts. Record a 60-second demo video in case the live demo fails.</p>
+</div></section><section class="panel brief" id="ai-use-policy"><div><h2>AI-use policy</h2>
+<p>AI tools (ChatGPT, Claude, Copilot and similar) <strong>are allowed</strong> — for code, debugging, writing and ideas. But <strong>every number, curve and failure image must come from your own runs</strong>, in your own notebooks, committed in the repo. If a number in your README cannot be reproduced from your notebooks, it scores zero. You must be able to explain any line of code in your repo when asked.</p></div></section>
+    <section class="panel brief" id="team">
+      <div>
+        <h2>Team &amp; idea</h2>
+        <p>Fill this in on Day 1 night. It saves on this device as you type. Then press <strong>Export as text</strong> and paste the text in the class group so Ice has your team.</p>
+        <form id="team-form" class="tform">
+          <label>Team name <input type="text" name="team" maxlength="60"></label>
+          <label>Member 1 (full name) <input type="text" name="m1" maxlength="80"></label>
+          <label>Member 2 <input type="text" name="m2" maxlength="80"></label>
+          <label>Member 3 (optional) <input type="text" name="m3" maxlength="80"></label>
+          <label>Project idea
+            <select name="idea">
+              <option value="">— choose —</option>
+              <option>PPE compliance on a site camera</option><option>Parking occupancy</option>
+              <option>Crack detection on walls or roads</option><option>Date-palm leaf disease</option>
+              <option>Shelf product counting</option><option>X-ray image triage</option>
+              <option>Waste sorting</option><option>CLIP-powered photo search for a club archive</option>
+              <option>Our own idea (describe below)</option>
+            </select></label>
+          <label class="wide">One-sentence pitch <input type="text" name="pitch" maxlength="200" placeholder="We help … to … by …"></label>
+          <label>User <input type="text" name="user" maxlength="120"></label>
+          <label>Input <input type="text" name="input" maxlength="120" placeholder="e.g. site camera frame"></label>
+          <label>Output <input type="text" name="output" maxlength="120" placeholder="e.g. boxes for people without helmets"></label>
+          <label>Cost of a wrong answer <input type="text" name="cost" maxlength="160" placeholder="false positive vs false negative"></label>
+          <label>Success metric <input type="text" name="metric" maxlength="120" placeholder="e.g. recall ≥ 0.9 at precision 0.7"></label>
+          <label>Data source <input type="text" name="data" maxlength="160"></label>
+          <label>Foundation component <input type="text" name="foundation" maxlength="120" placeholder="CLIP / Grounding DINO / SAM / VLM"></label>
+          <label class="wide">GitHub repo URL <input type="text" name="repo" maxlength="200" placeholder="https://github.com/…"></label>
+        </form>
+        <div class="rowline" style="margin-top:var(--s3)">
+          <button type="button" class="btn" id="export">Export as text</button>
+          <button type="button" class="btn btn--ghost" id="copy">Copy</button>
+          <button type="button" class="btn btn--ghost" id="clear">Clear form</button>
+          <span class="small" id="status" aria-live="polite"></span>
+        </div>
+        <textarea id="out" class="hidden" rows="14" readonly></textarea>
+      </div>
+    </section>
       </div>
     </section>
 
@@ -59,6 +153,48 @@
       </span>
     </div>
   </footer>
-
+  <script src="../assets/store.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      var form = document.getElementById('team-form'), out = document.getElementById('out'), status = document.getElementById('status');
+      var KEY = 'project-team', saved = Store.get(KEY, {});
+      Array.prototype.forEach.call(form.elements, function (el) { if (el.name && saved[el.name]) el.value = saved[el.name]; });
+      form.addEventListener('input', function () {
+        var data = {};
+        Array.prototype.forEach.call(form.elements, function (el) { if (el.name) data[el.name] = el.value.trim(); });
+        Store.set(KEY, data);
+        status.textContent = 'Saved on this device';
+      });
+      function text() {
+        var d = Store.get(KEY, {}), L = [];
+        L.push('PROJECT TEAM — Computer Vision for Developers');
+        L.push('Team: ' + (d.team || ''));
+        L.push('Members: ' + [d.m1, d.m2, d.m3].filter(Boolean).join(', '));
+        L.push('Idea: ' + (d.idea || ''));
+        L.push('Pitch: ' + (d.pitch || ''));
+        L.push('Use case card — user: ' + (d.user || '') + ' | input: ' + (d.input || '') + ' | output: ' + (d.output || ''));
+        L.push('Cost of a wrong answer: ' + (d.cost || ''));
+        L.push('Success metric: ' + (d.metric || ''));
+        L.push('Data source: ' + (d.data || ''));
+        L.push('Foundation component: ' + (d.foundation || ''));
+        L.push('Repo: ' + (d.repo || ''));
+        return L.join('\n');
+      }
+      document.getElementById('export').addEventListener('click', function () {
+        out.value = text(); out.classList.remove('hidden'); out.focus(); out.select();
+      });
+      document.getElementById('copy').addEventListener('click', function () {
+        out.value = text(); out.classList.remove('hidden'); out.select();
+        function ok() { status.textContent = 'Copied — paste it in the class group'; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(out.value).then(ok, function () { document.execCommand('copy'); ok(); });
+        } else { document.execCommand('copy'); ok(); }
+      });
+      document.getElementById('clear').addEventListener('click', function () {
+        if (window.confirm('Clear the team form on this device?')) { form.reset(); Store.remove(KEY); out.classList.add('hidden'); status.textContent = 'Cleared'; }
+      });
+    })();
+  </script>
 </body>
 </html>
