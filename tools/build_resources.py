@@ -105,7 +105,7 @@ def main():
         <div class="res-group">
           <h2>Course material</h2>
           <div class="quick">
-            <a href="../slides/day1.html">Day 1 slides</a><a href="../slides/day2.html">Day 2 slides</a><a href="../slides/day3.html">Day 3 slides</a>
+            <a href="../slides/day1.html">Day 1 slides</a><a href="../slides/day2.html">Day 2 slides</a><a href="../slides/day3.html">Day 3 slides</a><a href="../slides_pdf/Day1_From_pixels_to_features.pdf">Day 1 PDF ↓</a><a href="../slides_pdf/Day2_Detection_segmentation_tracking.pdf">Day 2 PDF ↓</a><a href="../slides_pdf/Day3_Seeing_beyond_labels.pdf">Day 3 PDF ↓</a>
             <a href="../notebooks/index.html">Labs (Colab)</a><a href="../activities/index.html">Activities</a><a href="../project/index.html">Project brief</a>
           </div>
         </div>

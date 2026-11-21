@@ -11,6 +11,7 @@ Every page works from disk and from GitHub Pages.
 |---|---|
 | `index.html` | Home: pre-test, the three days, project, resources, progress |
 | `slides/` | Day 1–3 decks (arrow keys, **P** notes, **F** fullscreen, Print to PDF) |
+| `slides_pdf/` | PDF copies of the three decks (one slide per page, no notes) |
 | `notebooks/` | 7 Colab labs × solved/unsolved, and `weights/` for the Lab 1B escape cells |
 | `activities/` | 9 browser activities + printable THIS/THAT signs |
 | `assessment/` | Pre-test, post-test, theory exam |
@@ -29,6 +30,7 @@ python tools/build_project.py        # content/project-brief.md → project/inde
 python tools/build_assessments.py    # tools/assess/items.py   → assessment/questions.js, keys.js, content/assessments.md
 python tools/build_test_pages.py     # assessment/*.html
 python tools/build_resources.py      # resources/index.html (glossary from the definition slides)
+python tools/export_pdfs.py          # slides/dayN.html → slides_pdf/*.pdf (re-run after rebuilding decks)
 ```
 
 ## Checks
