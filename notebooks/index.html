@@ -9,7 +9,27 @@
   <link rel="stylesheet" href="../assets/site.css">
 
   <style>
-
+    .daygroup { margin-bottom: var(--s5); }
+    .daygroup > h2 { margin-bottom: var(--s3); }
+    .labgrid { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+    .lab { display: flex; flex-direction: column; overflow: hidden; }
+    .lab__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); padding: var(--s3) var(--s4); color: #fff; background: var(--teal); }
+    .lab--d2 .lab__head { background: var(--ink); }
+    .lab--d3 .lab__head { background: var(--teal-bright); color: var(--ink); }
+    .lab__id { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; line-height: 1; }
+    .lab__when { font-size: 0.72rem; font-weight: 700; letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+    .lab__body { padding: var(--s4); flex: 1 1 auto; }
+    .lab__body h3 { font-family: var(--font-display); font-size: 1.3rem; margin: 0 0 var(--s2); }
+    .lab__body p { color: var(--text-muted); font-size: var(--fs-small); margin: 0 0 var(--s2); }
+    .lab__libs { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); }
+    .lab__foot { display: grid; gap: var(--s2); padding: var(--s3) var(--s4); border-top: 1px solid var(--border); background: var(--card-2); }
+    .lab__btns { display: flex; flex-wrap: wrap; gap: var(--s2); }
+    .colab { display: inline-flex; align-items: center; border-radius: 6px; overflow: hidden; text-decoration: none; font-size: 0.8rem; font-weight: 700; border: 1px solid #b98600; white-space: nowrap; }
+    .colab span:first-child { background: #4a4d52; color: #fff; padding: 5px 8px; }
+    .colab span:last-child { background: #f9ab00; color: #1a1c1f; padding: 5px 9px; }
+    .colab:hover span:last-child { background: #ffbe1a; }
+    .lab__dl { font-size: 0.8rem; }
+    .note { border-left: 5px solid var(--amber); background: rgba(240,160,60,.12); padding: var(--s4); border-radius: var(--radius-sm); margin-bottom: var(--s5); }
   </style>
 </head>
 <body>
@@ -34,14 +54,133 @@
         <a class="back" href="../index.html">← Course home</a>
         <p class="eyebrow">SDAIA Academy · Computer Vision for Developers</p>
         <h1>The labs</h1>
-        <p>Seven Colab labs. Each comes as an <em>unsolved</em> version with one-line TODOs and checks that print ✅, and a <em>solved</em> version. Open in Colab, switch the runtime to a T4 GPU, and run top to bottom.</p>
+        <p>Seven Colab labs, each in an <em>unsolved</em> version (one-line TODOs with checks) and a <em>solved</em> version. Labs 1A, 1B, 2A and 2B are done in class and finished at night; 2C is optional; 3A and 3B are your portfolio pieces after the course.</p>
       </div>
     </section>
 
     <section class="section--tight">
       <div class="container">
-        <div id="day1"></div><div id="day2"></div><div id="day3"></div>
-        <div class="card" style="padding:var(--s4)"><p class="muted">The lab cards are added here as each notebook is published.</p></div>
+        <div class="note"><strong>How to start a lab:</strong> click <em>Open unsolved in Colab</em>, then <em>Runtime → Change runtime type → T4 GPU</em>, then run the cells top to bottom. Every TODO is one line and is checked by the cell below it (✅ or a hint). Stuck for five minutes? Open the solved version and compare. Colab forgets files between sessions, so re-run from the top when you come back.</div>
+        <div class="daygroup" id="day1">
+          <h2>Day 1 · From pixels to features</h2>
+          <div class="labgrid">
+          <article class="card lab lab--d1">
+            <div class="lab__head"><span class="lab__id">1A</span><span class="lab__when">Day 1 · B3 (finish tonight)</span></div>
+            <div class="lab__body">
+              <h3>Images as arrays</h3>
+              <p>Read an image as an array (shape, dtype, channels), fix the BGR bug, crop by slicing, threshold with a histogram, and write convolution by hand — then check it against OpenCV.</p>
+              <p class="lab__libs">NumPy, OpenCV, Pillow, scikit-image, Matplotlib</p>
+            </div>
+            <div class="lab__foot">
+              <div class="lab__btns">
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_1A_unsolved.ipynb" target="_blank" rel="noopener"><span>Open unsolved in</span><span>Colab</span></a>
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_1A_solved.ipynb" target="_blank" rel="noopener"><span>Open solved in</span><span>Colab</span></a>
+              </div>
+              <span class="lab__dl">Download: <a href="./Lab_1A_unsolved.ipynb" download>unsolved .ipynb</a> · <a href="./Lab_1A_solved.ipynb" download>solved .ipynb</a></span>
+            </div>
+          </article>
+          <article class="card lab lab--d1">
+            <div class="lab__head"><span class="lab__id">1B</span><span class="lab__when">Day 1 · B5 (finish tonight)</span></div>
+            <div class="lab__body">
+              <h3>Your first CNN</h3>
+              <p>Train an MLP baseline and a small CNN on CIFAR-10, trace shapes layer by layer, add augmentation and dropout, read the curves and the confusion matrix, then compare with a pretrained ResNet-18.</p>
+              <p class="lab__libs">PyTorch, torchvision, scikit-learn, Matplotlib</p>
+            </div>
+            <div class="lab__foot">
+              <div class="lab__btns">
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_1B_unsolved.ipynb" target="_blank" rel="noopener"><span>Open unsolved in</span><span>Colab</span></a>
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_1B_solved.ipynb" target="_blank" rel="noopener"><span>Open solved in</span><span>Colab</span></a>
+              </div>
+              <span class="lab__dl">Download: <a href="./Lab_1B_unsolved.ipynb" download>unsolved .ipynb</a> · <a href="./Lab_1B_solved.ipynb" download>solved .ipynb</a></span>
+            </div>
+          </article>
+          </div>
+        </div>
+        <div class="daygroup" id="day2">
+          <h2>Day 2 · Where is it, what shape is it, where is it going?</h2>
+          <div class="labgrid">
+          <article class="card lab lab--d2">
+            <div class="lab__head"><span class="lab__id">2A</span><span class="lab__when">Day 2 · B2 + B4</span></div>
+            <div class="lab__body">
+              <h3>Detection by hand</h3>
+              <p>Write IoU and NMS yourself and match torchvision.ops, compute precision, recall and AP by hand (≈ 0.68 on the slide example), then run Faster R-CNN, Mask R-CNN and Keypoint R-CNN and read their outputs field by field.</p>
+              <p class="lab__libs">NumPy, torchvision.ops, torchvision detection models</p>
+            </div>
+            <div class="lab__foot">
+              <div class="lab__btns">
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_2A_unsolved.ipynb" target="_blank" rel="noopener"><span>Open unsolved in</span><span>Colab</span></a>
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_2A_solved.ipynb" target="_blank" rel="noopener"><span>Open solved in</span><span>Colab</span></a>
+              </div>
+              <span class="lab__dl">Download: <a href="./Lab_2A_unsolved.ipynb" download>unsolved .ipynb</a> · <a href="./Lab_2A_solved.ipynb" download>solved .ipynb</a></span>
+            </div>
+          </article>
+          <article class="card lab lab--d2">
+            <div class="lab__head"><span class="lab__id">2B</span><span class="lab__when">Day 2 · B5 (finish tonight)</span></div>
+            <div class="lab__body">
+              <h3>Fine-tune and track</h3>
+              <p>Fine-tune RT-DETRv2 on the CPPE-5 protective-equipment dataset for a few minutes, measure validation mAP, look at a failure gallery, then track and count vehicles in a video with ByteTrack and a counting line.</p>
+              <p class="lab__libs">transformers (RT-DETRv2), datasets, torchmetrics, supervision, trackers</p>
+            </div>
+            <div class="lab__foot">
+              <div class="lab__btns">
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_2B_unsolved.ipynb" target="_blank" rel="noopener"><span>Open unsolved in</span><span>Colab</span></a>
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_2B_solved.ipynb" target="_blank" rel="noopener"><span>Open solved in</span><span>Colab</span></a>
+              </div>
+              <span class="lab__dl">Download: <a href="./Lab_2B_unsolved.ipynb" download>unsolved .ipynb</a> · <a href="./Lab_2B_solved.ipynb" download>solved .ipynb</a></span>
+            </div>
+          </article>
+          <article class="card lab lab--d2">
+            <div class="lab__head"><span class="lab__id">2C</span><span class="lab__when">Day 2 · self-paced / tonight (optional)</span></div>
+            <div class="lab__body">
+              <h3>Ultralytics for beginners</h3>
+              <p>Do the Day 2 ideas in a few lines with YOLO26: predict, read the results, track a video, train on a tiny dataset and prompt YOLOE-26 with text — then see what the library hid from you.</p>
+              <p class="lab__libs">ultralytics (YOLO26, YOLOE-26)</p>
+            </div>
+            <div class="lab__foot">
+              <div class="lab__btns">
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_2C_unsolved.ipynb" target="_blank" rel="noopener"><span>Open unsolved in</span><span>Colab</span></a>
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_2C_solved.ipynb" target="_blank" rel="noopener"><span>Open solved in</span><span>Colab</span></a>
+              </div>
+              <span class="lab__dl">Download: <a href="./Lab_2C_unsolved.ipynb" download>unsolved .ipynb</a> · <a href="./Lab_2C_solved.ipynb" download>solved .ipynb</a></span>
+            </div>
+          </article>
+          </div>
+        </div>
+        <div class="daygroup" id="day3">
+          <h2>Day 3 · Seeing beyond labels</h2>
+          <div class="labgrid">
+          <article class="card lab lab--d3">
+            <div class="lab__head"><span class="lab__id">3A</span><span class="lab__when">Day 3 · B4 (finish at home)</span></div>
+            <div class="lab__body">
+              <h3>CLIP: zero-shot and search</h3>
+              <p>Embed images and text with CLIP, classify 300 photos with zero training, see how prompt wording changes accuracy, and build text → image and image → image search.</p>
+              <p class="lab__libs">transformers (CLIP), datasets, huggingface_hub</p>
+            </div>
+            <div class="lab__foot">
+              <div class="lab__btns">
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_3A_unsolved.ipynb" target="_blank" rel="noopener"><span>Open unsolved in</span><span>Colab</span></a>
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_3A_solved.ipynb" target="_blank" rel="noopener"><span>Open solved in</span><span>Colab</span></a>
+              </div>
+              <span class="lab__dl">Download: <a href="./Lab_3A_unsolved.ipynb" download>unsolved .ipynb</a> · <a href="./Lab_3A_solved.ipynb" download>solved .ipynb</a></span>
+            </div>
+          </article>
+          <article class="card lab lab--d3">
+            <div class="lab__head"><span class="lab__id">3B</span><span class="lab__when">Day 3 · take-home (portfolio)</span></div>
+            <div class="lab__body">
+              <h3>Open-vocabulary toolbox</h3>
+              <p>Detect anything you can name with Grounding DINO, turn the boxes into exact masks with SAM and measure their area, estimate depth from one photo with Depth Anything V2, then find three prompts that break it.</p>
+              <p class="lab__libs">transformers (Grounding DINO, SAM, Depth Anything V2)</p>
+            </div>
+            <div class="lab__foot">
+              <div class="lab__btns">
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_3B_unsolved.ipynb" target="_blank" rel="noopener"><span>Open unsolved in</span><span>Colab</span></a>
+                <a class="colab" href="https://colab.research.google.com/github/mibnrashid/SDAIA_ComputerVision/blob/main/notebooks/Lab_3B_solved.ipynb" target="_blank" rel="noopener"><span>Open solved in</span><span>Colab</span></a>
+              </div>
+              <span class="lab__dl">Download: <a href="./Lab_3B_unsolved.ipynb" download>unsolved .ipynb</a> · <a href="./Lab_3B_solved.ipynb" download>solved .ipynb</a></span>
+            </div>
+          </article>
+          </div>
+        </div>
       </div>
     </section>
 
