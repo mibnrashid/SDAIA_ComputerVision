@@ -62,9 +62,72 @@
     window.addEventListener('resize', function () { self.fit(); });
     window.addEventListener('orientationchange', function () { self.fit(); });
 
+    this.fitAll();
     this.go(this.indexFromHash(), { replaceHash: true });
     this.fit();
+
+    if (window.location.search.indexOf('measure') !== -1) this.measure();
   }
+
+  /* ---- Fit every slide to the canvas ----------------------
+     Slides built by tools/build_decks.py size everything inside
+     .slide__body in em. If a slide's content is taller or wider than
+     its body, shrink the body's font-size in small steps until it fits.
+     Nothing on a slide may overflow 1280 x 720. */
+  var FIT_MAX = 26, FIT_MIN = 12, FIT_STEP = 0.5;
+
+  Deck.prototype.fitAll = function () {
+    var self = this;
+    this.fitReport = [];
+    this.slides.forEach(function (slide, i) {
+      var body = slide.querySelector('.slide__body');
+      if (!body) return;
+      var wasActive = slide.classList.contains('is-active');
+      slide.classList.add('is-active');
+      var size = FIT_MAX;
+      body.style.fontSize = size + 'px';
+      while (self.overflows(body) && size > FIT_MIN) {
+        size -= FIT_STEP;
+        body.style.fontSize = size + 'px';
+      }
+      if (!wasActive) slide.classList.remove('is-active');
+      self.fitReport.push({ n: i + 1, id: slide.getAttribute('data-id'), size: size,
+                            overflow: false });
+    });
+  };
+
+  Deck.prototype.overflows = function (body) {
+    return body.scrollHeight > body.clientHeight + 1 || body.scrollWidth > body.clientWidth + 1;
+  };
+
+  /* ?measure — headless self-test. Writes a JSON report into the page
+     so `chrome --headless --dump-dom` can read it. */
+  Deck.prototype.measure = function () {
+    var self = this;
+    var report = { slides: this.slides.length, total: parseInt(this.deck.getAttribute('data-total') || '0', 10),
+                   overflow: [], shrunk: [], keys: {}, notes: {}, print: {} };
+    this.slides.forEach(function (slide, i) {
+      var body = slide.querySelector('.slide__body');
+      slide.classList.add('is-active');
+      var r = self.fitReport[i] || {};
+      if (body && self.overflows(body)) report.overflow.push(r.id || i + 1);
+      if (r.size && r.size < FIT_MAX) report.shrunk.push((r.id || i + 1) + '@' + r.size);
+      slide.classList.remove('is-active');
+    });
+    this.go(0);
+    function key(k) { document.dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true })); }
+    key('ArrowRight'); report.keys.right = this.index === 1;
+    key('ArrowLeft'); report.keys.left = this.index === 0;
+    key('End'); report.keys.end = this.index === this.slides.length - 1;
+    key('Home'); report.keys.home = this.index === 0;
+    key('p'); report.notes.open = !this.notesPanel.hidden && this.notesBody.textContent.length > 0;
+    key('p'); report.notes.closed = this.notesPanel.hidden;
+    report.print.button = !!this.printBtn && typeof window.print === 'function';
+    var pre = document.createElement('pre');
+    pre.id = 'measure-report';
+    pre.textContent = JSON.stringify(report);
+    document.body.appendChild(pre);
+  };
 
   /* ---- Structure ------------------------------------------ */
 
