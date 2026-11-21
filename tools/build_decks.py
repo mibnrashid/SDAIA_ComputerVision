@@ -24,7 +24,7 @@ TITLES = {1: 'From pixels to features',
 DATES = {1: 'Sunday 22 November 2026', 2: 'Monday 23 November 2026', 3: 'Tuesday 24 November 2026'}
 
 ACTIVITY_LINKS = {
-    'This or That': ('../activities/index.html', 'Icebreaker'),
+    'Introductions': (None, 'Icebreaker'),
     'Pixel Detective': ('../activities/pixel-detective.html', 'Activity'),
     'Be the Kernel': ('../activities/be-the-kernel.html', 'Activity'),
     'Shape Race': ('../activities/shape-race.html', 'Activity'),
@@ -440,7 +440,9 @@ def lay_activity(s, day):
     if name and name in segs:
         out += f'<h3>{esc(name)}</h3>'
     out += blist(rest, 'act-list') if rest else ''
-    out += f'<a class="act-go" href="{href}">Open {esc(name or "activities")} →</a></div>'
+    if href:
+        out += f'<a class="act-go" href="{href}">Open {esc(name or "activities")} →</a>'
+    out += '</div>'
     return out
 
 

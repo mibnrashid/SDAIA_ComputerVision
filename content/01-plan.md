@@ -79,7 +79,7 @@ Contracted hours are 9–3. [STRETCH] blocks are written in the deck as normal s
 
 | Block | Content | Ladder |
 |---|---|---|
-| B1 | Welcome and about me (5) · **Icebreaker: This or That** (20) · **Pre-test** (15) · Course map + project brief walkthrough (10) | — |
+| B1 | Welcome and about me (5) · **Introductions round** (20) · **Pre-test** (15) · Course map + project brief walkthrough (10) | — |
 | B2 | **Act 1** The seeing problem (12) · **Act 2** Images are just numbers (20) · **Activity: Pixel Detective** (10) · Act 3 opens (8) | Floor |
 | B3 | **Act 3** Classical image processing (15) · **Activity: Be the Kernel** (10) · **Lab 1A launch**: run to the end of "convolution by hand" (20) | Floor → Climb |
 | B4 | **Act 4** Learning from data, the MLP and why it fails (15) · **Act 5** The CNN (27) · **Activity: Shape Race** (8) | Climb |
@@ -176,20 +176,14 @@ Cell-by-cell specs (pre-written vs TODO, expected output, what will break) go in
 
 All the data is bundled as JSON, with no model running in the browser and no network. Day 3's CLIP scores are pre-computed offline and shipped as JSON.
 
-## Icebreaker (Day 1, 20 min): "This or That"
+## Icebreaker (Day 1, 20 min): introductions round
 
-Nothing to do with CV. Both walls of the room are labelled with sheets reading **THIS** and **THAT**. You read a pair, and everyone walks to a side. Rounds:
-1. Kabsa or mandi
-2. Early bird or night owl
-3. Beach or desert camping
-4. Call or voice note
-5. Tea or coffee
-6. Window or aisle
-7. Messi or Ronaldo (this one films loud)
+Nothing to print. Everyone introduces themselves in about 30 seconds:
+1. Name
+2. Major, university and year
+3. Where they are in tech: what they have built or worked on before (a project, an internship, a job, a course)
 
-After every second round, you pick one person from each side to defend their choice in 15 seconds.
-
-**Finale, "Find your twin":** everyone finds the person who matched them on the most rounds, then introduces that person by name, uni and major. Students talk to each other and to you, it gets everyone moving and laughing, and needs no skill. It also seeds team formation for the project.
+Musa goes first to set the length and tone. Point out shared interests as you go; they seed project teams.
 
 ---
 

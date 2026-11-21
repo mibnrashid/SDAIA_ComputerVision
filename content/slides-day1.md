@@ -24,8 +24,8 @@ Notes: Keep it to thirty seconds. The point is that I build this stuff, not only
 
 ### 1.03 · Let's meet each other first
 Type: activity
-Screen: This or That · Walk to the wall that matches you · No wrong answers · Be ready to defend your side in 15 seconds
-Notes: Run the icebreaker now (activities-spec.md). Twenty minutes, including the "find your twin" finale.
+Screen: Introductions · Your name · Major, university and year · Where you are in tech: what you have built or worked on · About 30 seconds each
+Notes: Go first so they hear the length: name, major, university, year, what you work on. Then go around the room, about 30 seconds each. Note shared interests out loud; they are the first hint for project teams.
 
 ### 1.04 · Before we start: the pre-test
 Type: activity
@@ -55,7 +55,7 @@ Notes: Goals 5 and 6 are what the exam tests hardest.
 ### 1.09 · The course project
 Type: cards
 Screen: A vision system for a real problem · Teams of 2–3 · GitHub repo · Built at night · 5-minute presentation on Day 3 · Brief and rubric are on the site now
-Notes: Show the project page for two minutes. Ask them to form teams by the end of the day; the icebreaker twins are a good start.
+Notes: Show the project page for two minutes. Ask them to form teams by the end of the day; people who mentioned similar work in the introductions are a good start.
 
 ### 1.10 · How you are graded
 Type: table

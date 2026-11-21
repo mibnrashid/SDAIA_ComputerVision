@@ -1,6 +1,6 @@
 # Activities spec
 
-Nine browser activities plus the Day 1 icebreaker. Built by `tools/build_activities.py` into `activities/`.
+Nine browser activities plus the Day 1 introductions round. Built by `tools/build_activities.py` into `activities/`.
 
 ## Rules every activity follows
 
@@ -84,22 +84,15 @@ Five snippets; click the buggy line; the fix and explanation appear.
 - **Data:** 12 cards, each a short real failure story with a small SVG icon. Types: out-of-distribution (cat/dog model on a car; factory camera moved; night rain), typographic attack (iPod apple; "dog" T-shirt), counting/spatial (three vs five apples; dog left of cat), bias/shortcut (husky on snow; scanner text marker; face recognition on darker skin), hallucination (green banana → "yellow"; invented cutlery).
 - **Score:** 1 per correct label. **12**. The explanation appears after each answer.
 
-## Icebreaker run-sheet: "This or That" (Day 1, B1, 20 min)
+## Icebreaker run-sheet: introductions (Day 1, B1, 20 min)
 
-**Before class:** print `activities/print-signs.html` (two A4 landscape pages). Tape **THIS** on the left wall and **THAT** on the right wall. Clear a walking lane.
+Nothing to print or set up. Slide 1.03 shows the three prompts.
 
 | Time | What happens |
 |---|---|
-| 0:00 | "Stand up. I read a pair. Walk to THIS for the first, THAT for the second. No middle. No wrong answers." |
-| 0:01 | Round 1 · **Kabsa** (THIS) or **mandi** (THAT) |
-| 0:03 | Round 2 · **Early bird** or **night owl** → pick one person from each side to defend their choice in 15 seconds |
-| 0:06 | Round 3 · **Beach** or **desert camping** |
-| 0:08 | Round 4 · **Call** or **voice note** → defend, 15 s each |
-| 0:11 | Round 5 · **Tea** or **coffee** |
-| 0:13 | Round 6 · **Window** or **aisle** → defend, 15 s each |
-| 0:15 | Round 7 · **Messi** or **Ronaldo** (this one films loud — let it be loud) |
-| 0:16 | **Finale, "Find your twin":** everyone finds the person who matched them on the most rounds (they compare answers). |
-| 0:17 | Each pair introduces **the other person**: name, university, major. Keep it to ~15 s per person. |
-| 0:20 | "Your twin is a good first teammate for the project." Sit down; open the pre-test. |
+| 0:00 | Musa introduces himself first, in about 30 seconds, using the same three prompts. |
+| 0:01 | Go around the room in seating order. Each person: **name** · **major, university and year** · **where they are in tech: what they have built or worked on before**. |
+| 0:16 | Point out two or three shared interests you heard ("you two both did robotics"), as a first hint for project teams. |
+| 0:20 | Open the pre-test. |
 
-**Tips:** read each pair once, loudly; count down "3, 2, 1, walk". If the room is small, use the two ends of the room instead of walls. Note who talks easily — useful for the presentation order on Day 3.
+**Tips:** keep a gentle 30-second pace; if someone has not worked on anything yet, ask what they would like to build. With more than 25 students, cut it to name, major and one thing they have worked on.

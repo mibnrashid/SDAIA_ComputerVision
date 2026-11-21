@@ -13,7 +13,7 @@ Every page works from disk and from GitHub Pages.
 | `slides/` | Day 1–3 decks (arrow keys, **P** notes, **F** fullscreen, Print to PDF) |
 | `slides_pdf/` | PDF copies of the three decks (one slide per page, no notes) |
 | `notebooks/` | 7 Colab labs × solved/unsolved, and `weights/` for the Lab 1B escape cells |
-| `activities/` | 9 browser activities + printable THIS/THAT signs |
+| `activities/` | 9 browser activities |
 | `assessment/` | Pre-test, post-test, theory exam |
 | `project/` | Project brief, rubric and the Team & idea form |
 | `resources/` | Docs links, datasets, "Go deeper", glossary |
