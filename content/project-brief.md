@@ -1,8 +1,8 @@
 # Project brief — A vision system for a real problem
 
-Computer Vision for Developers · SDAIA Academy · 22–24 November 2026
+Computer Vision for Developers · Musa Ibn Rashid · SDAIA Academy · 22–24 November 2026
 
-**Brief: "A vision system for a real problem."** Teams of 2–3 (about 7 teams). The deliverable is a GitHub repo, built at night and presented Day 3 at 2:00.
+Teams of 2–3 (about 7 teams). The deliverable is a GitHub repo, built at night and presented on Day 3 at 2:00.
 
 ## Must include
 
@@ -15,7 +15,7 @@ Computer Vision for Developers · SDAIA Academy · 22–24 November 2026
 
 ## Grading (course total 100)
 
-**Grading (course total 100):** build 60 · presentation 10 · theory exam 30 · optional deploy +5 (Hugging Face Spaces or Streamlit), capped at 100. Every team member gets the same build mark.
+Every team member gets the same build mark. The deploy bonus can raise a total to 100 but not above it.
 
 | Part | Points |
 |---|---|
@@ -38,7 +38,7 @@ Computer Vision for Developers · SDAIA Academy · 22–24 November 2026
 
 **Presentation (10):** clarity 4 · live demo or recorded fallback 3 · answers to questions 3. Five minutes, strict.
 
-Evidence is weighted heavily on purpose. Numbers, curves and failure images are hard to fake with an AI-written repo.
+Evaluation and failure analysis carry 24 of the 60 build points, because they show the model was really trained and tested.
 
 ## Deadlines
 

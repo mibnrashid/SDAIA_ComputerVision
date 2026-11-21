@@ -1,6 +1,7 @@
-# Computer Vision for Developers · SDAIA Academy
+# Computer Vision for Developers
 
-Course site for the three-day course (22–24 November 2026, instructor Musa Ibn Rashid).
+A three-day course designed and taught by **Musa Ibn Rashid**, delivered at SDAIA Academy, 22–24 November 2026.
+The slides, labs, activities, assessments and project brief in this repository are his work.
 Live site: https://mibnrashid.github.io/SDAIA_ComputerVision/
 
 Plain HTML, CSS and vanilla JavaScript — no build step to serve it, no CDN, no web fonts, no network assets.
@@ -41,3 +42,5 @@ python tools/browser_check.py        # every page opened headless: zero console 
 ```
 
 Before class, see `content/RUN-BEFORE-CLASS.md`.
+
+© 2026 Musa Ibn Rashid. All rights reserved. SDAIA and SDAIA Academy logos belong to their owners.

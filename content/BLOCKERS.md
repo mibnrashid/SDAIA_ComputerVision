@@ -21,7 +21,7 @@ Nothing blocked.
 - **Network on the build machine was flaky** (intermittent DNS failures for cs.toronto.edu, download.pytorch.org,
   media.roboflow.com, PyPI). Cells that depend on those downloads in 1B, 2A and 2B could not always be executed
   here. Their code paths were checked where the download succeeded (2A's IoU/NMS/AP sections, 2B's dataset,
-  processor, post-processing, mAP and tracker set-up). **Ice must run 1B, 2A and 2B on a Colab T4 before class** —
+  processor, post-processing, mAP and tracker set-up). **Musa must run 1B, 2A and 2B on a Colab T4 before class** —
   see "Run before class" in `content/notebooks-spec.md` and `content/RUN-BEFORE-CLASS.md`.
 - **Lab 2B timing** (8 epochs of RT-DETRv2-R18 at 480 px ≈ 5 min on a T4) is an estimate; confirm on Colab.
 - **Colab links** only work once the repo is public and pushed (they point at `main`).
@@ -31,7 +31,7 @@ Nothing blocked.
 - All nine activities and `print-signs.html` load from disk with zero console errors; best scores persist across
   reloads (verified headless: a saved score appears on the activity page, the hub and the home progress list);
   every page has Team, Projector mode and Reset best.
-- **Zero-Shot Showdown needs Ice:** run `tools/precompute_clip.py` once in Colab (instructions on the page and in
+- **Zero-Shot Showdown needs Musa:** run `tools/precompute_clip.py` once in Colab (instructions on the page and in
   `content/RUN-BEFORE-CLASS.md`). Until then the page correctly shows "Teacher setup needed" — no scores are invented.
 
 ## Prompt 9 — resources and final QA
@@ -46,4 +46,13 @@ Nothing blocked.
   `python tools/train_1b_weights.py` once in Colab on a T4 (~10 min), then commit `notebooks/weights/`.
 - **Lab 1B and Lab 2B were not executed end to end here** (network + no GPU). A Windows-only issue was found and fixed in
   2B (Trainer dataloader workers set to 0 on Windows). Run both on a Colab T4 before class.
-- **GitHub Pages** must be enabled by Ice: Settings → Pages → main / root.
+- **GitHub Pages** must be enabled by Musa: Settings → Pages → main / root.
+
+## Update · 21 November
+
+- **GitHub Pages is on** and the live site returns 200.
+- **Zero-Shot Showdown: done.** `tools/precompute_clip.py` ran with real CLIP scores (scenes rendered with headless
+  Chrome, since cairosvg cannot load its DLL on Windows). `activities/data/showdown.json` / `.js` are committed.
+- **Lab 2A:** ran end to end on CPU; the only error was a dropped Mask R-CNN weight download (network), since retried
+  successfully. Re-run on Colab to see the detector images.
+- Still open: Lab 1B weights (training in progress on CPU at the time of writing) and a Colab T4 timing run of 1B and 2B.

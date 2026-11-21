@@ -142,7 +142,7 @@ Update `notebooks/index.html` with one card per lab: title, a one-line goal, whi
 - 14 notebooks, all valid JSON (`python -c "import nbformat; nbformat.read(...)"` on each).
 - Every unsolved notebook contains `# TODO` and the solved one has none.
 - Cell order matches the spec.
-- You cannot run on a GPU here, so mark in `content/notebooks-spec.md` the cells Ice must check by running on Colab, listed first under "Run before class".
+- You cannot run on a GPU here, so mark in `content/notebooks-spec.md` the cells Musa must check by running on Colab, listed first under "Run before class".
 
 ---
 
@@ -156,7 +156,7 @@ Write the spec, then build each page in `activities/`. All data is bundled as in
 4. **IoU Darts (Day 2):** drag a box over a fixed ground-truth box to hit a target IoU (0.3, 0.5, 0.75, 0.9). Score = closeness.
 5. **Be NMS (Day 2):** 6–10 overlapping scored boxes over 2–3 objects. The player clicks boxes to keep in the right order at IoU 0.5. Show the correct NMS sequence after each round.
 6. **Threshold Tycoon (Day 2):** for 3 businesses (airport security, shop people-counting, clinic screening), a slider for the confidence threshold over a bundled list of 40 predictions with labels. Live precision and recall. Score = hidden cost (FP cost and FN cost differ per business). Reveal the optimum.
-7. **Zero-Shot Showdown (Day 3):** 10 simple SVG scenes you draw. For each, 4 captions. Players pick the caption a CLIP model would rank highest. Create `tools/precompute_clip.py`: Ice runs it once in Colab, it renders the same SVGs to PNG, runs `openai/clip-vit-base-patch32`, and writes `activities/data/showdown.json`. Until that file exists, the page shows "Teacher setup needed" with instructions; do not invent scores.
+7. **Zero-Shot Showdown (Day 3):** 10 simple SVG scenes you draw. For each, 4 captions. Players pick the caption a CLIP model would rank highest. Create `tools/precompute_clip.py`: Musa runs it once in Colab, it renders the same SVGs to PNG, runs `openai/clip-vit-base-patch32`, and writes `activities/data/showdown.json`. Until that file exists, the page shows "Teacher setup needed" with instructions; do not invent scores.
 8. **Fool the Model (Day 3):** 12 cards (text plus a simple SVG), each describing a real model failure. Players label its type: out-of-distribution, typographic attack, counting/spatial, bias/shortcut, or hallucination. Explanations appear after answering.
 9. **Spot the Bug (Day 1, STRETCH):** 5 short code snippets (BGR shown as RGB, uint8 overflow, `img[x1:x2, y1:y2]`, missing `model.eval()`, tuning on the test set). Click the buggy line, then see the fix.
 
@@ -222,7 +222,7 @@ Build `assessment/pretest.html`, `posttest.html` and `exam.html`:
 - One question per screen, with a progress bar.
 - Name field.
 - Answers saved to localStorage.
-- At the end: the score, plus a "copy results" button that copies the name, score and answer string for Ice.
+- At the end: the score, plus a "copy results" button that copies the name, score and answer string for Musa.
 - The exam hides explanations. The pre-test and post-test show them only after submission.
 - The answer key is stored obfuscated (base64 is fine) in a separate JS file, not as plain text in the HTML.
 
@@ -251,6 +251,6 @@ Then do full QA:
 
 Fix everything that fails.
 
-Write `content/RUN-BEFORE-CLASS.md`: a short checklist for Ice covering which notebooks to run on Colab first, running `tools/precompute_clip.py`, printing signs, enabling GitHub Pages (Settings → Pages → main / root), and testing the live URL.
+Write `content/RUN-BEFORE-CLASS.md`: a short checklist for Musa covering which notebooks to run on Colab first, running `tools/precompute_clip.py`, printing signs, enabling GitHub Pages (Settings → Pages → main / root), and testing the live URL.
 
 **Acceptance:** all checks pass, and the final commit is pushed with `git push`.

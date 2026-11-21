@@ -85,7 +85,7 @@ def write_spec():
                 run_first.append((lab.META['id'], i, c.what))
     out += ['## Run before class', '',
             'These cells need a GPU, a large download or the live Hub, so they could not be fully verified here',
-            '(no GPU on the build machine). Ice runs each solved notebook top to bottom on a Colab T4 and checks the',
+            '(no GPU on the build machine). Musa runs each solved notebook top to bottom on a Colab T4 and checks the',
             'expected output in the tables below. Highest priority first: 1B (Sunday), then 2A, 2B, 2C, 3A, 3B.', '',
             '| Lab | Cell | What to check |', '|---|---|---|']
     out += [f'| {l} | {n} | {cell_md(w)} |' for l, n, w in run_first]

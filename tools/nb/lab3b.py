@@ -124,7 +124,7 @@ Foundation models fail in ways you can predict from the slides (counting, spatia
 for prompt in ["the person on the far left.", "a person not wearing a jacket.", "a giraffe."]:
     ground(prompt)''',
          'A helper to try any prompt; three example prompts that often fail', 'Usually: "far left" boxes several people; "not wearing" still boxes everyone; "giraffe" may box something wrong or nothing',
-         'Results vary by image — that is the point of the exercise'),
+         'Results vary by image; write down what you see'),
     md('''| Prompt | What happened | Why (which failure type?) |
 |---|---|---|
 | 1. | | |

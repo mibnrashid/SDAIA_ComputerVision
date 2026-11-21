@@ -1,4 +1,4 @@
-# Run before class — checklist for Ice
+# Run before class: checklist
 
 Everything below needs a GPU, a Colab session, a printer or a GitHub setting, so it could not be done on the build machine. Do it in this order. Sunday's items first.
 
@@ -33,18 +33,9 @@ If **Lab 2B training takes longer than 6 minutes** on the T4, lower `EPOCHS` in 
 
 **Escape weights for Lab 1B (to do):** the escape cells download `notebooks/weights/*.pt` from this repo, and that folder does not exist yet. Run `python tools/train_1b_weights.py` once on Colab (≈ 10 min on a T4) and commit the three `.pt` files.
 
-## 3 · Generate the Zero-Shot Showdown scores (10 min, any day before Tuesday)
+## 3 · Zero-Shot Showdown scores: done
 
-In a new Colab notebook (CPU is fine):
-
-```
-!git clone https://github.com/mibnrashid/SDAIA_ComputerVision
-%cd SDAIA_ComputerVision
-!pip install -q cairosvg
-!python tools/precompute_clip.py
-```
-
-Then download `activities/data/showdown.json` and `activities/data/showdown.js` (Files panel), commit them to the repo (replacing the placeholder `showdown.js`) and push. Open the activity: the "Teacher setup needed" box must be gone. Glance at the printed winners — if CLIP's choices look surprising, that is the point of the game.
+`tools/precompute_clip.py` was run on 21 November with `openai/clip-vit-base-patch32` (scenes rendered with headless Chrome) and `activities/data/showdown.json` / `showdown.js` are committed. Open the activity once to confirm the game starts. To regenerate after editing a scene, run `python tools/precompute_clip.py` again (cairosvg on Linux/Colab, Chrome on Windows).
 
 ## 4 · Print (Sunday morning)
 
@@ -56,7 +47,7 @@ Then download `activities/data/showdown.json` and `activities/data/showdown.js` 
 - [ ] Projector laptop: open the home page and the Day 1 deck; press **F** for fullscreen; check the notes with **P** on your own screen.
 - [ ] Put the site URL in the class group.
 - [ ] Activities have a **Projector mode** button for the big screen and a **Team** field.
-- [ ] Reminder for yourself: students see 9:00 everywhere; the real block plan is in `content/01-plan.md`.
+- [ ] Students see 9:00 everywhere; the real block plan is in `content/01-plan.md`.
 
 ## 6 · Collecting results
 

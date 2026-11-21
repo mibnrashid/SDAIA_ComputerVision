@@ -76,7 +76,7 @@ Five snippets; click the buggy line; the fix and explanation appear.
 ## 08 · Zero-Shot Showdown (Day 3, 12 min)
 
 - **Scenes:** 10 simple SVG scenes drawn by hand (`tools/act/day3.py`), each with four captions designed to show CLIP's habits: caption-style wording, counting (three vs five apples, two vs four cups), left/right, a typographic attack (an apple labelled "iPod"), the word STOP, reading a clock.
-- **Scores are never invented.** `tools/precompute_clip.py` (run once by Ice in Colab) renders the same SVGs to PNG with cairosvg, scores the captions with `openai/clip-vit-base-patch32` (softmax over the four, CLIP logit scale) and writes `activities/data/showdown.json` and `showdown.js`. Until then the committed placeholder `showdown.js` sets `window.SHOWDOWN = null` and the page shows **"Teacher setup needed"** with instructions, plus a preview of the scenes.
+- **Scores are never invented.** `tools/precompute_clip.py` (run once by Musa in Colab) renders the same SVGs to PNG with cairosvg, scores the captions with `openai/clip-vit-base-patch32` (softmax over the four, CLIP logit scale) and writes `activities/data/showdown.json` and `showdown.js`. Until then the committed placeholder `showdown.js` sets `window.SHOWDOWN = null` and the page shows **"Teacher setup needed"** with instructions, plus a preview of the scenes.
 - **Score:** 1 point when the team picks CLIP's top caption. **10**. After each pick, all four probabilities are shown as bars.
 
 ## 09 · Fool the Model (Day 3, 10 min)

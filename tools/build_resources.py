@@ -123,7 +123,7 @@ def main():
           <p class="note">For after the course, when you want the full theory: university-level lectures that go well beyond these three days.</p>
           <div class="res-grid">
             <article class="card res"><span class="lic">Advanced</span><h3><a href="https://github.com/KAUST-Academy/Artificial-Intelligence-Courses/tree/main/Lectures/Computer_Vision" target="_blank" rel="noopener">KAUST Academy · Computer Vision lectures ↗</a></h3>
-              <p>The KAUST Academy computer vision lecture series (slides and notebooks). Expect more maths than in this course — a good next step once the labs feel easy.</p></article>
+              <p>The KAUST Academy computer vision lecture series (slides and notebooks). More mathematical than this course. Start here once the labs feel easy.</p></article>
           </div>
         </div>
         <div class="res-group" id="glossary">

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Computer Vision for Developers · SDAIA Academy</title>
-  <meta name="description" content="Three days teaching a machine to see. SDAIA Academy, 22–24 November 2026.">
+  <title>Computer Vision for Developers · Musa Ibn Rashid</title>
+  <meta name="description" content="Computer Vision for Developers, a three-day course designed and taught by Musa Ibn Rashid at SDAIA Academy, 22–24 November 2026.">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/theme.css">
   <link rel="stylesheet" href="./assets/site.css">
@@ -17,6 +17,60 @@
     }
     .hero p.hero-meta { margin-bottom: 0; }
     .hero .hero-meta + .hero-meta { margin-top: var(--s1); }
+
+    /* ---- Hero: two columns, course on the left, instructor on the right */
+    .hero-grid { display: grid; gap: var(--s6); align-items: center; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+    .hero-grid > * { min-width: 0; }
+    @media (max-width: 960px) { .hero-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s5); } }
+    @media (max-width: 480px) { .hero-facts dd { font-size: 1rem; } .hero .eyebrow { letter-spacing: 0.12em; } }
+
+    .hero-facts { display: flex; flex-wrap: wrap; gap: var(--s3); margin: var(--s5) 0 0; }
+    .hero-facts div {
+      padding: var(--s3) var(--s4); border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .hero-facts dt {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: var(--tracking-eyebrow);
+      text-transform: uppercase; color: var(--teal-bright); margin-bottom: 0.2rem;
+    }
+    .hero-facts dd { margin: 0; color: #fff; font-size: 1.15rem; font-weight: 600; }
+
+    .author-card {
+      position: relative; display: flex; flex-direction: column; gap: var(--s2);
+      padding: var(--s5); border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(55, 204, 149, 0.16), rgba(255, 255, 255, 0.04) 55%);
+      border: 1px solid rgba(55, 204, 149, 0.45);
+      box-shadow: 0 0 0 1px rgba(55, 204, 149, 0.08), 0 0 48px rgba(55, 204, 149, 0.22);
+    }
+    .author-card__mono {
+      display: grid; place-items: center; width: 4.2rem; height: 4.2rem; margin-bottom: var(--s2);
+      border-radius: 50%; font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+      color: var(--ink); background: var(--teal-bright);
+      box-shadow: 0 0 0 6px rgba(55, 204, 149, 0.18), 0 0 32px rgba(55, 204, 149, 0.6);
+    }
+    .author-card__label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: var(--tracking-eyebrow);
+      text-transform: uppercase; color: var(--teal-bright);
+    }
+    .author-card__name {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.4vw, 2.7rem); font-weight: 700;
+      line-height: 1.08; color: #fff;
+      text-shadow: 0 0 18px rgba(55, 204, 149, 0.55), 0 0 44px rgba(55, 204, 149, 0.3);
+    }
+    .author-card__creds { list-style: none; margin: var(--s3) 0 0; padding: 0; display: grid; gap: var(--s2); }
+    .author-card__creds li {
+      color: rgba(255, 255, 255, 0.9); font-size: var(--fs-small); padding-left: 1.1rem; position: relative;
+    }
+    .author-card__creds li::before {
+      content: ""; position: absolute; left: 0; top: 0.55em; width: 0.45rem; height: 0.45rem;
+      border-radius: 2px; background: var(--teal-bright); transform: rotate(45deg);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .author-card__mono { animation: glow 3.2s ease-in-out infinite; }
+      @keyframes glow {
+        50% { box-shadow: 0 0 0 9px rgba(55, 204, 149, 0.12), 0 0 46px rgba(55, 204, 149, 0.8); }
+      }
+    }
 
     /* ---- Pre-test call to action --------------------------- */
     .cta {
@@ -114,21 +168,36 @@
         </div>
       </header>
 
-      <div class="container hero-inner">
-        <p class="eyebrow">SDAIA Academy</p>
-        <h1>Computer Vision for Developers</h1>
-        <p>Teaching a machine to see. Three days from "an image is a grid of numbers" to models that
-           find, outline, count and follow objects — and then models that understand words.
-           Slides, labs, activities, tests and the project brief all live here.</p>
-        <ul class="chips">
-          <li class="chip">Pixels &amp; CNNs</li>
-          <li class="chip">Detection</li>
-          <li class="chip">Segmentation</li>
-          <li class="chip">Tracking</li>
-          <li class="chip">CLIP &amp; open vocabulary</li>
-        </ul>
-        <p class="hero-meta">Sunday 22 – Tuesday 24 November 2026 · every day 9:00 – 3:00</p>
-        <p class="hero-meta">Instructor: Musa Ibn Rashid</p>
+      <div class="container hero-inner hero-grid">
+        <div>
+          <p class="eyebrow">A three-day course at SDAIA Academy</p>
+          <h1>Computer Vision for Developers</h1>
+          <p>Three days from "an image is a grid of numbers" to models that find, outline, count and
+             follow objects, and on Day 3, models that connect images with words.
+             The slides, labs, activities, tests and project brief are all on this site.</p>
+          <ul class="chips">
+            <li class="chip">Pixels &amp; CNNs</li>
+            <li class="chip">Detection</li>
+            <li class="chip">Segmentation</li>
+            <li class="chip">Tracking</li>
+            <li class="chip">CLIP &amp; Open Vocabulary</li>
+          </ul>
+          <dl class="hero-facts">
+            <div><dt>Dates</dt><dd>Sunday 22 – Tuesday 24 November 2026</dd></div>
+            <div><dt>Daily</dt><dd>9:00 – 3:00</dd></div>
+          </dl>
+        </div>
+
+        <aside class="author-card" aria-label="Instructor">
+          <span class="author-card__mono" aria-hidden="true">MR</span>
+          <span class="author-card__label">Designed and taught by</span>
+          <span class="author-card__name">Musa Ibn Rashid</span>
+          <ul class="author-card__creds">
+            <li>Software Engineering (AI focus), KFUPM</li>
+            <li>KAUST AI Program graduate</li>
+            <li>AI Instructor, SDAIA Academy</li>
+          </ul>
+        </aside>
       </div>
     </section>
 
@@ -138,7 +207,7 @@
         <div class="cta">
           <div>
             <h2>New here? Take the pre-test first</h2>
-            <p>20 questions across all three days. It is not graded — it shows what you already know, and we compare it with the post-test on Day 3.</p>
+            <p>20 questions across all three days. It is not graded. It shows what you already know, and we compare it with the post-test on Day 3.</p>
           </div>
           <a class="btn btn--on-teal" href="./assessment/pretest.html">Start pre-test →</a>
         </div>
@@ -260,7 +329,7 @@
         <img class="logo--dark"  src="./assets/academy_color.png" alt="SDAIA Academy">
         <img class="logo--light" src="./assets/academy_white.png" alt="SDAIA Academy">
       </span>
-      <p class="footer-text">Computer Vision for Developers · SDAIA Academy · Instructor: Musa Ibn Rashid</p>
+      <p class="footer-text">Computer Vision for Developers · designed and taught by <strong class="footer-author">Musa Ibn Rashid</strong><br>Delivered at SDAIA Academy · © 2026 Musa Ibn Rashid</p>
       <span class="logo">
         <img class="logo--dark"  src="./assets/sdaia_color.png" alt="Saudi Data and AI Authority (SDAIA)">
         <img class="logo--light" src="./assets/sdaia_white.png" alt="Saudi Data and AI Authority (SDAIA)">

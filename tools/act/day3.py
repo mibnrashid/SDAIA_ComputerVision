@@ -74,7 +74,7 @@ ZS_STYLE = '''
 
 ZS_BODY = '''        <div class="panel setup hidden" id="setup">
           <h2>Teacher setup needed</h2>
-          <p>This activity shows how a real CLIP model ranks the captions, so its scores must come from running CLIP — they are never made up. The scores file has not been generated yet.</p>
+          <p>This activity shows how a real CLIP model ranks the captions, so the scores come from running CLIP itself. The scores file has not been generated yet.</p>
           <ol>
             <li>Open a new Colab notebook (a CPU runtime is enough).</li>
             <li>Run: <pre>!git clone https://github.com/mibnrashid/SDAIA_ComputerVision
@@ -97,7 +97,7 @@ ZS_BODY = '''        <div class="panel setup hidden" id="setup">
           </div>
         </div>
         <div class="panel finish hidden" id="finish">
-          <h2 style="font-family:var(--font-display);font-size:1.6rem">Showdown over</h2>
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">All ten scenes done</h2>
           <p class="finish__score" id="final">0 / 10</p>
           <p class="muted">CLIP likes caption-style wording, notices which words appear more than how they relate, struggles with counting and left/right, and can be hijacked by written text (slides 3.48–3.51).</p>
           <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
@@ -169,7 +169,7 @@ ZS_JS = '''
 
 
 def zero_shot_showdown():
-    return ZS_STYLE, ZS_BODY, ZS_JS, 'Ten simple scenes, four captions each. Pick the caption a real CLIP model (openai/clip-vit-base-patch32) ranks highest. Think like the model, not like a person: 1 point per scene.'
+    return ZS_STYLE, ZS_BODY, ZS_JS, 'Ten simple scenes, four captions each. Pick the caption a real CLIP model (openai/clip-vit-base-patch32) ranks highest. Answer for the model, not for yourself. 1 point per scene.'
 
 
 # ------------------------------------------------------------ Fool the Model
@@ -239,7 +239,7 @@ FM_BODY = '''        <div class="panel" id="play">
           </div>
         </div>
         <div class="panel finish hidden" id="finish">
-          <h2 style="font-family:var(--font-display);font-size:1.6rem">Case files closed</h2>
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">All twelve cases done</h2>
           <p class="finish__score" id="final">0 / 12</p>
           <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
         </div>

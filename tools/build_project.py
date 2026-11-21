@@ -84,7 +84,7 @@ def check_points(md):
 FORM = '''    <section class="panel brief" id="team">
       <div>
         <h2>Team &amp; idea</h2>
-        <p>Fill this in on Day 1 night. It saves on this device as you type. Then press <strong>Export as text</strong> and paste the text in the class group so Ice has your team.</p>
+        <p>Fill this in on Day 1 night. It saves on this device as you type. Then press <strong>Export as text</strong> and paste the text in the class group so Musa has your team.</p>
         <form id="team-form" class="tform">
           <label>Team name <input type="text" name="team" maxlength="60"></label>
           <label>Member 1 (full name) <input type="text" name="m1" maxlength="80"></label>
@@ -199,7 +199,7 @@ def main():
     </section>
 '''
     out = page('../', 'Project', 'A vision system for a real problem',
-               'Teams of 2–3. A GitHub repo built at night, presented on Day 3 at 2:00. Below: what it must include, how it is graded, ideas, a repo template, the presentation structure, deadlines and the AI-use policy — and the form to register your team.',
+               'Teams of 2–3. A GitHub repo built at night, presented on Day 3 at 2:00. This page has the requirements, grading, deadlines, project ideas, a repo template, the presentation plan, the AI-use policy, and the form to register your team.',
                body, style=STYLE, scripts=SCRIPT)
     with open(os.path.join(ROOT, 'project', 'index.html'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(out)

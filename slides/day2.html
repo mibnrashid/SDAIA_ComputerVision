@@ -15,140 +15,140 @@
 <div class="deck" data-title="Day 2 — Where is it, what shape is it, where is it going?" data-total="121">
   <!-- 2.01 · Computer Vision for Developers — Day 2 -->
   <section class="slide slide--title slide--t-title" data-id="2.01">
-    <div class="slide__body"><p class="slide__eyebrow">Computer Vision for Developers — Day 2</p><h2>Day 2 — Where is it, what shape is it, where is it going?</h2><p class="slide__kicker">Detection · Segmentation · Tracking</p></div>
-    <div class="slide__footer"><span>Opening · Day 2 · 01 / 121</span></div>
+    <div class="slide__body"><p class="slide__eyebrow">Computer Vision for Developers — Day 2</p><h2>Day 2 — Where is it, what shape is it, where is it going?</h2><p class="slide__kicker">Detection · Segmentation · Tracking</p><div class="presenter"><span class="presenter__label">Designed and presented by</span><span class="presenter__name">Musa Ibn Rashid</span></div></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Opening · Day 2 · 01 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.01 · title</p><p>Yesterday the model said what is in the image. Today it says where, which pixels, and which one is which across a video.</p></aside>
   </section>
   <!-- 2.02 · Warm-up: five questions from yesterday -->
   <section class="slide slide--t-quiz" data-id="2.02">
     <div class="slide__body"><p class="slide__eyebrow">Quick check</p><h2>Warm-up: five questions from yesterday</h2><ol class="quiz"><li><span>Shape of a 640 × 480 color photo in NumPy?</span></li><li><span>What does a kernel respond to?</span></li><li><span>Output size: W 32, K 3, P 0, S 1?</span></li><li><span>Why does an MLP fail on images (one reason)?</span></li><li><span>What does a skip connection add?</span></li></ol></div>
-    <div class="slide__footer"><span>Opening · Day 2 · 02 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Opening · Day 2 · 02 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.02 · quiz</p><p>Answers: (480, 640, 3) · patterns that look like it · 30 · parameter explosion / no neighbourhood / not shift-tolerant · F(x) + x, learn only the change.</p></aside>
   </section>
   <!-- 2.03 · From Day 1 to Day 2 -->
   <section class="slide slide--t-compare" data-id="2.03">
     <div class="slide__body"><p class="slide__eyebrow">Opening</p><h2>From Day 1 to Day 2</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Day 1</h3><ul class="blist"><li>one image → one label</li><li>"There is a cat"</li></ul></div><div class="cmp__col"><h3>Day 2</h3><ul class="blist"><li>one image → many objects, each with a location, a shape, and an identity over time</li><li>"Cat at (40, 60, 210, 300), these pixels, track #7"</li></ul></div></div></div>
-    <div class="slide__footer"><span>Opening · Day 2 · 03 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Opening · Day 2 · 03 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.03 · compare</p><p>The backbone you met yesterday is still inside every model today. We add heads that answer "where".</p></aside>
   </section>
   <!-- 2.04 · Today's engineering question -->
   <section class="slide slide--rule slide--t-rule" data-id="2.04">
     <div class="slide__body"><p class="slide__eyebrow">Opening · Today's engineering question</p><p class="rule-text">How do we find every object in an image — quickly, at any size, without duplicates — and prove how good we are at it?</p></div>
-    <div class="slide__footer"><span>Opening · Day 2 · 04 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Opening · Day 2 · 04 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.04 · rule</p><p>Every act today answers part of this sentence.</p></aside>
   </section>
   <!-- 2.05 · Today, in eight acts -->
   <section class="slide slide--t-list" data-id="2.05">
     <div class="slide__body"><p class="slide__eyebrow">Opening</p><h2>Today, in eight acts</h2><ul class="olist olist--cols"><li><b>1</b><span>The task ladder</span></li><li><b>2</b><span>Describing a box</span></li><li><b>3</b><span>Many objects: the two-stage story</span></li><li><b>4</b><span>Scale and duplicates</span></li><li><b>5</b><span>One look: YOLO and DETR</span></li><li><b>6</b><span>How good is the detector?</span></li><li><b>7</b><span>Pixel-level understanding</span></li><li><b>8</b><span>From frames to motion</span></li></ul></div>
-    <div class="slide__footer"><span>Opening · Day 2 · 05 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Opening · Day 2 · 05 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.05 · list</p><p>Acts 3 to 5 are the history of detection told as fixes. Act 6 is where the exam is hardest.</p></aside>
   </section>
   <!-- 2.06 · Goals for today -->
   <section class="slide slide--t-cards" data-id="2.06">
     <div class="slide__body"><p class="slide__eyebrow">Opening</p><h2>Goals for today</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Name the right vision task for a business need</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Convert between box formats and compute IoU</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Explain how two-stage detectors work</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Run NMS by hand</span></div><div class="card-n"><span class="card-n__num">05</span><span class="card-n__head">Explain YOLO's one-look idea and why DETR needs no NMS</span></div><div class="card-n"><span class="card-n__num">06</span><span class="card-n__head">Compute AP from a list of predictions</span></div><div class="card-n"><span class="card-n__num">07</span><span class="card-n__head">Explain U-Net's skip connections</span></div><div class="card-n"><span class="card-n__num">08</span><span class="card-n__head">Explain tracking by detection</span></div></div></div>
-    <div class="slide__footer"><span>Opening · Day 2 · 06 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Opening · Day 2 · 06 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.06 · cards</p><p>Goals 4 and 6 are hand-calculation skills. You will do both today.</p></aside>
   </section>
   <!-- 2.07 · Act 1 -->
   <section class="slide slide--section slide--t-section" data-id="2.07">
     <div class="slide__body"><p class="sec-num">01</p><h2>The task ladder</h2><p class="slide__kicker">One image, many possible questions</p></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 07 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 07 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.07 · section</p><p>Before choosing a model, choose the question.</p></aside>
   </section>
   <!-- 2.08 · Eight questions about one image -->
   <section class="slide slide--t-table" data-id="2.08">
     <div class="slide__body"><p class="slide__eyebrow">Act 1 · The task ladder</p><h2>Eight questions about one image</h2><table><tbody><tr><td>Classification</td><td>what is in it?</td></tr><tr><td>Classification + localisation</td><td>what, and where (one object)?</td></tr><tr><td>Object detection</td><td>where is every object?</td></tr><tr><td>Semantic segmentation</td><td>which class is every pixel?</td></tr><tr><td>Instance segmentation</td><td>which object does every pixel belong to?</td></tr><tr><td>Panoptic segmentation</td><td>every pixel: class + instance</td></tr><tr><td>Keypoints / pose</td><td>where are the joints?</td></tr><tr><td>Tracking</td><td>which object is which across frames?</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 08 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 08 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.08 · table</p><p>Go down the ladder with one street photo. Each row gives a richer and more expensive answer.</p></aside>
   </section>
   <!-- 2.09 · Classification vs detection -->
   <section class="slide slide--t-compare" data-id="2.09">
     <div class="slide__body"><p class="slide__eyebrow">Act 1 · The task ladder</p><h2>Classification vs detection</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Classification</h3><ul class="blist"><li>one label for the whole image</li><li>"street"</li></ul></div><div class="cmp__col"><h3>Detection</h3><ul class="blist"><li>a box + class + confidence for each object</li><li>car 0.94</li><li>person 0.88</li><li>person 0.81</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 09 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 09 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.09 · compare</p><p>Detection answers "where" and "how many". Classification cannot count.</p></aside>
   </section>
   <!-- 2.10 · Semantic vs instance segmentation -->
   <section class="slide slide--t-compare" data-id="2.10">
     <div class="slide__body"><p class="slide__eyebrow">Act 1 · The task ladder</p><h2>Semantic vs instance segmentation</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Semantic</h3><ul class="blist"><li>every pixel gets a class</li><li>all people are one "person" blob</li></ul></div><div class="cmp__col"><h3>Instance</h3><ul class="blist"><li>every object gets its own mask</li><li>person #1, person #2, person #3</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 10 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 10 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.10 · compare</p><p>If you need to count touching objects, you need instance segmentation.</p></aside>
   </section>
   <!-- 2.11 · Things and stuff -->
   <section class="slide slide--t-compare" data-id="2.11">
     <div class="slide__body"><p class="slide__eyebrow">Act 1 · The task ladder</p><h2>Things and stuff</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Things</h3><ul class="blist"><li>countable objects with clear shapes</li><li>car, person, bottle</li></ul></div><div class="cmp__col"><h3>Stuff</h3><ul class="blist"><li>amorphous regions</li><li>road, sky, grass, water</li></ul></div></div><p class="callout">Panoptic segmentation handles both</p></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 11 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 11 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.11 · compare</p><p>You count things, you measure stuff.</p></aside>
   </section>
   <!-- 2.12 · Keypoints and pose -->
   <section class="slide slide--t-definition" data-id="2.12">
     <div class="slide__body"><p class="slide__eyebrow">Act 1 · The task ladder</p><h2>Keypoints and pose</h2><div class="defbox"><strong>Keypoint detection</strong> — predicting the location of specific points on an object, such as 17 body joints for a person. Joined together they give a pose.</div></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 12 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 12 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.12 · definition</p><p>Used in sports analysis, physiotherapy, ergonomics, and fall detection.</p></aside>
   </section>
   <!-- 2.13 · Which task does the business need? -->
   <section class="slide slide--t-table" data-id="2.13">
     <div class="slide__body"><p class="slide__eyebrow">Act 1 · The task ladder</p><h2>Which task does the business need?</h2><table><tbody><tr><td>Count cars in a parking lot</td><td>detection</td></tr><tr><td>Check workers wear helmets</td><td>detection</td></tr><tr><td>Measure crack area on a wall</td><td>segmentation</td></tr><tr><td>Coach a squat</td><td>pose</td></tr><tr><td>Count people entering a mall</td><td>tracking</td></tr><tr><td>Sort a photo by scene type</td><td>classification</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 13 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 13 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.13 · table</p><p>Ask the room before revealing each answer. The cheapest task that answers the question wins.</p></aside>
   </section>
   <!-- 2.14 · Rule of thumb -->
   <section class="slide slide--rule slide--t-rule" data-id="2.14">
     <div class="slide__body"><p class="slide__eyebrow">Act 1 · The task ladder · Rule of thumb</p><p class="rule-text">Choose the simplest task that answers the business question. Each step down the ladder costs more labels, more compute, and more time.</p></div>
-    <div class="slide__footer"><span>Act 1 · The task ladder · Day 2 · 14 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 1 · The task ladder · Day 2 · 14 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.14 · rule</p><p>Labelling a mask takes roughly ten times longer than drawing a box.</p></aside>
   </section>
   <!-- 2.15 · Act 2 -->
   <section class="slide slide--section slide--t-section" data-id="2.15">
     <div class="slide__body"><p class="sec-num">02</p><h2>Describing a box</h2><p class="slide__kicker">Four numbers, three conventions, many bugs</p></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 15 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 15 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.15 · section</p><p>Floor content, but it causes real bugs in production.</p></aside>
   </section>
   <!-- 2.16 · A bounding box -->
   <section class="slide slide--t-definition" data-id="2.16">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box</p><h2>A bounding box</h2><div class="defbox"><strong>Bounding box</strong> — the smallest axis-aligned rectangle that contains an object, described by four numbers.</div></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 16 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 16 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.16 · definition</p><p>Axis-aligned means the sides are horizontal and vertical. Rotated boxes exist for aerial images; we skip them.</p></aside>
   </section>
   <!-- 2.17 · Three box formats -->
   <section class="slide slide--t-table" data-id="2.17">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box</p><h2>Three box formats</h2><table><tbody><tr><td>xyxy</td><td>(x_min, y_min, x_max, y_max)</td><td>torchvision, Pascal VOC</td></tr><tr><td>xywh</td><td>(x_min, y_min, width, height)</td><td>COCO</td></tr><tr><td>cxcywh</td><td>(x_centre, y_centre, width, height)</td><td>YOLO, DETR — often normalised to 0–1</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 17 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 17 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.17 · table</p><p>Same box, three ways of writing it. Mixing them up is silent — the box just lands in the wrong place.</p></aside>
   </section>
   <!-- 2.18 · Converting formats — worked -->
   <section class="slide slide--t-worked" data-id="2.18">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>Converting formats — worked</h2><ol class="steps-w"><li><span>Image <b class="num">640</b> × <b class="num">480</b></span></li><li><span>Box xyxy = (<b class="num">100,</b> <b class="num">120,</b> <b class="num">300,</b> <b class="num">360</b>)</span></li><li><span>xywh = (<b class="num">100,</b> <b class="num">120,</b> <b class="num">200,</b> <b class="num">240</b>)</span></li><li><span>cxcywh = (<b class="num">200,</b> <b class="num">240,</b> <b class="num">200,</b> <b class="num">240</b>)</span></li><li><span>normalised cxcywh = (<b class="num">0.3125</b>, <b class="num">0.5</b>, <b class="num">0.3125</b>, <b class="num">0.5</b>)</span></li></ol></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 18 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 18 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.18 · worked</p><p>Width = 300 − 100, centre x = 100 + 200/2. Normalise by dividing x values by 640 and y values by 480.</p></aside>
   </section>
   <!-- 2.19 · Gotcha: normalised vs pixel coordinates -->
   <section class="slide slide--t-compare" data-id="2.19">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box</p><h2>Gotcha: normalised vs pixel coordinates</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Normalised</h3><ul class="blist"><li>values 0–1</li><li>independent of image size</li></ul></div><div class="cmp__col"><h3>Pixels</h3><ul class="blist"><li>values up to width and height</li></ul></div></div><p class="callout">A normalised box drawn as pixels is a tiny box in the top-left corner</p></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 19 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 19 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.19 · compare</p><p>If all your boxes are crammed into the top-left corner, you forgot to multiply by the image size.</p></aside>
   </section>
   <!-- 2.20 · Comparing two boxes: IoU -->
   <section class="slide slide--t-definition" data-id="2.20">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box</p><h2>Comparing two boxes: IoU</h2><div class="defbox"><strong>IoU (Intersection over Union)</strong> — the area where two boxes overlap divided by the area they cover together. 0 = no overlap</div><ul class="blist"><li>1 = identical.</li></ul></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 20 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 20 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.20 · definition</p><p>IoU is how detection decides whether a prediction "hit" the real object.</p></aside>
   </section>
   <!-- 2.21 · IoU — worked example 1 -->
   <section class="slide slide--t-worked" data-id="2.21">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>IoU — worked example 1</h2><ol class="steps-w"><li><span>A = (<b class="num">0,</b> <b class="num">0,</b> <b class="num">4,</b> <b class="num">4</b>) · area <b class="num">16</b></span></li><li><span>B = (<b class="num">2,</b> <b class="num">2,</b> <b class="num">6,</b> <b class="num">6</b>) · area <b class="num">16</b></span></li><li><span>Intersection = (<b class="num">2,</b> <b class="num">2,</b> <b class="num">4,</b> <b class="num">4</b>) · area <b class="num">4</b></span></li><li><span>Union = <b class="num">16</b> + <b class="num">16</b> − <b class="num">4</b> = <b class="num">28</b></span></li><li><span>IoU = <b class="num">4</b> / <b class="num">28</b> ≈ <b class="num">0.14</b></span></li></ol></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 21 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 21 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.21 · worked</p><p>The boxes look like they overlap a fair bit, but IoU is only 0.14. Intuition underestimates how strict IoU is.</p></aside>
   </section>
   <!-- 2.22 · IoU — worked example 2 -->
   <section class="slide slide--t-worked" data-id="2.22">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>IoU — worked example 2</h2><ol class="steps-w"><li><span>A = (<b class="num">0,</b> <b class="num">0,</b> <b class="num">4,</b> <b class="num">4</b>) · area <b class="num">16</b></span></li><li><span>B = (<b class="num">1,</b> <b class="num">0,</b> <b class="num">5,</b> <b class="num">4</b>) · area <b class="num">16</b></span></li><li><span>Intersection = (<b class="num">1,</b> <b class="num">0,</b> <b class="num">4,</b> <b class="num">4</b>) · area <b class="num">12</b></span></li><li><span>Union = <b class="num">16</b> + <b class="num">16</b> − <b class="num">12</b> = <b class="num">20</b></span></li><li><span>IoU = <b class="num">12</b> / <b class="num">20</b> = <b class="num">0.60</b></span></li></ol></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 22 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 22 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.22 · worked</p><p>Shifted by one unit out of four, IoU is 0.6. Identical boxes give 1.0.</p></aside>
   </section>
   <!-- 2.23 · What IoU values look like -->
   <section class="slide slide--t-cards" data-id="2.23">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box</p><h2>What IoU values look like</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">0.3</span><span class="card-n__body">loosely on the object</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">0.5</span><span class="card-n__body">the classic "hit" threshold</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">0.75</span><span class="card-n__body">tight</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">0.9</span><span class="card-n__body">almost perfect</span></div></div></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 23 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 23 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.23 · cards</p><p>IoU Darts will train your eye for these numbers.</p></aside>
   </section>
   <!-- 2.24 · IoU in code -->
@@ -158,589 +158,589 @@ ix2, iy2 = <span class="f">min</span>(a.x2, b.x2), <span class="f">min</span>(a.
 inter = <span class="f">max</span>(<span class="n">0</span>, ix2 − ix1) * <span class="f">max</span>(<span class="n">0</span>, iy2 − iy1)
 union = <span class="f">area</span>(a) + <span class="f">area</span>(b) − inter
 iou = inter / union</code></pre></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 24 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 24 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.24 · code</p><p>The max(0, …) handles boxes that do not overlap at all. Forgetting it gives negative areas.</p></aside>
   </section>
   <!-- 2.25 · IoU Darts -->
   <section class="slide slide--t-activity" data-id="2.25">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box</p><h2>IoU Darts</h2><div class="act-card"><span class="act-label">Activity</span><h3>IoU Darts</h3><ul class="act-list"><li>Drag a box to hit the target IoU</li><li>Closest team wins</li><li>Site → Activities → IoU Darts</li></ul><a class="act-go" href="../activities/iou-darts.html">Open IoU Darts →</a></div></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 25 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 25 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.25 · activity</p><p>Ten minutes.</p></aside>
   </section>
   <!-- 2.26 · Localising one object -->
   <section class="slide slide--t-diagram" data-id="2.26">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box</p><h2>Localising one object</h2><div class="dgm"><svg viewBox="-2 -2 944 118" role="img" aria-label="Diagram"><defs><marker id="ah-2-26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="31.5" width="200.5" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="100.2" y="60.5" text-anchor="middle"><tspan x="100.2" dy="0">Image</tspan></text><rect class="dg-box" x="246.5" y="31.5" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="346.8" y="60.5" text-anchor="middle"><tspan x="346.8" dy="0">CNN backbone</tspan></text><line class="dg-line" x1="204.5" y1="55.0" x2="242.5" y2="55.0" marker-end="url(#ah-2-26)"/><rect class="dg-box" x="493.0" y="31.5" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="593.2" y="60.5" text-anchor="middle"><tspan x="593.2" dy="0">features</tspan></text><line class="dg-line" x1="451.0" y1="55.0" x2="489.0" y2="55.0" marker-end="url(#ah-2-26)"/><rect class="dg-box dg-box--dark" x="739.5" y="0.0" width="200.5" height="110.0" rx="10"/><text class="dg-t dg-t--light" x="839.8" y="29.0" text-anchor="middle"><tspan x="839.8" dy="0">two heads: class head</tspan><tspan x="839.8" dy="21">(softmax over</tspan><tspan x="839.8" dy="21">classes) + box head</tspan><tspan x="839.8" dy="21">(4 numbers)</tspan></text><line class="dg-line" x1="697.5" y1="55.0" x2="735.5" y2="55.0" marker-end="url(#ah-2-26)"/></svg><ul class="blist"><li>Loss = classification loss + box regression loss</li></ul></div></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 26 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 26 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.26 · diagram</p><p>For one object, this works. Predicting 4 numbers is a regression problem, like predicting a price.</p></aside>
   </section>
   <!-- 2.27 · The problem -->
   <section class="slide slide--rule slide--t-rule" data-id="2.27">
     <div class="slide__body"><p class="slide__eyebrow">Act 2 · Describing a box · The problem</p><p class="rule-text">One head predicts one box. But a street photo has zero, three, or forty objects. How many box outputs should the network have?</p></div>
-    <div class="slide__footer"><span>Act 2 · Describing a box · Day 2 · 27 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 2 · Describing a box · Day 2 · 27 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.27 · rule</p><p>The number of outputs must be fixed, but the number of objects is not. Acts 3 to 5 are three answers to this.</p></aside>
   </section>
   <!-- 2.28 · Act 3 -->
   <section class="slide slide--section slide--t-section" data-id="2.28">
     <div class="slide__body"><p class="sec-num">03</p><h2>Many objects: the two-stage story</h2><p class="slide__kicker">First find places that might contain an object, then classify each one</p></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 28 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 28 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.28 · section</p><p>Each detector in this act fixes the slowness of the previous one.</p></aside>
   </section>
   <!-- 2.29 · Idea 1: the sliding window -->
   <section class="slide slide--t-diagram" data-id="2.29">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>Idea 1: the sliding window</h2><div class="dgm"><svg viewBox="-2 -2 944 76" role="img" aria-label="Diagram"><defs><marker id="ah-2-29" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="0.0" width="282.7" height="68.0" rx="10"/><text class="dg-t dg-t--light" x="141.3" y="29.0" text-anchor="middle"><tspan x="141.3" dy="0">Slide a window across the</tspan><tspan x="141.3" dy="21">image</tspan></text><rect class="dg-box" x="328.7" y="10.5" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="470.0" y="39.5" text-anchor="middle"><tspan x="470.0" dy="0">classify each crop</tspan></text><line class="dg-line" x1="286.7" y1="34.0" x2="324.7" y2="34.0" marker-end="url(#ah-2-29)"/><rect class="dg-box dg-box--dark" x="657.3" y="10.5" width="282.7" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="798.7" y="39.5" text-anchor="middle"><tspan x="798.7" dy="0">"object" or "background"</tspan></text><line class="dg-line" x1="615.3" y1="34.0" x2="653.3" y2="34.0" marker-end="url(#ah-2-29)"/></svg><ul class="blist"><li>Repeat at many window sizes and shapes</li></ul></div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 29 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 29 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.29 · diagram</p><p>It works in principle. Let's count the cost.</p></aside>
   </section>
   <!-- 2.30 · Why sliding windows explode -->
   <section class="slide slide--t-worked" data-id="2.30">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>Why sliding windows explode</h2><ol class="steps-w"><li><span><b class="num">640</b> × <b class="num">480</b> image</span></li><li><span>a window every <b class="num">8</b> pixels → about <b class="num">4,800</b> positions</span></li><li><span>× <b class="num">10</b> sizes × <b class="num">3</b> shapes → about <b class="num">144,000</b> crops</span></li><li><span>each needs a CNN pass</span></li><li><span>and most of them are background</span></li></ol></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 30 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 30 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.30 · worked</p><p>Far too slow. We need to look only where objects probably are.</p></aside>
   </section>
   <!-- 2.31 · Idea 2: region proposals -->
   <section class="slide slide--t-definition" data-id="2.31">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>Idea 2: region proposals</h2><div class="defbox"><strong>Region proposal</strong> — a candidate box that might contain an object, found by a fast method that groups similar pixels (e.g. selective search). About 2,000 per image instead of 100,000+.</div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 31 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 31 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.31 · definition</p><p>Proposals do not know what the object is. They only say "something might be here".</p></aside>
   </section>
   <!-- 2.32 · R-CNN (2014) -->
   <section class="slide slide--t-diagram" data-id="2.32">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>R-CNN (2014)</h2><div class="dgm"><svg viewBox="-2 -2 944 97" role="img" aria-label="Diagram"><defs><marker id="ah-2-32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="21.0" width="151.2" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="75.6" y="50.0" text-anchor="middle"><tspan x="75.6" dy="0">Image</tspan></text><rect class="dg-box" x="197.2" y="10.5" width="151.2" height="68.0" rx="10"/><text class="dg-t" x="272.8" y="39.5" text-anchor="middle"><tspan x="272.8" dy="0">~2,000 region</tspan><tspan x="272.8" dy="21">proposals</tspan></text><line class="dg-line" x1="155.2" y1="44.5" x2="193.2" y2="44.5" marker-end="url(#ah-2-32)"/><rect class="dg-box" x="394.4" y="10.5" width="151.2" height="68.0" rx="10"/><text class="dg-t" x="470.0" y="39.5" text-anchor="middle"><tspan x="470.0" dy="0">warp each to a</tspan><tspan x="470.0" dy="21">fixed size</tspan></text><line class="dg-line" x1="352.4" y1="44.5" x2="390.4" y2="44.5" marker-end="url(#ah-2-32)"/><rect class="dg-box" x="591.6" y="21.0" width="151.2" height="47.0" rx="10"/><text class="dg-t" x="667.2" y="50.0" text-anchor="middle"><tspan x="667.2" dy="0">CNN on each</tspan></text><line class="dg-line" x1="549.6" y1="44.5" x2="587.6" y2="44.5" marker-end="url(#ah-2-32)"/><rect class="dg-box dg-box--dark" x="788.8" y="0.0" width="151.2" height="89.0" rx="10"/><text class="dg-t dg-t--light" x="864.4" y="29.0" text-anchor="middle"><tspan x="864.4" dy="0">classify (SVM)</tspan><tspan x="864.4" dy="21">+ refine the</tspan><tspan x="864.4" dy="21">box</tspan></text><line class="dg-line" x1="746.8" y1="44.5" x2="784.8" y2="44.5" marker-end="url(#ah-2-32)"/></svg></div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 32 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 32 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.32 · diagram</p><p>R stands for regions. It was a big accuracy jump over hand-crafted features.</p></aside>
   </section>
   <!-- 2.33 · R-CNN's problem -->
   <section class="slide slide--t-cards" data-id="2.33">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>R-CNN's problem</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">2,000 CNN passes per image</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">about 47 seconds per image</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Overlapping regions recompute the same features again and again</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Three separate training stages</span></div></div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 33 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 33 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.33 · cards</p><p>Forty-seven seconds per image is not usable for video. Where is the waste?</p></aside>
   </section>
   <!-- 2.34 · Fast R-CNN: compute features once -->
   <section class="slide slide--t-diagram" data-id="2.34">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>Fast R-CNN: compute features once</h2><div class="dgm"><svg viewBox="-2 -2 944 202" role="img" aria-label="Diagram"><defs><marker id="ah-2-34" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="141.3" y="29.0" text-anchor="middle"><tspan x="141.3" dy="0">Image</tspan></text><rect class="dg-box" x="328.7" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="470.0" y="29.0" text-anchor="middle"><tspan x="470.0" dy="0">CNN once</tspan></text><line class="dg-line" x1="286.7" y1="23.5" x2="324.7" y2="23.5" marker-end="url(#ah-2-34)"/><rect class="dg-box" x="657.3" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="798.7" y="29.0" text-anchor="middle"><tspan x="798.7" dy="0">one feature map</tspan></text><line class="dg-line" x1="615.3" y1="23.5" x2="653.3" y2="23.5" marker-end="url(#ah-2-34)"/><rect class="dg-box" x="0.0" y="105.0" width="282.7" height="89.0" rx="10"/><text class="dg-t" x="141.3" y="134.0" text-anchor="middle"><tspan x="141.3" dy="0">crop each proposal's region</tspan><tspan x="141.3" dy="21">from the feature map (RoI</tspan><tspan x="141.3" dy="21">pooling)</tspan></text><rect class="dg-box" x="328.7" y="126.0" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="470.0" y="155.0" text-anchor="middle"><tspan x="470.0" dy="0">fixed-size features</tspan></text><line class="dg-line" x1="286.7" y1="149.5" x2="324.7" y2="149.5" marker-end="url(#ah-2-34)"/><rect class="dg-box dg-box--dark" x="657.3" y="126.0" width="282.7" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="798.7" y="155.0" text-anchor="middle"><tspan x="798.7" dy="0">classify + refine box</tspan></text><line class="dg-line" x1="615.3" y1="149.5" x2="653.3" y2="149.5" marker-end="url(#ah-2-34)"/><path class="dg-line" d="M798.7,49.0 L798.7,76.0 L141.3,76.0 L141.3,101.0" marker-end="url(#ah-2-34)"/></svg></div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 34 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 34 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.34 · diagram</p><p>Crop the features, not the pixels. One CNN pass instead of two thousand.</p></aside>
   </section>
   <!-- 2.35 · RoI pooling -->
   <section class="slide slide--t-definition" data-id="2.35">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>RoI pooling</h2><div class="defbox"><strong>RoI pooling</strong> — take a region of the feature map of any size and pool it into a fixed grid (e.g. 7 × 7), so every proposal gives the same-sized input to the head.</div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 35 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 35 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.35 · definition</p><p>The head needs fixed-size input, but proposals come in all sizes. RoI pooling solves that.</p></aside>
   </section>
   <!-- 2.36 · Fast R-CNN's new bottleneck -->
   <section class="slide slide--rule slide--t-rule" data-id="2.36">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story · Fast R-CNN's new bottleneck</p><p class="rule-text">The CNN now takes a fraction of a second. The slow part is the proposal method — selective search runs on the CPU and takes about 2 seconds.</p></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 36 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 36 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.36 · rule</p><p>Fix one bottleneck and another appears. That is engineering.</p></aside>
   </section>
   <!-- 2.37 · Faster R-CNN: the network proposes -->
   <section class="slide slide--t-diagram" data-id="2.37">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>Faster R-CNN: the network proposes</h2><div class="dgm"><svg viewBox="-2 -2 944 181" role="img" aria-label="Diagram"><defs><marker id="ah-2-37" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="141.3" y="29.0" text-anchor="middle"><tspan x="141.3" dy="0">Image</tspan></text><rect class="dg-box" x="328.7" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="470.0" y="29.0" text-anchor="middle"><tspan x="470.0" dy="0">CNN</tspan></text><line class="dg-line" x1="286.7" y1="23.5" x2="324.7" y2="23.5" marker-end="url(#ah-2-37)"/><rect class="dg-box" x="657.3" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="798.7" y="29.0" text-anchor="middle"><tspan x="798.7" dy="0">feature map</tspan></text><line class="dg-line" x1="615.3" y1="23.5" x2="653.3" y2="23.5" marker-end="url(#ah-2-37)"/><rect class="dg-box" x="0.0" y="105.0" width="282.7" height="68.0" rx="10"/><text class="dg-t" x="141.3" y="134.0" text-anchor="middle"><tspan x="141.3" dy="0">Region Proposal Network (RPN)</tspan><tspan x="141.3" dy="21">suggests boxes</tspan></text><rect class="dg-box" x="328.7" y="115.5" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="470.0" y="144.5" text-anchor="middle"><tspan x="470.0" dy="0">RoI pooling</tspan></text><line class="dg-line" x1="286.7" y1="139.0" x2="324.7" y2="139.0" marker-end="url(#ah-2-37)"/><rect class="dg-box dg-box--dark" x="657.3" y="115.5" width="282.7" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="798.7" y="144.5" text-anchor="middle"><tspan x="798.7" dy="0">classify + refine</tspan></text><line class="dg-line" x1="615.3" y1="139.0" x2="653.3" y2="139.0" marker-end="url(#ah-2-37)"/><path class="dg-line" d="M798.7,49.0 L798.7,76.0 L141.3,76.0 L141.3,101.0" marker-end="url(#ah-2-37)"/></svg><ul class="blist"><li>Everything is one network, trained together</li></ul></div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 37 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 37 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.37 · diagram</p><p>Let the network learn where objects are likely to be. This removed the last hand-designed step.</p></aside>
   </section>
   <!-- 2.38 · Anchors -->
   <section class="slide slide--t-definition" data-id="2.38">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>Anchors</h2><div class="defbox"><strong>Anchor</strong> — a pre-defined template box placed at every feature-map position. The RPN predicts, for each anchor, "is there an object?" and how to nudge the anchor to fit it.</div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 38 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 38 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.38 · definition</p><p>Instead of predicting boxes from nothing, the network adjusts templates. Much easier to learn.</p></aside>
   </section>
   <!-- 2.39 · Anchors — worked -->
   <section class="slide slide--t-worked" data-id="2.39">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>Anchors — worked</h2><ol class="steps-w"><li><span><b class="num">3</b> scales (small, medium, large) × <b class="num">3</b> aspect ratios (<b class="num">1</b>:<b class="num">2,</b> <b class="num">1</b>:<b class="num">1,</b> <b class="num">2</b>:<b class="num">1</b>) = <b class="num">9</b> anchors per position</span></li><li><span>Feature map <b class="num">40</b> × <b class="num">30</b> → <b class="num">1,200</b> positions × <b class="num">9</b> ≈ <b class="num">10,800</b> anchors</span></li><li><span>The RPN keeps the best few hundred</span></li></ol></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 39 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 39 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.39 · worked</p><p>Many anchors, few objects. That imbalance matters in training.</p></aside>
   </section>
   <!-- 2.40 · The two-stage pattern -->
   <section class="slide slide--t-diagram" data-id="2.40">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>The two-stage pattern</h2><div class="dgm"><svg viewBox="-2 -2 944 77" role="img" aria-label="Diagram"><defs><marker id="ah-2-40" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="0.0" width="447.0" height="69.0" rx="10"/><text class="dg-t dg-t--light" x="223.5" y="29.0" text-anchor="middle"><tspan x="223.5" dy="0">Stage 1</tspan></text><text class="dg-s dg-s--light" x="223.5" y="52.0" text-anchor="middle"><tspan x="223.5" dy="0">propose: "where might something be?"</tspan></text><rect class="dg-box dg-box--dark" x="493.0" y="11.0" width="447.0" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="716.5" y="40.0" text-anchor="middle"><tspan x="716.5" dy="0">Stage 2</tspan></text><line class="dg-line" x1="451.0" y1="34.5" x2="489.0" y2="34.5" marker-end="url(#ah-2-40)"/></svg><ul class="blist"><li>classify and refine: "what is it, exactly where?"</li><li>Accurate, especially for small objects</li><li>slower than one-stage</li></ul></div></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 40 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 40 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.40 · diagram</p><p>Faster R-CNN is still a strong, accurate baseline. Lab 2A runs it from torchvision.</p></aside>
   </section>
   <!-- 2.41 · The two-stage family -->
   <section class="slide slide--t-table" data-id="2.41">
     <div class="slide__body"><p class="slide__eyebrow">Act 3 · Many objects — the two-stage story</p><h2>The two-stage family</h2><table><tbody><tr><td>R-CNN</td><td>CNN per proposal</td><td>~47 s / image</td></tr><tr><td>Fast R-CNN</td><td>CNN once, RoI pooling</td><td>~2 s (proposals are slow)</td></tr><tr><td>Faster R-CNN</td><td>learned proposals (RPN)</td><td>about 5–7 images / s on a 2015 GPU</td></tr><tr><td>Mask R-CNN</td><td>+ a mask head (Act 7)</td><td></td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 3 · Many objects — the two-stage story · Day 2 · 41 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 3 · Many objects — the two-stage story · Day 2 · 41 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.41 · table</p><p>Read the middle column. Each row fixed the slow part of the row above it.</p></aside>
   </section>
   <!-- 2.42 · Act 4 -->
   <section class="slide slide--section slide--t-section" data-id="2.42">
     <div class="slide__body"><p class="sec-num">04</p><h2>Scale and duplicates</h2><p class="slide__kicker">Two problems every detector must solve</p></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 42 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 42 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.42 · section</p><p>Small objects and duplicate boxes. Both cause most real-world failures.</p></aside>
   </section>
   <!-- 2.43 · The scale problem -->
   <section class="slide slide--rule slide--t-rule" data-id="2.43">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates · The scale problem</p><p class="rule-text">A person close to the camera is 400 pixels tall. A person far away is 20 pixels tall. Same class, 20× size difference.</p></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 43 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 43 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.43 · rule</p><p>Deep layers have a big receptive field — good for big objects, terrible for tiny ones.</p></aside>
   </section>
   <!-- 2.44 · Fix 1: the image pyramid -->
   <section class="slide slide--t-compare" data-id="2.44">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>Fix 1: the image pyramid</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Idea</h3><ul class="blist"><li>run the detector on the image at several sizes (100%, 50%, 25%)</li></ul></div><div class="cmp__col"><h3>Cost</h3><ul class="blist"><li>several full passes</li><li>accurate but slow</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 44 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 44 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.44 · compare</p><p>Works, but multiplies the cost.</p></aside>
   </section>
   <!-- 2.45 · Fix 2: the Feature Pyramid Network -->
   <section class="slide slide--t-diagram" data-id="2.45">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>Fix 2: the Feature Pyramid Network</h2><div class="dgm dgm--side"><svg viewBox="0 0 640 400" role="img" aria-label="Diagram"><defs><marker id="ah-2-45" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box" x="60" y="290" width="200" height="50" rx="6"/><rect class="dg-box dg-box--alt" x="380.0" y="290" width="200" height="50" rx="6"/><line class="dg-line" x1="266" y1="315" x2="374.0" y2="315" marker-end="url(#ah-2-45)"/><line class="dg-line dg-line--coral" stroke-width="2.5" x1="480" y1="252" x2="480" y2="286" marker-end="url(#ah-2-45)"/><rect class="dg-box" x="85" y="200" width="150" height="50" rx="6"/><rect class="dg-box dg-box--alt" x="405.0" y="200" width="150" height="50" rx="6"/><line class="dg-line" x1="241" y1="225" x2="399.0" y2="225" marker-end="url(#ah-2-45)"/><line class="dg-line dg-line--coral" stroke-width="2.5" x1="480" y1="172" x2="480" y2="196" marker-end="url(#ah-2-45)"/><rect class="dg-box" x="110" y="120" width="100" height="50" rx="6"/><rect class="dg-box dg-box--alt" x="430.0" y="120" width="100" height="50" rx="6"/><line class="dg-line" x1="216" y1="145" x2="424.0" y2="145" marker-end="url(#ah-2-45)"/><line class="dg-line dg-line--coral" stroke-width="2.5" x1="480" y1="102" x2="480" y2="116" marker-end="url(#ah-2-45)"/><rect class="dg-box" x="135" y="50" width="50" height="50" rx="6"/><rect class="dg-box dg-box--alt" x="455.0" y="50" width="50" height="50" rx="6"/><line class="dg-line" x1="191" y1="75" x2="449.0" y2="75" marker-end="url(#ah-2-45)"/><text class="dg-s" x="160" y="372" text-anchor="middle">backbone: fine → coarse</text><text class="dg-s" x="480" y="372" text-anchor="middle">FPN: meaning flows back down</text><text class="dg-s" x="160" y="30" text-anchor="middle">deep: strong meaning</text><text class="dg-s" x="480" y="30" text-anchor="middle">large objects ↑ · small objects ↓</text></svg><ul class="blist"><li>Early layers</li><li>high resolution, weak meaning</li><li>Deep layers</li><li>low resolution, strong meaning</li><li>FPN</li><li>pass deep meaning back up to the high-resolution layers → detect small objects on fine maps, large objects on coarse maps</li></ul></div></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 45 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 45 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.45 · diagram</p><p>One pass, many scales. FPN is inside almost every modern detector, including the torchvision models we use.</p></aside>
   </section>
   <!-- 2.46 · The duplicate problem -->
   <section class="slide slide--rule slide--t-rule" data-id="2.46">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates · The duplicate problem</p><p class="rule-text">A detector usually fires several overlapping boxes on the same object — all with high confidence. We want one box per object.</p></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 46 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 46 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.46 · rule</p><p>Show a photo with five boxes stacked on one car.</p></aside>
   </section>
   <!-- 2.47 · Non-Maximum Suppression (NMS) -->
   <section class="slide slide--t-definition" data-id="2.47">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>Non-Maximum Suppression (NMS)</h2><div class="defbox"><strong>NMS</strong> — keep the highest-confidence box, delete every other box that overlaps it by more than an IoU threshold, then repeat with the next highest remaining box.</div></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 47 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 47 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.47 · definition</p><p>Keep the best, remove its copies, repeat.</p></aside>
   </section>
   <!-- 2.48 · NMS step by step -->
   <section class="slide slide--t-worked" data-id="2.48">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>NMS step by step</h2><ol class="steps-w"><li><span>Boxes (score): A <b class="num">0.95</b> · B <b class="num">0.90</b> · C <b class="num">0.80</b> · D <b class="num">0.75</b> · E <b class="num">0.60</b> · F <b class="num">0.55</b></span></li><li><span>IoU threshold <b class="num">0.5</b></span></li><li><span>Keep A → remove B (IoU <b class="num">0.7</b> with A) and D (<b class="num">0.6</b>)</span></li><li><span>Next highest left: C → keep → remove E (<b class="num">0.65</b> with C)</span></li><li><span>Next: F → keep (overlaps nothing above <b class="num">0.5</b>)</span></li><li><span>Result: A, C, F</span></li></ol></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 48 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 48 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.48 · worked</p><p>Walk through it slowly. Be NMS lets them do exactly this.</p></aside>
   </section>
   <!-- 2.49 · The NMS threshold -->
   <section class="slide slide--t-compare" data-id="2.49">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>The NMS threshold</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Too high (0.9)</h3><ul class="blist"><li>almost nothing is removed</li><li>duplicates survive</li></ul></div><div class="cmp__col"><h3>Too low (0.2)</h3><ul class="blist"><li>real neighbouring objects get deleted</li></ul></div></div><p class="callout">Typical: 0.45–0.7</p></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 49 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 49 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.49 · compare</p><p>The threshold is a trade-off between duplicates and missed neighbours.</p></aside>
   </section>
   <!-- 2.50 · Two knobs people confuse -->
   <section class="slide slide--t-compare" data-id="2.50">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>Two knobs people confuse</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Confidence threshold</h3><ul class="blist"><li>"how sure must a box be to show at all?"</li><li>removes weak boxes</li></ul></div><div class="cmp__col"><h3>NMS IoU threshold</h3><ul class="blist"><li>"how much overlap counts as a duplicate?"</li><li>removes copies</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 50 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 50 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.50 · compare</p><p>They do completely different jobs. Many bug reports are someone changing the wrong one.</p></aside>
   </section>
   <!-- 2.51 · Where NMS fails: crowds -->
   <section class="slide slide--t-cards" data-id="2.51">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>Where NMS fails: crowds</h2><div class="cards cards--3"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Two people standing close have high-IoU boxes</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">NMS keeps one, deletes the other</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Crowd counting undercounts</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Fixes: Soft-NMS (lower the score instead of deleting)</span></div><div class="card-n"><span class="card-n__num">05</span><span class="card-n__head">or detectors with no NMS at all (Act 5)</span></div></div></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 51 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 51 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.51 · cards</p><p>This failure is why NMS-free detectors are such a big deal.</p></aside>
   </section>
   <!-- 2.52 · Be NMS -->
   <section class="slide slide--t-activity" data-id="2.52">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>Be NMS</h2><div class="act-card"><span class="act-label">Activity</span><h3>Be NMS</h3><ul class="act-list"><li>Keep and remove boxes in the right order</li><li>Site → Activities → Be NMS</li></ul><a class="act-go" href="../activities/be-nms.html">Open Be NMS →</a></div></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 52 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 52 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.52 · activity</p><p>Eight minutes. Then launch Lab 2A: IoU and NMS by hand.</p></aside>
   </section>
   <!-- 2.53 · Lab 2A — part 1 -->
   <section class="slide slide--t-list" data-id="2.53">
     <div class="slide__body"><p class="slide__eyebrow">Act 4 · Scale and duplicates</p><h2>Lab 2A — part 1</h2><ul class="olist"><li><b>Write IoU</b><span>test it on the worked examples</span></li><li><b>Write NMS in NumPy</b><span>compare with <code>torchvision.ops.nms</code></span></li><li><span></span><span>Check: same boxes kept</span></li></ul></div>
-    <div class="slide__footer"><span>Act 4 · Scale and duplicates · Day 2 · 53 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 4 · Scale and duplicates · Day 2 · 53 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.53 · list</p><p>The asserts print a green tick when your function matches the library.</p></aside>
   </section>
   <!-- 2.54 · Act 5 -->
   <section class="slide slide--section slide--t-section" data-id="2.54">
     <div class="slide__body"><p class="sec-num">05</p><h2>One look</h2><p class="slide__kicker">What if we skip proposals and predict every box in one pass?</p></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 54 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 54 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.54 · section</p><p>One-stage detectors trade a little accuracy for a lot of speed.</p></aside>
   </section>
   <!-- 2.55 · YOLO — You Only Look Once (2016) -->
   <section class="slide slide--t-definition" data-id="2.55">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>YOLO — You Only Look Once (2016)</h2><div class="defbox"><strong>YOLO</strong> — a one-stage detector: one forward pass of one network predicts all boxes and classes at once, with no separate proposal step.</div></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 55 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 55 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.55 · definition</p><p>The name says it: one look, not two thousand.</p></aside>
   </section>
   <!-- 2.56 · The grid idea -->
   <section class="slide slide--t-diagram" data-id="2.56">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>The grid idea</h2><div class="dgm dgm--side"><svg viewBox="0 0 640 400" role="img" aria-label="Diagram"><defs><marker id="ah-2-56" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><ellipse class="dg-box dg-box--amber" cx="205.6" cy="223.20000000000002" rx="87.39999999999999" ry="64.39999999999999"/><rect class="dg-line dg-line--coral" stroke-width="3" x="118.2" y="158.79999999999998" width="174.79999999999998" height="128.79999999999998" fill="none"/><rect x="178" y="214" width="46" height="46" class="dg-fill-teal" opacity="0.55"/><line class="dg-grid" x1="40" y1="30" x2="362" y2="30"/><line class="dg-grid" x1="40" y1="30" x2="40" y2="352"/><line class="dg-grid" x1="40" y1="76" x2="362" y2="76"/><line class="dg-grid" x1="86" y1="30" x2="86" y2="352"/><line class="dg-grid" x1="40" y1="122" x2="362" y2="122"/><line class="dg-grid" x1="132" y1="30" x2="132" y2="352"/><line class="dg-grid" x1="40" y1="168" x2="362" y2="168"/><line class="dg-grid" x1="178" y1="30" x2="178" y2="352"/><line class="dg-grid" x1="40" y1="214" x2="362" y2="214"/><line class="dg-grid" x1="224" y1="30" x2="224" y2="352"/><line class="dg-grid" x1="40" y1="260" x2="362" y2="260"/><line class="dg-grid" x1="270" y1="30" x2="270" y2="352"/><line class="dg-grid" x1="40" y1="306" x2="362" y2="306"/><line class="dg-grid" x1="316" y1="30" x2="316" y2="352"/><line class="dg-grid" x1="40" y1="352" x2="362" y2="352"/><line class="dg-grid" x1="362" y1="30" x2="362" y2="352"/><circle class="dg-fill-coral" cx="205.6" cy="223.20000000000002" r="6"/><text class="dg-s" x="201.0" y="380" text-anchor="middle">7 × 7 grid · object centre → one cell</text><line class="dg-line" x1="228" y1="237.0" x2="440" y2="200" marker-end="url(#ah-2-56)"/><rect class="dg-box" x="445" y="120" width="185" height="170" rx="10"/><text class="dg-t" x="537" y="150" text-anchor="middle">this cell predicts</text><text class="dg-s" x="537" y="190" text-anchor="middle">2 boxes (x, y, w, h)</text><text class="dg-s" x="537" y="222" text-anchor="middle">a confidence each</text><text class="dg-s" x="537" y="254" text-anchor="middle">20 class scores</text></svg><ul class="blist"><li>Split the image into a 7 × 7 grid</li><li>The cell containing an object's centre is responsible for it</li><li>Each cell predicts boxes, a confidence for each, and class probabilities</li></ul></div></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 56 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 56 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.56 · diagram</p><p>Every cell is a tiny detector for its own region.</p></aside>
   </section>
   <!-- 2.57 · YOLOv1's output — worked -->
   <section class="slide slide--t-worked" data-id="2.57">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>YOLOv1's output — worked</h2><ol class="steps-w"><li><span><b class="num">7</b> × <b class="num">7</b> grid</span></li><li><span><b class="num">2</b> boxes per cell × (x, y, w, h, confidence) = <b class="num">10</b> numbers</span></li><li><span>+ <b class="num">20</b> class probabilities</span></li><li><span>= <b class="num">30</b> numbers per cell</span></li><li><span>output tensor = <b class="num">7</b> × <b class="num">7</b> × <b class="num">30</b></span></li></ol></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 57 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 57 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.57 · worked</p><p>The whole detection result is one tensor. That is why it is fast.</p></aside>
   </section>
   <!-- 2.58 · YOLO's loss in plain words -->
   <section class="slide slide--t-cards" data-id="2.58">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>YOLO's loss in plain words</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Box error</span><span class="card-n__body">how far off are the box positions and sizes?</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Objectness error</span><span class="card-n__body">was "there is an object here" right?</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Class error</span><span class="card-n__body">was the class right?</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Total = weighted sum of the three</span></div></div></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 58 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 58 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.58 · cards</p><p>Same multi-task idea as localising one object, but for every cell at once.</p></aside>
   </section>
   <!-- 2.59 · YOLOv1's limits -->
   <section class="slide slide--t-cards" data-id="2.59">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>YOLOv1's limits</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Each cell predicts only 2 boxes → flocks of birds fail</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">One class per cell</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Small objects get lost in coarse cells</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Boxes less precise than Faster R-CNN</span></div></div></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 59 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 59 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.59 · cards</p><p>Every later YOLO version fixes one of these.</p></aside>
   </section>
   <!-- 2.60 · The YOLO evolution -->
   <section class="slide slide--t-table" data-id="2.60">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>The YOLO evolution</h2><table><tbody><tr><td>v2</td><td>anchors, batch norm</td></tr><tr><td>v3</td><td>predictions at 3 scales (like FPN)</td></tr><tr><td>v4 / v5</td><td>training tricks, heavy augmentation, easy tooling</td></tr><tr><td>v8</td><td>anchor-free</td></tr><tr><td>YOLO26 (Jan 2026)</td><td>end-to-end, no NMS step</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 60 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 60 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.60 · table</p><p>(cut first) Don't memorise versions. Notice the direction: anchors in, then anchors out, then NMS out.</p></aside>
   </section>
   <!-- 2.61 · Anchor-based vs anchor-free -->
   <section class="slide slide--t-compare" data-id="2.61">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>Anchor-based vs anchor-free</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Anchor-based</h3><ul class="blist"><li>adjust pre-defined template boxes</li><li>many hand-tuned settings</li></ul></div><div class="cmp__col"><h3>Anchor-free</h3><ul class="blist"><li>predict the object centre and its distances to the box edges directly</li><li>simpler, fewer settings</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 61 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 61 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.61 · compare</p><p>Modern detectors are mostly anchor-free.</p></aside>
   </section>
   <!-- 2.62 · DETR: detection as a set -->
   <section class="slide slide--t-diagram" data-id="2.62">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>DETR: detection as a set</h2><div class="dgm"><svg viewBox="-2 -2 944 181" role="img" aria-label="Diagram"><defs><marker id="ah-2-62" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="141.3" y="29.0" text-anchor="middle"><tspan x="141.3" dy="0">Image</tspan></text><rect class="dg-box" x="328.7" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="470.0" y="29.0" text-anchor="middle"><tspan x="470.0" dy="0">CNN backbone</tspan></text><line class="dg-line" x1="286.7" y1="23.5" x2="324.7" y2="23.5" marker-end="url(#ah-2-62)"/><rect class="dg-box" x="657.3" y="0.0" width="282.7" height="47.0" rx="10"/><text class="dg-t" x="798.7" y="29.0" text-anchor="middle"><tspan x="798.7" dy="0">transformer</tspan></text><line class="dg-line" x1="615.3" y1="23.5" x2="653.3" y2="23.5" marker-end="url(#ah-2-62)"/><rect class="dg-box" x="164.3" y="105.0" width="282.7" height="68.0" rx="10"/><text class="dg-t" x="305.7" y="134.0" text-anchor="middle"><tspan x="305.7" dy="0">a fixed set of N "object</tspan><tspan x="305.7" dy="21">queries"</tspan></text><rect class="dg-box dg-box--dark" x="493.0" y="105.0" width="282.7" height="68.0" rx="10"/><text class="dg-t dg-t--light" x="634.3" y="134.0" text-anchor="middle"><tspan x="634.3" dy="0">each query outputs one box +</tspan><tspan x="634.3" dy="21">class (or "no object")</tspan></text><line class="dg-line" x1="451.0" y1="139.0" x2="489.0" y2="139.0" marker-end="url(#ah-2-62)"/><path class="dg-line" d="M798.7,49.0 L798.7,76.0 L305.7,76.0 L305.7,101.0" marker-end="url(#ah-2-62)"/></svg><ul class="blist"><li>Matched one-to-one to the ground truth during training</li></ul></div></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 62 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 62 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.62 · diagram</p><p>Each query learns to claim one object. Because training forbids two queries claiming the same object, duplicates never form.</p></aside>
   </section>
   <!-- 2.63 · Why DETR needs no NMS -->
   <section class="slide slide--rule slide--t-rule" data-id="2.63">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR · Why DETR needs no NMS</p><p class="rule-text">NMS cleans up duplicates after the fact. DETR is trained so duplicates are never produced — no anchors, no NMS, one clean set of boxes.</p></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 63 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 63 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.63 · rule</p><p>Day 3 explains the transformer inside. For today: one prediction per object, by design.</p></aside>
   </section>
   <!-- 2.64 · RT-DETR: DETR made fast -->
   <section class="slide slide--t-cards" data-id="2.64">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>RT-DETR: DETR made fast</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Original DETR</span><span class="card-n__body">slow to train, slow to run</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">RT-DETR</span><span class="card-n__body">real-time transformer detector</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">RT-DETRv2</span><span class="card-n__body">improved version, available in Hugging Face Transformers</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">We fine-tune RT-DETRv2 in Lab 2B</span></div></div></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 64 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 64 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.64 · cards</p><p>This is the model in your afternoon lab.</p></aside>
   </section>
   <!-- 2.65 · One-stage vs two-stage -->
   <section class="slide slide--t-table" data-id="2.65">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>One-stage vs two-stage</h2><table><tbody><tr><td>Two-stage (Faster R-CNN)</td><td>higher accuracy on small objects</td><td>slower</td><td>good when accuracy matters most</td></tr><tr><td>One-stage (YOLO, RT-DETR)</td><td>real-time</td><td>simpler to deploy</td><td>the default for video and edge devices</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 65 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 65 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.65 · table</p><p>The gap has nearly closed. Speed requirements usually decide.</p></aside>
   </section>
   <!-- 2.66 · Know your licences -->
   <section class="slide slide--t-table" data-id="2.66">
     <div class="slide__body"><p class="slide__eyebrow">Act 5 · One look — YOLO and DETR</p><h2>Know your licences</h2><table><tbody><tr><td>torchvision</td><td>BSD</td><td>use freely in products</td></tr><tr><td>Hugging Face Transformers</td><td>Apache 2.0</td><td>use freely</td></tr><tr><td>supervision</td><td>MIT</td><td>use freely</td></tr><tr><td>Ultralytics YOLO</td><td>AGPL-3.0</td><td>ship it in a product → you must open-source your code or buy a licence</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 5 · One look — YOLO and DETR · Day 2 · 66 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 5 · One look — YOLO and DETR · Day 2 · 66 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.66 · table</p><p>As a developer, check the licence before you build a product on a library. Lab 2C uses Ultralytics for learning only.</p></aside>
   </section>
   <!-- 2.67 · Act 6 -->
   <section class="slide slide--section slide--t-section" data-id="2.67">
     <div class="slide__body"><p class="sec-num">06</p><h2>How good is the detector?</h2><p class="slide__kicker">"It looks good on my photos" is not evaluation</p></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 67 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 67 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.67 · section</p><p>This act is the most heavily tested on the exam. Go slowly.</p></aside>
   </section>
   <!-- 2.68 · When is a prediction correct? -->
   <section class="slide slide--t-cards" data-id="2.68">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>When is a prediction correct?</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">A prediction is a True Positive (TP) if</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">its IoU with a ground-truth box ≥ threshold (e.g. 0.5)</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">AND its class is correct</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">AND that ground truth was not already matched</span></div></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 68 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 68 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.68 · cards</p><p>All three conditions. The third one stops two predictions both counting for the same object.</p></aside>
   </section>
   <!-- 2.69 · TP, FP, FN for detection -->
   <section class="slide slide--t-table" data-id="2.69">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>TP, FP, FN for detection</h2><table><tbody><tr><td>True Positive</td><td>a correct box on a real object</td></tr><tr><td>False Positive</td><td>a box on nothing, wrong class, or a duplicate</td></tr><tr><td>False Negative</td><td>a real object with no matching box</td></tr><tr><td>(True negatives are not counted — there are infinite empty boxes)</td><td></td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 69 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 69 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.69 · table</p><p>Detection has no true negatives. That is why we use precision and recall, not accuracy.</p></aside>
   </section>
   <!-- 2.70 · Precision and recall for detection -->
   <section class="slide slide--t-compare" data-id="2.70">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>Precision and recall for detection</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Precision = TP / (TP + FP)</h3><ul class="blist"><li>"of the boxes I drew, how many were right?"</li></ul></div><div class="cmp__col"><h3>Recall = TP / (TP + FN)</h3><ul class="blist"><li>"of the real objects, how many did I find?"</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 70 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 70 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.70 · compare</p><p>Same definitions as Day 1, applied to boxes.</p></aside>
   </section>
   <!-- 2.71 · Which one matters more? -->
   <section class="slide slide--t-compare" data-id="2.71">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>Which one matters more?</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Airport weapon screening</h3><ul class="blist"><li>missing one is a disaster → prioritise recall</li></ul></div><div class="cmp__col"><h3>Spam-like alerts to a busy operator</h3><ul class="blist"><li>false alarms get ignored → prioritise precision</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 71 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 71 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.71 · compare</p><p>The business decides which error is worse. Threshold Tycoon is exactly this.</p></aside>
   </section>
   <!-- 2.72 · Confidence changes everything -->
   <section class="slide slide--rule slide--t-rule" data-id="2.72">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector? · Confidence changes everything</p><p class="rule-text">Raise the confidence threshold → fewer boxes → precision up, recall down. Lower it → more boxes → recall up, precision down.</p></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 72 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 72 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.72 · rule</p><p>There is no single precision or recall for a detector, only one per threshold.</p></aside>
   </section>
   <!-- 2.73 · The precision–recall curve -->
   <section class="slide slide--t-diagram" data-id="2.73">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>The precision–recall curve</h2><div class="dgm dgm--side"><svg viewBox="0 0 640 400" role="img" aria-label="Diagram"><defs><marker id="ah-2-73" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="dg-line" x1="70" y1="340" x2="610" y2="340" marker-end="url(#ah-2-73)"/><line class="dg-line" x1="70" y1="340" x2="70" y2="30" marker-end="url(#ah-2-73)"/><text class="dg-t" x="600" y="372" text-anchor="end">recall</text><text class="dg-t" x="60" y="24" text-anchor="start">precision</text><path class="dg-line dg-line--teal" stroke-width="4" d="M70,60 L190,60 L190,110 L300,110 L300,130 L420,130 L420,190 L520,190 L520,250"/><path class="dg-line dg-line--coral dg-line--dash" stroke-width="3" d="M70,120 L150,120 L150,190 L260,190 L260,250 L360,250 L360,300"/><text class="dg-t" x="430" y="120" text-anchor="start">good detector</text><text class="dg-s" x="370" y="296" text-anchor="start">weaker detector</text><text class="dg-s" x="70" y="362" text-anchor="middle">0</text><text class="dg-s" x="340" y="362" text-anchor="middle">0.5</text><text class="dg-s" x="610" y="362" text-anchor="middle">1</text><text class="dg-s" x="40" y="64" text-anchor="middle">1</text></svg><ul class="blist"><li>Sort predictions by confidence</li><li>go down the list one by one</li><li>after each, compute precision and recall</li><li>plot recall on x, precision on y</li><li>A good detector stays high and to the right</li></ul></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 73 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 73 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.73 · diagram</p><p>The curve summarises every possible threshold at once.</p></aside>
   </section>
   <!-- 2.74 · AP by hand — the setup -->
   <section class="slide slide--t-worked" data-id="2.74">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>AP by hand — the setup</h2><ol class="steps-w"><li><span><b class="num">5</b> ground-truth objects</span></li><li><span><b class="num">8</b> predictions sorted by confidence · TP · TP · FP · TP · FP · TP · FP · FP</span></li></ol></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 74 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 74 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.74 · worked</p><p>We already decided which are TP and which are FP using IoU ≥ 0.5. Now we build the curve.</p></aside>
   </section>
   <!-- 2.75 · AP by hand — the table -->
   <section class="slide slide--t-table" data-id="2.75">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>AP by hand — the table</h2><table><tbody><tr><td>1 TP</td><td>P 1/1 = 1.00</td><td>R 1/5 = 0.2</td></tr><tr><td>2 TP</td><td>2/2 = 1.00</td><td>0.4</td></tr><tr><td>3 FP</td><td>2/3 = 0.67</td><td>0.4</td></tr><tr><td>4 TP</td><td>3/4 = 0.75</td><td>0.6</td></tr><tr><td>5 FP</td><td>3/5 = 0.60</td><td>0.6</td></tr><tr><td>6 TP</td><td>4/6 = 0.67</td><td>0.8</td></tr><tr><td>7 FP</td><td>4/7 = 0.57</td><td>0.8</td></tr><tr><td>8 FP</td><td>4/8 = 0.50</td><td>0.8</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 75 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 75 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.75 · table</p><p>Precision counts TPs so far divided by predictions so far. Recall counts TPs so far divided by 5. Recall never goes down.</p></aside>
   </section>
   <!-- 2.76 · AP by hand — the area -->
   <section class="slide slide--t-worked" data-id="2.76">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>AP by hand — the area</h2><ol class="steps-w"><li><span>Interpolated precision at each recall = the best precision at that recall or higher</span></li><li><span>R <b class="num">0</b> → <b class="num">0.4</b>: <b class="num">1.00</b></span></li><li><span>R <b class="num">0.4</b> → <b class="num">0.6</b>: <b class="num">0.75</b></span></li><li><span>R <b class="num">0.6</b> → <b class="num">0.8</b>: <b class="num">0.67</b></span></li><li><span>R <b class="num">0.8</b> → <b class="num">1.0</b>: <b class="num">0</b> (one object never found)</span></li><li><span>AP = <b class="num">0.4</b>×<b class="num">1.00</b> + <b class="num">0.2</b>×<b class="num">0.75</b> + <b class="num">0.2</b>×<b class="num">0.67</b> + <b class="num">0.2</b>×<b class="num">0</b> ≈ <b class="num">0.68</b></span></li></ol></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 76 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 76 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.76 · worked</p><p>AP is the area under the cleaned-up curve. The last term is zero because recall never reached 1: one object was missed entirely.</p></aside>
   </section>
   <!-- 2.77 · From AP to mAP -->
   <section class="slide slide--t-definition" data-id="2.77">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>From AP to mAP</h2><div class="defbox"><strong>mAP (mean Average Precision)</strong> — compute AP separately for each class, then take the mean. One number for the whole detector.</div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 77 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 77 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.77 · definition</p><p>A detector great at cars and terrible at bicycles can still have a decent mAP. Always look per class.</p></aside>
   </section>
   <!-- 2.78 · mAP@0.5 vs mAP@0.5:0.95 -->
   <section class="slide slide--t-compare" data-id="2.78">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>mAP@0.5 vs mAP@0.5:0.95</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>mAP@0.5</h3><ul class="blist"><li>a hit needs IoU ≥ 0.5</li><li>forgiving</li></ul></div><div class="cmp__col"><h3>mAP@0.5:0.95</h3><ul class="blist"><li>average of mAP at IoU 0.5, 0.55, … 0.95</li><li>rewards tight boxes</li><li>the COCO standard</li><li>always lower</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 78 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 78 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.78 · compare</p><p>When comparing models, make sure both use the same definition.</p></aside>
   </section>
   <!-- 2.79 · Speed is a metric too -->
   <section class="slide slide--t-cards" data-id="2.79">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>Speed is a metric too</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Latency</span><span class="card-n__body">milliseconds per image</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">FPS</span><span class="card-n__body">images per second</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Measure on the target hardware, not your laptop</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Accuracy nobody waits for is worthless</span></div></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 79 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 79 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.79 · cards</p><p>A 30 FPS camera needs under 33 milliseconds per frame, including drawing and tracking.</p></aside>
   </section>
   <!-- 2.80 · Choosing the operating threshold -->
   <section class="slide slide--rule slide--t-rule" data-id="2.80">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector? · Choosing the operating threshold</p><p class="rule-text">The default threshold (often 0.25 or 0.5) is not a decision. Pick the threshold from the cost of a false positive vs the cost of a false negative for your user.</p></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 80 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 80 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.80 · rule</p><p>In your project, state your threshold and why. That is worth rubric marks.</p></aside>
   </section>
   <!-- 2.81 · What a high mAP still hides -->
   <section class="slide slide--t-cards" data-id="2.81">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>What a high mAP still hides</h2><div class="cards cards--3"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Per-class weakness</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Small objects</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Night, rain, glare</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Rare classes</span></div><div class="card-n"><span class="card-n__num">05</span><span class="card-n__head">Unseen camera angles</span></div><div class="card-n"><span class="card-n__num">06</span><span class="card-n__head">Look at failure images, not only the number</span></div></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 81 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 81 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.81 · cards</p><p>Every project must include five failure images with causes. This is why.</p></aside>
   </section>
   <!-- 2.82 · Threshold Tycoon -->
   <section class="slide slide--t-activity" data-id="2.82">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>Threshold Tycoon</h2><div class="act-card"><span class="act-label">Activity</span><h3>Threshold Tycoon</h3><ul class="act-list"><li>Choose the confidence threshold for three businesses</li><li>Hidden costs decide the winner</li><li>Site → Activities → Threshold Tycoon</li></ul><a class="act-go" href="../activities/threshold-tycoon.html">Open Threshold Tycoon →</a></div></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 82 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 82 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.82 · activity</p><p>Ten minutes. Reveal the best thresholds at the end and why they differ.</p></aside>
   </section>
   <!-- 2.83 · Lab 2A — part 2 -->
   <section class="slide slide--t-list" data-id="2.83">
     <div class="slide__body"><p class="slide__eyebrow">Act 6 · How good is the detector?</p><h2>Lab 2A — part 2</h2><ul class="olist"><li><span></span><span>Compute precision, recall and AP for a list of predictions</span></li><li><span></span><span>Check against the worked example (≈ 0.68)</span></li><li><span></span><span>Run Faster R-CNN, Mask R-CNN and Keypoint R-CNN from torchvision</span></li><li><span></span><span>Read the output fields: boxes, labels, scores, masks, keypoints</span></li></ul></div>
-    <div class="slide__footer"><span>Act 6 · How good is the detector? · Day 2 · 83 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 6 · How good is the detector? · Day 2 · 83 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.83 · list</p><p>Students who finish early do the NMS threshold sweep extra task.</p></aside>
   </section>
   <!-- 2.84 · Act 7 -->
   <section class="slide slide--section slide--t-section" data-id="2.84">
     <div class="slide__body"><p class="sec-num">07</p><h2>Pixel-level understanding</h2><p class="slide__kicker">Boxes are rough. Some problems need the exact shape.</p></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 84 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 84 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.84 · section</p><p>Measuring a crack, a tumour, or a field needs pixels, not boxes.</p></aside>
   </section>
   <!-- 2.85 · Semantic segmentation -->
   <section class="slide slide--t-definition" data-id="2.85">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Semantic segmentation</h2><div class="defbox"><strong>Semantic segmentation</strong> — assigning a class label to every pixel in the image. The output is a label map the same size as the input.</div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 85 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 85 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.85 · definition</p><p>A 512 by 512 image gives 262,144 classification decisions.</p></aside>
   </section>
   <!-- 2.86 · The obvious attempt: a sliding window per pixel -->
   <section class="slide slide--t-compare" data-id="2.86">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>The obvious attempt: a sliding window per pixel</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Idea</h3><ul class="blist"><li>crop a patch around each pixel, classify the centre pixel</li></ul></div><div class="cmp__col"><h3>Problem</h3><ul class="blist"><li>262,144 crops per image, overlapping crops recompute the same features</li><li>absurdly slow</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 86 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 86 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.86 · compare</p><p>The same waste we saw with R-CNN.</p></aside>
   </section>
   <!-- 2.87 · Fully convolutional networks -->
   <section class="slide slide--t-diagram" data-id="2.87">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Fully convolutional networks</h2><div class="dgm"><svg viewBox="-2 -2 944 152" role="img" aria-label="Diagram"><defs><marker id="ah-2-87" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="38.0" width="282.7" height="68.0" rx="10"/><text class="dg-t dg-t--light" x="141.3" y="67.0" text-anchor="middle"><tspan x="141.3" dy="0">Use only conv layers (no</tspan><tspan x="141.3" dy="21">fully connected head)</tspan></text><rect class="dg-box" x="328.7" y="0.0" width="282.7" height="68.0" rx="8"/><text class="dg-t" x="470.0" y="24.0" text-anchor="middle"><tspan x="470.0" dy="0">output a class score map</tspan><tspan x="470.0" dy="21">instead of one label</tspan></text><rect class="dg-box dg-box--alt" x="328.7" y="76.0" width="282.7" height="68.0" rx="8"/><text class="dg-t" x="470.0" y="100.0" text-anchor="middle"><tspan x="470.0" dy="0">But pooling shrinks the map:</tspan><tspan x="470.0" dy="21">512</tspan></text><line class="dg-line" x1="286.7" y1="72.0" x2="324.7" y2="72.0" marker-end="url(#ah-2-87)"/><rect class="dg-box dg-box--dark" x="657.3" y="48.5" width="282.7" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="798.7" y="77.5" text-anchor="middle"><tspan x="798.7" dy="0">16</tspan></text><line class="dg-line" x1="615.3" y1="72.0" x2="653.3" y2="72.0" marker-end="url(#ah-2-87)"/></svg></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 87 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 87 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.87 · diagram</p><p>Without fully connected layers, the network outputs a map. But the map is tiny and blurry.</p></aside>
   </section>
   <!-- 2.88 · The tension -->
   <section class="slide slide--t-compare" data-id="2.88">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>The tension</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Downsampling</h3><ul class="blist"><li>grows the receptive field</li><li>understands what</li></ul></div><div class="cmp__col"><h3>Full resolution</h3><ul class="blist"><li>keeps fine detail</li><li>knows where</li></ul></div></div><p class="callout">Segmentation needs both</p></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 88 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 88 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.88 · compare</p><p>Go down to understand, come back up to locate.</p></aside>
   </section>
   <!-- 2.89 · Encoder–decoder -->
   <section class="slide slide--t-diagram" data-id="2.89">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Encoder–decoder</h2><div class="dgm"><svg viewBox="-2 -2 944 330" role="img" aria-label="Diagram"><defs><marker id="ah-2-89" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="0.0" width="200.5" height="69.0" rx="10"/><text class="dg-t dg-t--light" x="100.2" y="29.0" text-anchor="middle"><tspan x="100.2" dy="0">Encoder</tspan></text><text class="dg-s dg-s--light" x="100.2" y="52.0" text-anchor="middle"><tspan x="100.2" dy="0">conv + pool: 512</tspan></text><rect class="dg-box" x="246.5" y="11.0" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="346.8" y="40.0" text-anchor="middle"><tspan x="346.8" dy="0">256</tspan></text><line class="dg-line" x1="204.5" y1="34.5" x2="242.5" y2="34.5" marker-end="url(#ah-2-89)"/><rect class="dg-box" x="493.0" y="11.0" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="593.2" y="40.0" text-anchor="middle"><tspan x="593.2" dy="0">128</tspan></text><line class="dg-line" x1="451.0" y1="34.5" x2="489.0" y2="34.5" marker-end="url(#ah-2-89)"/><rect class="dg-box" x="739.5" y="11.0" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="839.8" y="40.0" text-anchor="middle"><tspan x="839.8" dy="0">64</tspan></text><line class="dg-line" x1="697.5" y1="34.5" x2="735.5" y2="34.5" marker-end="url(#ah-2-89)"/><rect class="dg-box" x="0.0" y="127.5" width="200.5" height="68.0" rx="10"/><text class="dg-t" x="100.2" y="156.5" text-anchor="middle"><tspan x="100.2" dy="0">32 (more meaning,</tspan><tspan x="100.2" dy="21">less detail)</tspan></text><rect class="dg-box" x="246.5" y="127.0" width="200.5" height="69.0" rx="10"/><text class="dg-t" x="346.8" y="156.0" text-anchor="middle"><tspan x="346.8" dy="0">Decoder</tspan></text><text class="dg-s" x="346.8" y="179.0" text-anchor="middle"><tspan x="346.8" dy="0">upsample: 32</tspan></text><line class="dg-line" x1="204.5" y1="161.5" x2="242.5" y2="161.5" marker-end="url(#ah-2-89)"/><rect class="dg-box" x="493.0" y="138.0" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="593.2" y="167.0" text-anchor="middle"><tspan x="593.2" dy="0">64</tspan></text><line class="dg-line" x1="451.0" y1="161.5" x2="489.0" y2="161.5" marker-end="url(#ah-2-89)"/><rect class="dg-box" x="739.5" y="138.0" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="839.8" y="167.0" text-anchor="middle"><tspan x="839.8" dy="0">128</tspan></text><line class="dg-line" x1="697.5" y1="161.5" x2="735.5" y2="161.5" marker-end="url(#ah-2-89)"/><path class="dg-line" d="M839.8,60.0 L839.8,87.0 L100.2,87.0 L100.2,123.0" marker-end="url(#ah-2-89)"/><rect class="dg-box" x="123.2" y="264.5" width="200.5" height="47.0" rx="10"/><text class="dg-t" x="223.5" y="293.5" text-anchor="middle"><tspan x="223.5" dy="0">256</tspan></text><rect class="dg-box" x="369.8" y="254.0" width="200.5" height="68.0" rx="10"/><text class="dg-t" x="470.0" y="283.0" text-anchor="middle"><tspan x="470.0" dy="0">512 (back to full</tspan><tspan x="470.0" dy="21">size)</tspan></text><line class="dg-line" x1="327.8" y1="288.0" x2="365.8" y2="288.0" marker-end="url(#ah-2-89)"/><rect class="dg-box dg-box--dark" x="616.2" y="264.5" width="200.5" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="716.5" y="293.5" text-anchor="middle"><tspan x="716.5" dy="0">per-pixel classes</tspan></text><line class="dg-line" x1="574.2" y1="288.0" x2="612.2" y2="288.0" marker-end="url(#ah-2-89)"/><path class="dg-line" d="M839.8,187.0 L839.8,214.0 L223.5,214.0 L223.5,250.0" marker-end="url(#ah-2-89)"/></svg></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 89 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 89 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.89 · diagram</p><p>The decoder must learn how to grow the map back.</p></aside>
   </section>
   <!-- 2.90 · Upsampling options -->
   <section class="slide slide--t-cards" data-id="2.90">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Upsampling options</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Nearest / bilinear</span><span class="card-n__body">copy or average · no learning</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Unpooling</span><span class="card-n__body">put values back in place</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Max unpooling</span><span class="card-n__body">remember where the max came from</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Transposed convolution</span><span class="card-n__body">learned upsampling</span></div></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 90 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 90 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.90 · cards</p><p>Transposed convolution lets the network learn how to upsample.</p></aside>
   </section>
   <!-- 2.91 · Transposed convolution — worked -->
   <section class="slide slide--t-worked" data-id="2.91">
     <div class="slide__body"><p class="slide__eyebrow">Worked example</p><h2>Transposed convolution — worked</h2><ol class="steps-w"><li><span>Input [<b class="num">1,</b> <b class="num">2</b>]</span></li><li><span>kernel [<b class="num">1,</b> <b class="num">1,</b> <b class="num">1</b>] · stride <b class="num">2</b></span></li><li><span>Each input value stamps a scaled copy of the kernel, <b class="num">2</b> steps apart</span></li><li><span><b class="num">1</b> × [<b class="num">1,</b> <b class="num">1,</b> <b class="num">1</b>] at positions <b class="num">0</b>–<b class="num">2</b></span></li><li><span><b class="num">2</b> × [<b class="num">1,</b> <b class="num">1,</b> <b class="num">1</b>] at positions <b class="num">2</b>–<b class="num">4</b></span></li><li><span>overlaps add → output [<b class="num">1,</b> <b class="num">1,</b> <b class="num">3,</b> <b class="num">2,</b> <b class="num">2</b>]</span></li><li><span>length = (<b class="num">2</b> − <b class="num">1</b>)·<b class="num">2</b> + <b class="num">3</b> = <b class="num">5</b></span></li></ol></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 91 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 91 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.91 · worked</p><p>(cut first) Formula: out = (in − 1)·S − 2P + K. Overlaps add up, which can create checkerboard artifacts.</p></aside>
   </section>
   <!-- 2.92 · The problem with plain encoder–decoders -->
   <section class="slide slide--rule slide--t-rule" data-id="2.92">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation · The problem with plain encoder–decoders</p><p class="rule-text">By the bottom of the encoder, the exact edges are gone. The decoder can guess the shape, but boundaries come out blurry.</p></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 92 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 92 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.92 · rule</p><p>Information destroyed by pooling cannot be recovered by upsampling alone.</p></aside>
   </section>
   <!-- 2.93 · U-Net: skip connections across -->
   <section class="slide slide--t-diagram" data-id="2.93">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>U-Net: skip connections across</h2><div class="dgm dgm--side"><svg viewBox="0 0 640 400" role="img" aria-label="Diagram"><defs><marker id="ah-2-93" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box" x="40" y="40" width="120" height="50" rx="8"/><text class="dg-t" x="100.0" y="71" text-anchor="middle">512</text><rect class="dg-box dg-box--alt" x="480" y="40" width="120" height="50" rx="8"/><text class="dg-t" x="540.0" y="71" text-anchor="middle">512</text><line class="dg-line dg-line--coral dg-line--dash" stroke-width="2.5" x1="164" y1="65" x2="474" y2="65" marker-end="url(#ah-2-93)"/><line class="dg-line" x1="70" y1="92" x2="110" y2="118" marker-end="url(#ah-2-93)"/><line class="dg-line" x1="530" y1="118" x2="570" y2="92" marker-end="url(#ah-2-93)"/><rect class="dg-box" x="90" y="120" width="100" height="50" rx="8"/><text class="dg-t" x="140.0" y="151" text-anchor="middle">256</text><rect class="dg-box dg-box--alt" x="450" y="120" width="100" height="50" rx="8"/><text class="dg-t" x="500.0" y="151" text-anchor="middle">256</text><line class="dg-line dg-line--coral dg-line--dash" stroke-width="2.5" x1="194" y1="145" x2="444" y2="145" marker-end="url(#ah-2-93)"/><line class="dg-line" x1="120" y1="172" x2="160" y2="198" marker-end="url(#ah-2-93)"/><line class="dg-line" x1="480" y1="198" x2="520" y2="172" marker-end="url(#ah-2-93)"/><rect class="dg-box" x="140" y="200" width="80" height="50" rx="8"/><text class="dg-t" x="180.0" y="231" text-anchor="middle">128</text><rect class="dg-box dg-box--alt" x="420" y="200" width="80" height="50" rx="8"/><text class="dg-t" x="460.0" y="231" text-anchor="middle">128</text><line class="dg-line dg-line--coral dg-line--dash" stroke-width="2.5" x1="224" y1="225" x2="414" y2="225" marker-end="url(#ah-2-93)"/><line class="dg-line" x1="170" y1="252" x2="210" y2="278" marker-end="url(#ah-2-93)"/><line class="dg-line" x1="430" y1="278" x2="470" y2="252" marker-end="url(#ah-2-93)"/><rect class="dg-box" x="190" y="280" width="60" height="50" rx="8"/><text class="dg-t" x="220.0" y="311" text-anchor="middle">64</text><rect class="dg-box dg-box--alt" x="390" y="280" width="60" height="50" rx="8"/><text class="dg-t" x="420.0" y="311" text-anchor="middle">64</text><rect class="dg-box dg-box--dark" x="260" y="345" width="120" height="44" rx="8"/><text class="dg-t dg-t--light" x="320" y="373" text-anchor="middle">bottleneck</text><line class="dg-line" x1="230" y1="332" x2="262" y2="352" marker-end="url(#ah-2-93)"/><line class="dg-line" x1="378" y1="352" x2="410" y2="332" marker-end="url(#ah-2-93)"/><text class="dg-s" x="110" y="22" text-anchor="middle">encoder: what</text><text class="dg-s" x="530" y="22" text-anchor="middle">decoder: where</text><text class="dg-s" x="320" y="62" text-anchor="middle">skip: copy across</text></svg><ul class="blist"><li>Encoder levels are copied directly across to the matching decoder levels</li><li>The decoder gets both "what" (from below) and "where" (from the skip)</li><li>U-shaped diagram</li></ul></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 93 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 93 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.93 · diagram</p><p>The encoder knows what, the decoder needs where, and skip connections deliver it. Different from ResNet's skips: these concatenate across the U.</p></aside>
   </section>
   <!-- 2.94 · Why U-Net is everywhere -->
   <section class="slide slide--t-cards" data-id="2.94">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Why U-Net is everywhere</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Works with few training images</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Precise boundaries</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Medical imaging standard</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">The core inside Stable Diffusion's denoiser (Day 3)</span></div></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 94 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 94 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.94 · cards</p><p>Created in 2015 for cell images. You will meet it again tomorrow inside image generators.</p></aside>
   </section>
   <!-- 2.95 · Instance segmentation: Mask R-CNN -->
   <section class="slide slide--t-diagram" data-id="2.95">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Instance segmentation: Mask R-CNN</h2><div class="dgm dgm--side"><svg viewBox="0 0 640 400" role="img" aria-label="Diagram"><defs><marker id="ah-2-95" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box" x="20" y="80" width="200" height="200" rx="8"/><path class="dg-fill-teal" opacity="0.6" d="M80,250 C60,180 90,130 120,120 C160,110 175,170 170,250 Z"/><rect class="dg-line dg-line--coral" stroke-width="3" fill="none" x="62" y="112" width="122" height="146"/><text class="dg-s" x="120" y="306" text-anchor="middle">box + mask inside it</text><line class="dg-line" x1="228" y1="180" x2="270" y2="180" marker-end="url(#ah-2-95)"/><rect class="dg-box dg-box--dark" x="275" y="140" width="130" height="80" rx="10"/><text class="dg-t dg-t--light" x="340" y="175" text-anchor="middle">Faster R-CNN</text><text class="dg-s dg-s--light" x="340" y="199" text-anchor="middle">+ RoIAlign</text><path class="dg-line" d="M405,180 C430,180 430,98 455,98" marker-end="url(#ah-2-95)"/><rect class="dg-box" x="460" y="70" width="150" height="56" rx="10"/><text class="dg-t" x="535" y="104" text-anchor="middle">class</text><path class="dg-line" d="M405,180 C430,180 430,193 455,193" marker-end="url(#ah-2-95)"/><rect class="dg-box" x="460" y="165" width="150" height="56" rx="10"/><text class="dg-t" x="535" y="199" text-anchor="middle">box</text><path class="dg-line" d="M405,180 C430,180 430,288 455,288" marker-end="url(#ah-2-95)"/><rect class="dg-box dg-box--warm" x="460" y="260" width="150" height="56" rx="10"/><text class="dg-t" x="535" y="294" text-anchor="middle">mask head</text></svg><ul class="blist"><li>Faster R-CNN (box + class per object) + a small mask head that predicts a mask inside each box</li><li>RoIAlign: precise feature cropping without rounding</li></ul></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 95 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 95 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.95 · diagram</p><p>Detect first, then segment inside each box. Lab 2A runs it.</p></aside>
   </section>
   <!-- 2.96 · Panoptic and keypoints -->
   <section class="slide slide--t-cards" data-id="2.96">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Panoptic and keypoints</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Panoptic</span><span class="card-n__body">every pixel gets a class and, for things, an instance ID</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Keypoint R-CNN</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Mask R-CNN's idea, predicting joints instead of masks</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Pose = keypoints + their connections</span></div></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 96 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 96 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.96 · cards</p><p>Same backbone, different heads. That is the pattern of modern vision.</p></aside>
   </section>
   <!-- 2.97 · Segmentation metrics -->
   <section class="slide slide--t-compare" data-id="2.97">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Segmentation metrics</h2><div class="cmp cmp--3"><div class="cmp__col"><h3>Pixel accuracy</h3><ul class="blist"><li>misleading — 95% background gives 95% for doing nothing</li></ul></div><div class="cmp__col"><h3>Mask IoU</h3><ul class="blist"><li>overlap of predicted and true masks</li></ul></div><div class="cmp__col"><h3>Dice = 2|A ∩ B| / (|A| + |B|)</h3><ul class="blist"><li>common in medical imaging</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 97 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 97 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.97 · compare</p><p>Accuracy lies again, for the same imbalance reason as Day 1.</p></aside>
   </section>
   <!-- 2.98 · Choosing boxes or masks -->
   <section class="slide slide--t-table" data-id="2.98">
     <div class="slide__body"><p class="slide__eyebrow">Act 7 · Pixel-level understanding: segmentation</p><h2>Choosing boxes or masks</h2><table><tbody><tr><td>Counting</td><td>boxes are enough</td></tr><tr><td>Measuring area or length</td><td>masks</td></tr><tr><td>Touching objects</td><td>instance masks</td></tr><tr><td>Background regions (road, sky)</td><td>semantic masks</td></tr><tr><td>Labelling budget is tight</td><td>boxes</td></tr></tbody></table></div>
-    <div class="slide__footer"><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 98 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 7 · Pixel-level understanding: segmentation · Day 2 · 98 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.98 · table</p><p>Masks cost far more to label. Use them only when shape matters.</p></aside>
   </section>
   <!-- 2.99 · Act 8 -->
   <section class="slide slide--section slide--t-section" data-id="2.99">
     <div class="slide__body"><p class="sec-num">08</p><h2>From frames to motion</h2><p class="slide__kicker">Detection sees each frame alone. Tracking connects them.</p></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 99 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 99 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.99 · section</p><p>Ceiling block. Start the Lab 2B training before teaching this act, so it trains while you talk.</p></aside>
   </section>
   <!-- 2.100 · Lab 2B — start training now -->
   <section class="slide slide--t-list" data-id="2.100">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Lab 2B — start training now</h2><ul class="olist"><li><b>Open Lab 2B</b><span>run up to "Start training"</span></li><li><span></span><span>RT-DETRv2 fine-tunes for a few minutes on a small dataset</span></li><li><span></span><span>We read the results after this act</span></li></ul></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 100 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 100 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.100 · list</p><p>Get every student's training cell running, then teach Act 8 while the GPUs work.</p></aside>
   </section>
   <!-- 2.101 · Video is a stack of frames -->
   <section class="slide slide--t-cards" data-id="2.101">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Video is a stack of frames</h2><div class="cards cards--4"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Frame rate</span><span class="card-n__body">25–30 frames per second is typical</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Each frame is an image</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Motion blur</span><span class="card-n__body">fast objects smear</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Neighbouring frames are almost identical</span></div></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 101 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 101 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.101 · cards</p><p>A one-minute video at 30 FPS is 1,800 images.</p></aside>
   </section>
   <!-- 2.102 · Why detection alone is not enough -->
   <section class="slide slide--rule slide--t-rule" data-id="2.102">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking · Why detection alone is not enough</p><p class="rule-text">A detector says "3 people" in every frame. It cannot say whether they are the same 3 people, or count how many entered the shop today.</p></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 102 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 102 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.102 · rule</p><p>Counting entries needs identity over time.</p></aside>
   </section>
   <!-- 2.103 · Tracking by detection -->
   <section class="slide slide--t-diagram" data-id="2.103">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Tracking by detection</h2><div class="dgm"><svg viewBox="-2 -2 944 97" role="img" aria-label="Diagram"><defs><marker id="ah-2-103" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-box dg-box--dark" x="0.0" y="21.0" width="200.5" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="100.2" y="50.0" text-anchor="middle"><tspan x="100.2" dy="0">Each frame: detect</tspan></text><rect class="dg-box" x="246.5" y="0.0" width="200.5" height="89.0" rx="10"/><text class="dg-t" x="346.8" y="29.0" text-anchor="middle"><tspan x="346.8" dy="0">predict where</tspan><tspan x="346.8" dy="21">existing tracks</tspan><tspan x="346.8" dy="21">should be now</tspan></text><line class="dg-line" x1="204.5" y1="44.5" x2="242.5" y2="44.5" marker-end="url(#ah-2-103)"/><rect class="dg-box" x="493.0" y="10.5" width="200.5" height="68.0" rx="10"/><text class="dg-t" x="593.2" y="39.5" text-anchor="middle"><tspan x="593.2" dy="0">match new detections</tspan><tspan x="593.2" dy="21">to tracks</tspan></text><line class="dg-line" x1="451.0" y1="44.5" x2="489.0" y2="44.5" marker-end="url(#ah-2-103)"/><rect class="dg-box dg-box--dark" x="739.5" y="21.0" width="200.5" height="47.0" rx="10"/><text class="dg-t dg-t--light" x="839.8" y="50.0" text-anchor="middle"><tspan x="839.8" dy="0">update matched tracks</tspan></text><line class="dg-line" x1="697.5" y1="44.5" x2="735.5" y2="44.5" marker-end="url(#ah-2-103)"/></svg><ul class="blist"><li>start new tracks</li><li>retire lost tracks</li></ul></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 103 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 103 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.103 · diagram</p><p>Detect, predict, match, update. Four verbs.</p></aside>
   </section>
   <!-- 2.104 · Predict: a motion model -->
   <section class="slide slide--t-definition" data-id="2.104">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Predict: a motion model</h2><div class="defbox"><strong>Motion model</strong> — a guess of where each tracked object will be in the next frame, based on its recent speed and direction. The Kalman filter is the classic way to do this.</div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 104 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 104 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.104 · definition</p><p>If a car moved 10 pixels right each frame, expect it 10 pixels further right now.</p></aside>
   </section>
   <!-- 2.105 · Match: who is who? -->
   <section class="slide slide--t-cards" data-id="2.105">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Match: who is who?</h2><div class="cards cards--2"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Compute IoU between predicted track boxes and new detections</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">High IoU = probably the same object</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Assign pairs so the total overlap is best (Hungarian algorithm)</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Optionally compare appearance too</span></div></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 105 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 105 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.105 · cards</p><p>IoU comes back. Matching is just IoU plus a fair assignment.</p></aside>
   </section>
   <!-- 2.106 · Tracking failures -->
   <section class="slide slide--t-cards" data-id="2.106">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Tracking failures</h2><div class="cards cards--3"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">ID switch</span><span class="card-n__body">two people cross and swap IDs</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Lost track</span><span class="card-n__body">object hidden behind a pillar, comes back with a new ID</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Fragmentation</span><span class="card-n__body">one object, many short tracks</span></div></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 106 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 106 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.106 · cards</p><p>ID switches ruin counts. They are the main thing tracking metrics punish.</p></aside>
   </section>
   <!-- 2.107 · ByteTrack's idea -->
   <section class="slide slide--t-compare" data-id="2.107">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>ByteTrack's idea</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>Old trackers</h3><ul class="blist"><li>throw away low-confidence boxes before matching</li></ul></div><div class="cmp__col"><h3>ByteTrack</h3><ul class="blist"><li>match high-confidence boxes first, then try the low-confidence ones against unmatched tracks</li><li>a half-hidden person keeps their ID</li></ul></div></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 107 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 107 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.107 · compare</p><p>A low score often means partly hidden, not "not a person". ByteTrack keeps those boxes useful.</p></aside>
   </section>
   <!-- 2.108 · Counting with a line -->
   <section class="slide slide--t-diagram" data-id="2.108">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Counting with a line</h2><div class="dgm dgm--side"><svg viewBox="0 0 640 400" role="img" aria-label="Diagram"><defs><marker id="ah-2-108" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="dg-fill-muted" x="0" y="120" width="640" height="160" opacity="0.5"/><line class="dg-line dg-line--dash" x1="0" y1="200" x2="640" y2="200"/><line class="dg-line dg-line--coral" stroke-width="5" x1="330" y1="100" x2="330" y2="300"/><text class="dg-t" x="330" y="90" text-anchor="middle">virtual line</text><rect class="dg-box dg-box--dark" x="160" y="140" width="80" height="44" rx="8"/><text class="dg-t dg-t--light" x="200" y="168" text-anchor="middle">#7</text><line class="dg-line dg-line--teal" stroke-width="2.5" x1="90" y1="162" x2="156" y2="162" marker-end="url(#ah-2-108)"/><rect class="dg-box dg-box--dark" x="260" y="220" width="80" height="44" rx="8"/><text class="dg-t dg-t--light" x="300" y="248" text-anchor="middle">#8</text><line class="dg-line dg-line--teal" stroke-width="2.5" x1="190" y1="242" x2="256" y2="242" marker-end="url(#ah-2-108)"/><rect class="dg-box dg-box--dark" x="440" y="140" width="80" height="44" rx="8"/><text class="dg-t dg-t--light" x="480" y="168" text-anchor="middle">#5</text><line class="dg-line dg-line--teal" stroke-width="2.5" x1="370" y1="162" x2="436" y2="162" marker-end="url(#ah-2-108)"/><text class="dg-t" x="480" y="330" text-anchor="middle">IN: 1 (#5 crossed)</text><text class="dg-s" x="160" y="330" text-anchor="middle">same ID never counted twice</text></svg><ul class="blist"><li>Draw a virtual line across the road</li><li>When a tracked object's centre crosses it → count in or out</li><li>Needs tracker IDs, otherwise one car is counted many times</li></ul></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 108 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 108 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.108 · diagram</p><p>Lab 2B does exactly this with supervision's LineZone.</p></aside>
   </section>
   <!-- 2.109 · Worked case: traffic analytics -->
   <section class="slide slide--t-cards" data-id="2.109">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Worked case: traffic analytics</h2><div class="cards cards--1"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Detect vehicles</span><span class="card-n__body">track with ByteTrack · count per lane with lines · speed = pixels moved × metres per pixel × FPS · flag stopped vehicles</span></div></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 109 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 109 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.109 · cards</p><p>This is a real product type. Many project teams pick it.</p></aside>
   </section>
   <!-- 2.110 · Lab 2B — read the results -->
   <section class="slide slide--t-list" data-id="2.110">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Lab 2B — read the results</h2><ul class="olist"><li><span></span><span>Training curves: is loss still falling?</span></li><li><span></span><span>Validation mAP</span></li><li><span></span><span>Precision–recall curve</span></li><li><span></span><span>Failure gallery: what did it miss?</span></li><li><span></span><span>Then: ByteTrack + line counting on the video</span></li></ul></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 110 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 110 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.110 · list</p><p>Read one student's results on the projector and diagnose it together.</p></aside>
   </section>
   <!-- 2.111 · Lab 2C — Ultralytics for beginners -->
   <section class="slide slide--t-cards" data-id="2.111">
     <div class="slide__body"><p class="slide__eyebrow">Act 8 · From frames to motion: tracking</p><h2>Lab 2C — Ultralytics for beginners</h2><div class="cards cards--3"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Optional, self-paced</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Predict, track and train in about 5 lines with YOLO26</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Try text prompts with YOLOE-26</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Ends with "what the library hid from you"</span></div><div class="card-n"><span class="card-n__num">05</span><span class="card-n__head">Learning only</span><span class="card-n__body">remember the AGPL licence</span></div></div></div>
-    <div class="slide__footer"><span>Act 8 · From frames to motion: tracking · Day 2 · 111 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Act 8 · From frames to motion: tracking · Day 2 · 111 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.111 · cards</p><p>Good for anyone who struggled with 2B. It shows the same ideas with less code.</p></aside>
   </section>
   <!-- 2.112 · Your own data -->
   <section class="slide slide--section slide--t-section" data-id="2.112">
     <div class="slide__body"><h2>Your own data</h2><p class="slide__kicker">Labelling, formats, and the traps</p></div>
-    <div class="slide__footer"><span>Your own data · Day 2 · 112 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Your own data · Day 2 · 112 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.112 · section</p><p>[STRETCH] Twenty-five minutes. Very useful for the project; skip if behind.</p></aside>
   </section>
   <!-- 2.113 · How many images do you need? -->
   <section class="slide slide--t-cards" data-id="2.113">
     <div class="slide__body"><p class="slide__eyebrow">Your own data</p><h2>How many images do you need?</h2><div class="cards cards--3"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Fine-tuning a pretrained detector</span><span class="card-n__body">a few hundred labelled images per class is a usable start</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">More variety beats more copies</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Include the hard cases: night, glare, occlusion</span></div></div></div>
-    <div class="slide__footer"><span>Your own data · Day 2 · 113 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Your own data · Day 2 · 113 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.113 · cards</p><p>[STRETCH] Variety in conditions matters more than raw count.</p></aside>
   </section>
   <!-- 2.114 · Label formats -->
   <section class="slide slide--t-compare" data-id="2.114">
     <div class="slide__body"><p class="slide__eyebrow">Your own data</p><h2>Label formats</h2><div class="cmp cmp--2"><div class="cmp__col"><h3>YOLO</h3><ul class="blist"><li>one .txt per image</li><li>class cx cy w h, normalised</li></ul></div><div class="cmp__col"><h3>COCO</h3><ul class="blist"><li>one JSON for the dataset</li><li>xywh in pixels</li><li>plus image and category lists</li></ul></div></div></div>
-    <div class="slide__footer"><span>Your own data · Day 2 · 114 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Your own data · Day 2 · 114 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.114 · compare</p><p>[STRETCH] Converting between them is where boxes silently shift. Check by drawing labels on images first.</p></aside>
   </section>
   <!-- 2.115 · Data traps -->
   <section class="slide slide--t-cards" data-id="2.115">
     <div class="slide__body"><p class="slide__eyebrow">Your own data</p><h2>Data traps</h2><div class="cards cards--2"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Leakage</span><span class="card-n__body">near-identical frames from one video in both train and test</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Class imbalance</span><span class="card-n__body">5,000 cars, 40 bicycles</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Label noise</span><span class="card-n__body">boxes drawn loosely or inconsistently</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">Split by video or location, not by frame</span></div></div></div>
-    <div class="slide__footer"><span>Your own data · Day 2 · 115 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Your own data · Day 2 · 115 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.115 · cards</p><p>[STRETCH] Frame leakage gives beautiful test scores that collapse in the real world.</p></aside>
   </section>
   <!-- 2.116 · No defect examples? Anomaly detection -->
   <section class="slide slide--t-cards" data-id="2.116">
     <div class="slide__body"><p class="slide__eyebrow">Your own data</p><h2>No defect examples? Anomaly detection</h2><div class="cards cards--2"><div class="card-n"><span class="card-n__num">01</span><span class="card-n__head">Factories have thousands of good parts and few defects</span></div><div class="card-n"><span class="card-n__num">02</span><span class="card-n__head">Learn what "normal" looks like</span></div><div class="card-n"><span class="card-n__num">03</span><span class="card-n__head">Flag anything far from normal</span></div><div class="card-n"><span class="card-n__num">04</span><span class="card-n__head">PatchCore idea: store normal patch features, compare new patches to the memory</span></div></div></div>
-    <div class="slide__footer"><span>Your own data · Day 2 · 116 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Your own data · Day 2 · 116 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.116 · cards</p><p>[STRETCH] A completely different framing: learn normal instead of learning defects.</p></aside>
   </section>
   <!-- 2.117 · Ten distinctions to remember -->
   <section class="slide slide--t-table" data-id="2.117">
     <div class="slide__body"><p class="slide__eyebrow">Close of Day 2</p><h2>Ten distinctions to remember</h2><div class="vs-grid"><div class="vs-row"><span>Classification</span><span class="vs">vs</span><span class="r">detection</span></div><div class="vs-row"><span>Semantic</span><span class="vs">vs</span><span class="r">instance segmentation</span></div><div class="vs-row"><span>xyxy</span><span class="vs">vs</span><span class="r">xywh vs cxcywh</span></div><div class="vs-row"><span>Confidence threshold</span><span class="vs">vs</span><span class="r">NMS threshold</span></div><div class="vs-row"><span>Two-stage</span><span class="vs">vs</span><span class="r">one-stage</span></div><div class="vs-row"><span>Anchor-based</span><span class="vs">vs</span><span class="r">anchor-free</span></div><div class="vs-row"><span>NMS</span><span class="vs">vs</span><span class="r">NMS-free (DETR)</span></div><div class="vs-row"><span>Precision</span><span class="vs">vs</span><span class="r">recall</span></div><div class="vs-row"><span>mAP@0.5</span><span class="vs">vs</span><span class="r">mAP@0.5:0.95</span></div><div class="vs-row"><span>Detection</span><span class="vs">vs</span><span class="r">tracking</span></div></div></div>
-    <div class="slide__footer"><span>Close of Day 2 · Day 2 · 117 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Close of Day 2 · Day 2 · 117 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.117 · table</p><p>Read them aloud. These are tomorrow's exam.</p></aside>
   </section>
   <!-- 2.118 · Day 2 recap -->
   <section class="slide slide--t-list" data-id="2.118">
     <div class="slide__body"><p class="slide__eyebrow">Close of Day 2</p><h2>Day 2 recap</h2><ul class="olist olist--cols"><li><span></span><span>Choose the simplest task that answers the question</span></li><li><span></span><span>IoU measures box overlap</span></li><li><span></span><span>Two-stage: propose then classify</span></li><li><span></span><span>FPN handles scale, NMS removes duplicates</span></li><li><span></span><span>YOLO looks once; DETR avoids duplicates by design</span></li><li><span></span><span>mAP summarises precision across recall and classes</span></li><li><span></span><span>U-Net brings "where" back with skip connections</span></li><li><span></span><span>Tracking = detect, predict, match, update</span></li></ul></div>
-    <div class="slide__footer"><span>Close of Day 2 · Day 2 · 118 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Close of Day 2 · Day 2 · 118 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.118 · list</p><p>Eight lines, the whole day.</p></aside>
   </section>
   <!-- 2.119 · Exit ticket -->
   <section class="slide slide--t-quiz" data-id="2.119">
     <div class="slide__body"><p class="slide__eyebrow">Quick check</p><h2>Exit ticket</h2><ol class="quiz"><li><span>IoU of (0, 0, 2, 2) and (1, 0, 3, 2)?</span></li><li><span>Duplicates survive — which threshold do you lower?</span></li><li><span>Why does detection not use accuracy?</span></li><li><span>What does a U-Net skip connection carry?</span></li><li><span>What causes an ID switch?</span></li></ol></div>
-    <div class="slide__footer"><span>Close of Day 2 · Day 2 · 119 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Close of Day 2 · Day 2 · 119 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.119 · quiz</p><p>Answers: intersection 2, union 6 → 0.33 · the NMS IoU threshold · no true negatives (infinite empty boxes) · fine "where" detail from the encoder · two tracks swapping when objects cross or overlap.</p></aside>
   </section>
   <!-- 2.120 · Tonight -->
   <section class="slide slide--t-list" data-id="2.120">
     <div class="slide__body"><p class="slide__eyebrow">Close of Day 2</p><h2>Tonight</h2><ul class="olist"><li><span></span><span>Finish Lab 2A and Lab 2B</span></li><li><span></span><span>Try Lab 2C if you want</span></li><li><span></span><span>Project: README with your use case and data source</span></li><li><span></span><span>Revise Days 1–2 for the exam</span></li></ul></div>
-    <div class="slide__footer"><span>Close of Day 2 · Day 2 · 120 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Close of Day 2 · Day 2 · 120 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.120 · list</p><p>The exam covers Days 1 and 2 only.</p></aside>
   </section>
   <!-- 2.121 · Tomorrow — Day 3 -->
   <section class="slide slide--title slide--t-title" data-id="2.121">
     <div class="slide__body"><p class="slide__eyebrow">Tomorrow — Day 3</p><h2>Theory exam at 9:00</h2><p class="slide__kicker">Seeing beyond labels · Transformers · CLIP · Segment Anything · Project presentations</p></div>
-    <div class="slide__footer"><span>Close of Day 2 · Day 2 · 121 / 121</span></div>
+    <div class="slide__footer"><span>Computer Vision for Developers · Musa Ibn Rashid</span><span>Close of Day 2 · Day 2 · 121 / 121</span></div>
     <aside class="notes"><p class="notes__meta">2.121 · title</p><p>Exam first thing, then models that understand words, then your presentations.</p></aside>
   </section>
 </div>

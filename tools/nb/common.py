@@ -24,7 +24,7 @@ class Cell:
         self.expect = expect
         self.breaks = breaks
         self.unsolved = unsolved.strip('\n') if unsolved is not None else None
-        self.run = run              # Ice must run this on Colab before class
+        self.run = run              # Musa must run this on Colab before class
         self.extra = extra
 
     @property
@@ -62,7 +62,7 @@ def how_to_use(lab, title, goal, day_block, minutes, colab_gpu=True):
            if colab_gpu else 'A GPU is not needed for this lab; the CPU runtime is fine.')
     return md(f'''# Lab {lab} · {title}
 
-**Computer Vision for Developers · SDAIA Academy** · {day_block}
+**Computer Vision for Developers** · {day_block} · by **Musa Ibn Rashid**, SDAIA Academy
 
 **Goal:** {goal}
 

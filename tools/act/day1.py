@@ -30,7 +30,7 @@ PD_BODY = '''        <div class="panel" id="play">
           </div>
         </div>
         <div class="panel finish hidden" id="finish">
-          <h2 style="font-family:var(--font-display);font-size:1.6rem">Case closed</h2>
+          <h2 style="font-family:var(--font-display);font-size:1.6rem">All ten images done</h2>
           <p class="finish__score" id="final">0 / 50</p>
           <p class="muted" id="final-note"></p>
           <div class="rowline"><button type="button" class="btn" id="again">Play again</button><a class="btn btn--ghost" href="./index.html">All activities</a></div>
@@ -149,7 +149,7 @@ PD_JS = '''
 
 def pixel_detective():
     return PD_STYLE, PD_BODY, PD_JS.replace('__IMAGES__', json.dumps(all_images(), separators=(',', ':'))), \
-        'Ten mystery images arrive as raw pixel values — exactly what a computer receives. Reveal them step by step and name the object as early as you can. Correct at step 1 = 5 points, step 2 = 4 … step 5 = 1. A wrong guess scores 0.'
+        'Ten mystery images arrive as raw pixel values, which is all a computer receives. Reveal them step by step and name the object as early as you can. Correct at step 1 = 5 points, step 2 = 4 … step 5 = 1. A wrong guess scores 0.'
 
 
 # ------------------------------------------------------------ Be the Kernel

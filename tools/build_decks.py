@@ -157,12 +157,40 @@ def head_block(s, eyebrow=None):
     return f'<p class="slide__eyebrow">{esc(eb)}</p><h2>{fmt(s["title"])}</h2>'
 
 
+AUTHOR = 'Musa Ibn Rashid'
+
+
+def presenter(label='Designed and presented by'):
+    return (f'<div class="presenter"><span class="presenter__label">{label}</span>'
+            f'<span class="presenter__name">{AUTHOR}</span></div>')
+
+
 def lay_title(s, day):
     segs = dots(s['screen'])
+    # "Instructor: Musa Ibn Rashid" (or the bare name) becomes the presenter block
+    who = [x for x in segs if x.startswith('Instructor:') or x.strip() == AUTHOR]
+    segs = [x for x in segs if x not in who]
+    if who:
+        return _title_core(segs, s) + presenter()
+    return _title_core(segs, s)
+
+
+def lay_about(s, day):
+    """1.02 About me: the name large on the left, credentials on the right."""
+    segs = dots(s['screen'])
+    name, creds = segs[0], segs[1:]
+    lis = ''.join(f'<li>{fmt(c)}</li>' for c in creds)
+    return (f'<p class="slide__eyebrow">{esc(visible(s["section_label"]))} · Your instructor</p>'
+            f'<div class="about"><div class="about__who"><span class="presenter__name about__name">{fmt(name)}</span>'
+            f'<span class="about__role">Course designer and instructor</span></div>'
+            f'<ul class="about__creds">{lis}</ul></div>')
+
+
+def _title_core(segs, s):
     if segs[0].isupper():
         eyebrow, rest = segs[0].title().replace('Sdaia', 'SDAIA'), segs[1:]
     else:
-        eyebrow = s['title'] if s['title'] != segs[0] else 'SDAIA Academy · Computer Vision for Developers'
+        eyebrow = s['title'] if s['title'] != segs[0] else visible(s['section_label'])
         rest = segs
     h2, kick = rest[0], rest[1:]
     out = f'<p class="slide__eyebrow">{esc(visible(eyebrow))}</p><h2>{fmt(h2)}</h2>'
@@ -272,7 +300,8 @@ def lay_worked(s, day):
     segs = []
     for x in dots(s['screen']):
         # very short pieces ("B 0.90", "dog 1.0") belong on the line before them
-        if segs and len(x) <= 10 and not segs[-1].endswith(('.', ':')):
+        # but a short fact of its own ("0 = black") keeps its own line
+        if segs and len(x) <= 10 and '=' not in x and not segs[-1].endswith(('.', ':')):
             segs[-1] += ' · ' + x
         else:
             segs.append(x)
@@ -449,12 +478,16 @@ def build(day):
     parts = []
     for n, s in enumerate(slides, 1):
         s['section_label'] = section_label(s['section'])
-        body = LAYOUTS[s['type']](s, day)
+        about = s['title'] == 'About me'
+        body = lay_about(s, day) if about else LAYOUTS[s['type']](s, day)
+        if n == 1 and 'class="presenter"' not in body:
+            body += presenter()
         if '(Read at home)' in s['section'] and s['type'] != 'section':
             body = '<span class="badge-home">Read at home</span>' + body
-        footer = (f'<div class="slide__footer"><span>{esc(s["section_label"])} · Day {day} · '
-                  f'{n:02d} / {total}</span></div>')
-        cls = ' '.join(filter(None, ['slide', CLASS.get(s['type']), f'slide--t-{s["type"]}']))
+        footer = (f'<div class="slide__footer"><span>Computer Vision for Developers · {AUTHOR}</span>'
+                  f'<span>{esc(s["section_label"])} · Day {day} · {n:02d} / {total}</span></div>')
+        cls = ' '.join(filter(None, ['slide', 'slide--title slide--about' if about else CLASS.get(s['type']),
+                                     f'slide--t-{s["type"]}']))
         parts.append(
             f'  <!-- {s["id"]} · {esc(s["title"])} -->\n'
             f'  <section class="{cls}" data-id="{s["id"]}">\n'

@@ -22,7 +22,7 @@ def footer(root):
         <img class="logo--dark"  src="{root}assets/academy_color.png" alt="SDAIA Academy">
         <img class="logo--light" src="{root}assets/academy_white.png" alt="SDAIA Academy">
       </span>
-      <p class="footer-text">Computer Vision for Developers · SDAIA Academy · Instructor: Musa Ibn Rashid</p>
+      <p class="footer-text">Computer Vision for Developers · designed and taught by <strong class="footer-author">Musa Ibn Rashid</strong><br>Delivered at SDAIA Academy · © 2026 Musa Ibn Rashid</p>
       <span class="logo">
         <img class="logo--dark"  src="{root}assets/sdaia_color.png" alt="Saudi Data and AI Authority (SDAIA)">
         <img class="logo--light" src="{root}assets/sdaia_white.png" alt="Saudi Data and AI Authority (SDAIA)">
@@ -30,7 +30,7 @@ def footer(root):
     </div>
   </footer>'''
 
-def page(root, title, h1, lede, body, css_links=(), style='', scripts='', back=None, eyebrow='SDAIA Academy · Computer Vision for Developers', hero_extra=''):
+def page(root, title, h1, lede, body, css_links=(), style='', scripts='', back=None, eyebrow='Computer Vision for Developers · Musa Ibn Rashid', hero_extra=''):
     back = back or (f'{root}index.html', '← Course home')
     links = '\n'.join(f'  <link rel="stylesheet" href="{c}">' for c in css_links)
     return f'''<!DOCTYPE html>
@@ -38,7 +38,7 @@ def page(root, title, h1, lede, body, css_links=(), style='', scripts='', back=N
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{title} · Computer Vision for Developers</title>
+  <title>{title} · Computer Vision for Developers · Musa Ibn Rashid</title>
   <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{root}assets/theme.css">
   <link rel="stylesheet" href="{root}assets/site.css">

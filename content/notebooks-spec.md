@@ -8,7 +8,7 @@ extra-task answer cells. Colab links use
 ## Run before class
 
 These cells need a GPU, a large download or the live Hub, so they could not be fully verified here
-(no GPU on the build machine). Ice runs each solved notebook top to bottom on a Colab T4 and checks the
+(no GPU on the build machine). Musa runs each solved notebook top to bottom on a Colab T4 and checks the
 expected output in the tables below. Highest priority first: 1B (Sunday), then 2A, 2B, 2C, 3A, 3B.
 
 | Lab | Cell | What to check |
@@ -266,7 +266,7 @@ transformers 5.23, datasets 5.2, supervision 0.32 and trackers. Differences from
 
 - **Files:** `Lab_2C_unsolved.ipynb`, `Lab_2C_solved.ipynb`
 - **When:** Day 2 · self-paced / tonight (optional)
-- **Goal:** Do the Day 2 ideas in a few lines with YOLO26: predict, read the results, track a video, train on a tiny dataset and prompt YOLOE-26 with text — then see what the library hid from you.
+- **Goal:** Do the Day 2 ideas in a few lines with YOLO26: predict, read the results, track a video, train on a tiny dataset and prompt YOLOE-26 with text, then list what the library does for you behind each call.
 - **Libraries:** ultralytics (YOLO26, YOLOE-26)
 - **Cells:** 26 · **TODOs:** 3 · **GPU:** T4 recommended
 
@@ -368,7 +368,7 @@ transformers 5.23, datasets 5.2, supervision 0.32 and trackers. Differences from
 | 17 | code | TODO 3: combine masks and depth to find the nearest object | TODO: `nearest = 0  # TODO: index of the object with the LARGEST mean depth value (= nearest), np.argmax` | One line per object; the nearest object is a person in the foreground | np.argmin picks the farthest object — remember: larger = closer for this model |
 | 18 | code | Checks the TODO above and prints ✅ or a hint | PRE-WRITTEN | ✅ Nearest object found by combining mask and depth. | Prints the hint until the TODO line is right |
 | 19 | markdown | Explains the next step | PRE-WRITTEN | — | — |
-| 20 | code | A helper to try any prompt; three example prompts that often fail | PRE-WRITTEN | Usually: "far left" boxes several people; "not wearing" still boxes everyone; "giraffe" may box something wrong or nothing | Results vary by image — that is the point of the exercise |
+| 20 | code | A helper to try any prompt; three example prompts that often fail | PRE-WRITTEN | Usually: "far left" boxes several people; "not wearing" still boxes everyone; "giraffe" may box something wrong or nothing | Results vary by image; write down what you see |
 | 21 | markdown | Explains the next step | PRE-WRITTEN | — | — |
 | 22 | markdown | Explains the next step | PRE-WRITTEN | — | — |
 | 23 | code | Extra 1 answer (instructions) | EXTRA (answer in solved only) | — | — |

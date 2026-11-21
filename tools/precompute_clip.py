@@ -15,8 +15,8 @@ with cairosvg, scores the four captions with openai/clip-vit-base-patch32
     activities/data/showdown.json   (the data, for reference)
     activities/data/showdown.js     (window.SHOWDOWN = {...}; read by the page)
 
-Commit both files. Nothing here is invented: if this script has not been
-run, the page shows "Teacher setup needed".
+Commit both files. Until this script has been run, the page shows
+"Teacher setup needed".
 """
 import datetime
 import io
@@ -40,9 +40,30 @@ def load_scenes():
 
 
 def render(svg):
-    import cairosvg
-    png = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=224, output_height=224)
-    return Image.open(io.BytesIO(png)).convert('RGB')
+    """SVG -> 224x224 RGB. cairosvg if it loads (Colab/Linux); otherwise
+    headless Chrome (Windows, where the cairo DLL is usually missing)."""
+    try:
+        import cairosvg
+        png = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=224, output_height=224)
+        return Image.open(io.BytesIO(png)).convert('RGB')
+    except (ImportError, OSError):
+        return render_chrome(svg)
+
+
+def render_chrome(svg):
+    import subprocess
+    import sys
+    import tempfile
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from browser_check import chrome, file_url
+    tmp = tempfile.mkdtemp(prefix='cvd-svg-')
+    page, out = os.path.join(tmp, 's.html'), os.path.join(tmp, 's.png')
+    with open(page, 'w', encoding='utf-8') as fh:
+        fh.write('<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#fff}'
+                 'svg{display:block;width:448px;height:448px}</style>' + svg)
+    subprocess.run([chrome(), '--headless=new', '--disable-gpu', '--hide-scrollbars', f'--user-data-dir={tmp}',
+                    '--window-size=448,448', f'--screenshot={out}', file_url(page)], capture_output=True, timeout=120)
+    return Image.open(out).convert('RGB').crop((0, 0, 448, 448)).resize((224, 224), Image.LANCZOS)
 
 
 def as_tensor(out):

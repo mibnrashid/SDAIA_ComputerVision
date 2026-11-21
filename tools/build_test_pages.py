@@ -11,7 +11,7 @@ from _page import page  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PAGES = {
-    'pretest': ('Pre-test', '20 questions across all three days, about 15 minutes. Not graded — it shows what you already know, and on Day 3 we compare it with the post-test. Guessing is fine.',
+    'pretest': ('Pre-test', '20 questions across all three days, about 15 minutes. Not graded. It shows what you already know, and on Day 3 we compare it with the post-test. Guessing is fine.',
                 'Answers are checked only when you submit. Afterwards you see the score and an explanation for every question.'),
     'posttest': ('Post-test', '20 questions on the same ideas as the pre-test, with different questions. About 10 minutes. At the end you see how far you moved since Day 1.',
                  'Answers are checked only when you submit. Afterwards you see the score, your change since the pre-test and an explanation for every question.'),
@@ -27,7 +27,7 @@ BODY = '''    <section class="section--tight">
           <p class="muted">{rules}</p>
           <ul class="small muted">
             <li>One question per screen. Use <kbd>A</kbd>–<kbd>D</kbd> to answer and the arrow keys to move.</li>
-            <li>Every answer is saved on this device as you go — a refresh loses nothing.</li>
+            <li>Every answer is saved on this device as you go, so refreshing the page is safe.</li>
           </ul>
           <form id="t-start-form" class="tstart">
             <label for="t-name">Your full name</label>

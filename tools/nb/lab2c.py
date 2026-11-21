@@ -1,7 +1,7 @@
 from .common import md, code, check, how_to_use, gpu_check
 
 META = dict(id='2C', file='Lab_2C', title='Ultralytics for beginners', day=2, block='Day 2 · self-paced / tonight (optional)',
-            goal='Do the Day 2 ideas in a few lines with YOLO26: predict, read the results, track a video, train on a tiny dataset and prompt YOLOE-26 with text — then see what the library hid from you.',
+            goal='Do the Day 2 ideas in a few lines with YOLO26: predict, read the results, track a video, train on a tiny dataset and prompt YOLOE-26 with text, then list what the library does for you behind each call.',
             libs='ultralytics (YOLO26, YOLOE-26)', gpu=True)
 
 CELLS = [
@@ -100,7 +100,7 @@ plt.figure(figsize=(6, 8)); plt.imshow(er.plot()[..., ::-1]); plt.axis("off"); p
     check('len(prompts) >= 1 and all(isinstance(p, str) for p in prompts)', 'YOLOE ran with your own vocabulary.',
           'prompts = ["person", "bus", "backpack"]'),
 
-    md('''## What Ultralytics hid from you
+    md('''## What Ultralytics does for you
 
 Every line above hides something you built by hand on Day 2:
 

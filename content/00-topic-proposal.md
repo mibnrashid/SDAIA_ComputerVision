@@ -1,7 +1,7 @@
 # Computer Vision for Developers: topic proposal
 
 SDAIA Academy · 22–24 Nov 2026 · 3 days · about 20 students (year 2–5 undergrads)
-Status: proposal for Ice to approve. Once approved it becomes `01-plan.md`, then `slides-day1.md` etc.
+Status: proposal for Musa to approve. Once approved it becomes `01-plan.md`, then `slides-day1.md` etc.
 
 ## How to read this
 

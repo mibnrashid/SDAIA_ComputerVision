@@ -260,7 +260,7 @@ Rules for every item:
 
 1. `00-topic-proposal.md` ✓
 2. `01-plan.md` ✓ *(this file)*
-3. `slides-day1.md` → Ice compares it with Hussein's deck → `slides-day2.md`, `slides-day3.md`
+3. `slides-day1.md` → Musa compares it with Hussein's deck → `slides-day2.md`, `slides-day3.md`
 4. `notebooks-spec.md` (Labs 1A–3B, solved and unsolved)
 5. `activities-spec.md` (8 activities + icebreaker run-sheet)
 6. `project-brief.md` (student-facing)
