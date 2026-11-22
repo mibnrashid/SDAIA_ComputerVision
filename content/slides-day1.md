@@ -19,7 +19,7 @@ Notes: Welcome everyone. Over three days we go from "what is a pixel" to models 
 
 ### 1.02 · About me
 Type: cards
-Screen: Musa Ibn Rashid · Software Engineering (AI focus), KFUPM · KAUST AI Program graduate · AI Instructor, SDAIA Academy · QA Engineer, voice-AI startup
+Screen: Musa Ibn Rashid · Software Engineering (AI Focus), KFUPM · KAUST AI Training Graduate · AI Instructor, SDAIA Academy · QA Engineer, voice-AI startup
 Notes: Keep it to thirty seconds. The point is that I build this stuff, not only teach it.
 
 ### 1.03 · Let's meet each other first
