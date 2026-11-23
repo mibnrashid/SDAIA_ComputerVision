@@ -54,13 +54,13 @@ Notes: Goals 5 and 6 are what the exam tests hardest.
 
 ### 1.09 · The course project
 Type: cards
-Screen: A vision system for a real problem · Teams of 2–3 · GitHub repo · Built at night · 5-minute presentation on Day 3 · Brief and rubric are on the site now
+Screen: Train a vision model on a Kaggle dataset · Teams of 2–3 · One Colab notebook + a GitHub README · Loss curves and a before/after comparison · 5-minute presentation on Day 3
 Notes: Show the project page for two minutes. Ask them to form teams by the end of the day; people who mentioned similar work in the introductions are a good start.
 
 ### 1.10 · How you are graded
 Type: table
-Screen: Project build · 60 | Presentation · 10 | Theory exam (Day 3 morning) · 30 | Deploy bonus · +5 (max 100)
-Notes: The exam covers Days 1 and 2. Evidence — numbers, curves, failure images — is what earns build marks.
+Screen: Project notebook and repo · 60 | Presentation · 10 | Theory exam (Day 3 morning) · 30
+Notes: The exam covers Days 1 and 2. Real curves and real before/after numbers from your own run are what earn project marks.
 
 ---
 

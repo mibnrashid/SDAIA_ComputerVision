@@ -5,7 +5,7 @@
 The markdown is converted with a tiny converter (headings, paragraphs,
 lists, tables, code blocks, bold) so the page never drifts from the brief.
 The page adds the "Team & idea" form (saved to localStorage, exportable as
-text). Also checks that the rubric adds to 60 and the grading to 100 + 5.
+text). Also checks that the rubric adds to 60 and the grading to 100.
 """
 import html
 import os
@@ -70,14 +70,12 @@ def md_to_html(md):
 
 
 def check_points(md):
-    rub = re.search(r'## Build rubric \(60\).*?\n\n(\|.*?)\n\n', md, re.S).group(1)
+    rub = re.search(r'## Project rubric \(60\).*?\n\n(\|.*?)\n\n', md, re.S).group(1)
     rubric = sum(int(r.split('|')[2]) for r in rub.split('\n')[2:])
     grade = re.search(r'## Grading.*?\n\n.*?\n\n(\|.*?)\n\n', md, re.S).group(1).split('\n')[2:]
-    base = sum(int(re.sub(r'\D', '', r.split('|')[2])) for r in grade if '**Total**' not in r and '+' not in r.split('|')[2])
-    bonus = [r for r in grade if '+' in r.split('|')[2]][0]
-    total_row = [r for r in grade if '**Total**' in r][0]
-    print(f'rubric = {rubric} (must be 60) · grading = {base} (must be 100), total row says {re.sub(r"[^0-9]", "", total_row)} · bonus {bonus.split("|")[2].strip()}')
-    assert rubric == 60 and base == 100 and '+5' in bonus
+    base = sum(int(re.sub(r'\D', '', r.split('|')[2])) for r in grade if '**Total**' not in r)
+    print(f'rubric = {rubric} (must be 60) · grading = {base} (must be 100)')
+    assert rubric == 60 and base == 100
     return rubric, base
 
 
@@ -90,23 +88,14 @@ FORM = '''    <section class="panel brief" id="team">
           <label>Member 1 (full name) <input type="text" name="m1" maxlength="80"></label>
           <label>Member 2 <input type="text" name="m2" maxlength="80"></label>
           <label>Member 3 (optional) <input type="text" name="m3" maxlength="80"></label>
-          <label>Project idea
-            <select name="idea">
+          <label class="wide">Kaggle dataset link <input type="text" name="data" maxlength="200" placeholder="https://www.kaggle.com/datasets/…"></label>
+          <label>Task
+            <select name="task">
               <option value="">— choose —</option>
-              <option>PPE compliance on a site camera</option><option>Parking occupancy</option>
-              <option>Crack detection on walls or roads</option><option>Date-palm leaf disease</option>
-              <option>Shelf product counting</option><option>X-ray image triage</option>
-              <option>Waste sorting</option><option>CLIP-powered photo search for a club archive</option>
-              <option>Our own idea (describe below)</option>
+              <option>Classification</option><option>Detection</option>
             </select></label>
-          <label class="wide">One-sentence pitch <input type="text" name="pitch" maxlength="200" placeholder="We help … to … by …"></label>
-          <label>User <input type="text" name="user" maxlength="120"></label>
-          <label>Input <input type="text" name="input" maxlength="120" placeholder="e.g. site camera frame"></label>
-          <label>Output <input type="text" name="output" maxlength="120" placeholder="e.g. boxes for people without helmets"></label>
-          <label>Cost of a wrong answer <input type="text" name="cost" maxlength="160" placeholder="false positive vs false negative"></label>
-          <label>Success metric <input type="text" name="metric" maxlength="120" placeholder="e.g. recall ≥ 0.9 at precision 0.7"></label>
-          <label>Data source <input type="text" name="data" maxlength="160"></label>
-          <label>Foundation component <input type="text" name="foundation" maxlength="120" placeholder="CLIP / Grounding DINO / SAM / VLM"></label>
+          <label>Classes (how many, which) <input type="text" name="classes" maxlength="160" placeholder="e.g. 6: plastic, paper, metal, glass, cardboard, trash"></label>
+          <label>Model plan <input type="text" name="model" maxlength="120" placeholder="e.g. pretrained ResNet-18, new head"></label>
           <label class="wide">GitHub repo URL <input type="text" name="repo" maxlength="200" placeholder="https://github.com/…"></label>
         </form>
         <div class="rowline" style="margin-top:var(--s3)">
@@ -157,13 +146,10 @@ SCRIPT = '''  <script src="../assets/store.js"></script>
         L.push('PROJECT TEAM — Computer Vision for Developers');
         L.push('Team: ' + (d.team || ''));
         L.push('Members: ' + [d.m1, d.m2, d.m3].filter(Boolean).join(', '));
-        L.push('Idea: ' + (d.idea || ''));
-        L.push('Pitch: ' + (d.pitch || ''));
-        L.push('Use case card — user: ' + (d.user || '') + ' | input: ' + (d.input || '') + ' | output: ' + (d.output || ''));
-        L.push('Cost of a wrong answer: ' + (d.cost || ''));
-        L.push('Success metric: ' + (d.metric || ''));
-        L.push('Data source: ' + (d.data || ''));
-        L.push('Foundation component: ' + (d.foundation || ''));
+        L.push('Dataset: ' + (d.data || ''));
+        L.push('Task: ' + (d.task || ''));
+        L.push('Classes: ' + (d.classes || ''));
+        L.push('Model plan: ' + (d.model || ''));
         L.push('Repo: ' + (d.repo || ''));
         return L.join('\\n');
       }
@@ -198,8 +184,8 @@ def main():
       </div>
     </section>
 '''
-    out = page('../', 'Project', 'A vision system for a real problem',
-               'Teams of 2–3. A GitHub repo built at night, presented on Day 3 at 2:00. This page has the requirements, grading, deadlines, project ideas, a repo template, the presentation plan, the AI-use policy, and the form to register your team.',
+    out = page('../', 'Project', 'Train a vision model on a Kaggle dataset',
+               'Teams of 2–3. One Colab notebook in a GitHub repo with a README, presented on Day 3 at 2:00. This page has the steps, grading, deadlines, how to get Kaggle data into Colab, example datasets, the presentation plan, and the form to register your team.',
                body, style=STYLE, scripts=SCRIPT)
     with open(os.path.join(ROOT, 'project', 'index.html'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(out)

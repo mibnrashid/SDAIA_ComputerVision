@@ -367,7 +367,7 @@ Notes: Start it now. Finish at home; it makes a great portfolio piece.
 ### 3.68 · Lab 3B — open-vocabulary toolbox
 Type: list
 Screen: Grounding DINO with text prompts → boxes · SAM → masks from those boxes → area · Depth map with Depth Anything · Find three prompts that break it and explain why
-Notes: Take-home lab. Many project teams will use this as their foundation-model component.
+Notes: Take-home lab, for your portfolio.
 
 ### 3.69 · Fool the Model
 Type: activity
@@ -494,7 +494,7 @@ Notes: Being able to generate something does not mean you are allowed to publish
 ### 3.91 · Act 8 — Read at home
 Type: section
 Screen: 08 · From notebook to product · A Colab cell is not a system · Badge: Read at home
-Notes: Reading material, very useful for the deploy bonus.
+Notes: Reading material for after the course. Not part of the project.
 
 ### 3.92 · Deployment constraints
 Type: cards
@@ -526,10 +526,10 @@ Type: cards
 Screen: Faces and re-identification can track people without consent · Collect only what you need · Blur faces when identity is not needed · Know the data-protection rules that apply to you (e.g. Saudi PDPL)
 Notes: A vision system that works perfectly can still be one you should not build.
 
-### 3.98 · Deploy bonus: the simplest route
+### 3.98 · Sharing a demo: the simplest route
 Type: cards
-Screen: Hugging Face Spaces or Streamlit · upload image → see prediction · Pin library versions · keep secrets out of the repo · +5 bonus points
-Notes: A simple demo page counts. It does not need to be fancy.
+Screen: Hugging Face Spaces or Streamlit · upload image → see prediction · Pin library versions · keep secrets out of the repo · Optional, after the course
+Notes: Try this after the course if you want others to use your model.
 
 ---
 
@@ -552,7 +552,7 @@ Notes: Seven lines, the whole day.
 
 ### 3.102 · Project presentations
 Type: list
-Screen: 5 minutes per team · strict · Use case → model → foundation component → numbers → failures → what's next · 1 question per team
+Screen: 5 minutes per team · strict · Dataset → model → curves → before vs after → what's next · 1 question per team
 Notes: Keep strict time. About 45 minutes for seven teams.
 
 ### 3.103 · Post-test

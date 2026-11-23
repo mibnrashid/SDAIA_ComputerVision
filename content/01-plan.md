@@ -101,7 +101,7 @@ None of this can be reached in the morning. ✓
 - Lab 2A finished.
 - Lab 2B finished with a val mAP number and a counted video.
 - Lab 2C optional.
-- The project repo has a README with the use case and data source.
+- The project repo has a README naming the Kaggle dataset, and a notebook that loads it.
 
 | Block | Content | Ladder |
 |---|---|---|
@@ -189,32 +189,25 @@ Musa goes first to set the length and tone. Point out shared interests as you go
 
 ## Project (published on the site Day 1)
 
-**Brief: "A vision system for a real problem."** Teams of 2–3 (about 7 teams). The deliverable is a GitHub repo, built at night and presented Day 3 at 2:00.
+**Brief: "Train a vision model on a Kaggle dataset."** Teams of 2–3. Each team hands in one Colab notebook in a GitHub repo with a README, presented Day 3 at 2:00. It builds on Labs 1B and 2B. No deployment.
 
-**Must include:**
-1. **Use case card:** who the user is, what goes in, what comes out, what a wrong answer costs, and how success is measured.
-2. **A trained or fine-tuned model** using Day 1 or Day 2 techniques: a CNN / transfer-learning classifier, or a fine-tuned detector or segmenter.
-3. **A foundation-model component** from Day 3: CLIP zero-shot or search, open-vocabulary detection, SAM, or a VLM.
-4. **Evaluation with numbers:** a test set kept separate, the right metric for the task (accuracy/F1, mAP, IoU) and a confusion matrix or PR curve.
-5. **Failure analysis:** at least 5 failure images, each with a written cause and one fix the team tried or would try.
-6. **Honest limitations** and a README that lets someone else run it.
+**Steps:** pick a labelled image dataset on Kaggle · split train / val / test · evaluate the model on the test set before training · train with a Day 1 or Day 2 technique · plot loss and accuracy per epoch · evaluate again after training · compare before and after in one table.
 
-**Grading (course total 100):** build 60 · presentation 10 · theory exam 30 · optional deploy +5 (Hugging Face Spaces or Streamlit), capped at 100. Every team member gets the same build mark.
+**Grading (course total 100):** project 60 · presentation 10 · theory exam 30. Every team member gets the same project mark.
 
-**Build rubric (60):**
+**Project rubric (60):**
 
 | Criterion | Points | Full marks looks like |
 |---|---|---|
-| Use case card | 8 | Specific user, input, output, cost of error, and a measurable success metric |
-| Trained or fine-tuned model | 14 | Training ran, curves shown, baseline compared, choices justified |
-| Foundation-model component | 10 | Integrated, not a separate demo; a clear reason why it was needed |
-| Evaluation | 14 | Separate test set, correct metric, real numbers, threshold chosen deliberately |
-| Failure analysis + limitations | 10 | 5+ failures with causes and a fix attempted; limits stated plainly |
-| Repo quality | 4 | README with run steps, requirements, no secrets committed |
+| Dataset | 10 | Kaggle link, size and classes, sample grid, clean split |
+| Model and training | 15 | A Day 1 or Day 2 model that really trained; settings stated |
+| Curves | 10 | Train and val loss and accuracy per epoch, with one sentence on what they show |
+| Before vs after | 15 | Same test set and metrics, one table, confusion matrix after training |
+| Notebook and README | 10 | Runs top to bottom in Colab; README explains the project and how to run it |
 
-**Presentation (10):** clarity 4 · live demo or recorded fallback 3 · answers to questions 3. Five minutes, strict.
+**Presentation (10):** clarity 4 · curves and before/after table 3 · answers to questions 3. Five minutes, strict.
 
-Evidence is weighted heavily on purpose. Numbers, curves and failure images are hard to fake with an AI-written repo.
+The full student-facing version is `project-brief.md`.
 
 ---
 
