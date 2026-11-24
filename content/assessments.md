@@ -341,245 +341,245 @@ Key: `CADBBCADDBACCDABDACB`
 
 Key: `BDACABDCBADBCADCBACDBABDCABDAC`
 
-**1. [Day 1 · Crop by slicing]** A detector box is x1, y1, x2, y2 = 200, 50, 400, 150. Which line crops it from a NumPy image?
+**1. [Day 1 · Image processing vs vision]** An app reads a photo of a receipt and returns the total, 87.50 SAR. Which field is this, and why?
 
-- A. img[200:400, 50:150]
-- B. img[50:150, 200:400] ✔
-- C. img[50:400, 150:200]
-- D. img[150:50, 400:200]
-- *Answer B — NumPy indexes rows (y) first: img[y1:y2, x1:x2].*
+- A. Image processing: an image goes in, pixels get changed
+- B. Computer vision: an image goes in, meaning comes out ✔
+- C. Computer graphics: a description goes in, an image out
+- D. Image processing: it only works on a single photo
+- *Answer B — Image in, meaning out is computer vision. Image processing returns another image.*
 
-**2. [Day 1 · ToTensor]** What does torchvision's `ToTensor()` do to a uint8 (H, W, C) image?
+**2. [Day 1 · x and y in NumPy]** A box spans x = 300 to 500 and y = 20 to 80 on a 480 × 640 image. A student crops it with img[300:500, 20:80]. What happens?
 
-- A. Only converts the array type, keeping 0–255
-- B. Resizes the image to 224 × 224 for the model
-- C. Converts the image from RGB to BGR channels
-- D. Moves channels first and scales values to 0–1 ✔
-- *Answer D — ToTensor changes the layout to (C, H, W) and divides by 255.*
+- A. Python raises an IndexError because x is too large
+- B. The crop is correct but comes out rotated by 90°
+- C. The crop is correct because NumPy accepts both orders
+- D. A wrong region is cropped and no error is raised ✔
+- *Answer D — NumPy indexes img[y, x]. Slicing [x, y] cuts out a different region silently.*
 
-**3. [Day 1 · Interpolation for masks]** You resize a segmentation mask whose pixel values are class IDs. Which interpolation should you use?
+**3. [Day 1 · uint8 overflow]** You brighten a uint8 photo by adding 60 to every pixel without changing the type. Which pixels end up darker than before?
 
-- A. Nearest neighbour ✔
-- B. Bilinear averaging
-- C. Bicubic smoothing
-- D. Gaussian blurring
-- *Answer A — Nearest keeps exact values; averaging would create nonsense classes like 2.5.*
+- A. Pixels above 195, because they wrap past 255 ✔
+- B. Pixels below 60, because they wrap below zero
+- C. No pixels, because uint8 stops at 255 by itself
+- D. All pixels, because uint8 cannot store a sum
+- *Answer A — 200 + 60 = 260 wraps to 4. Anything above 195 passes 255 and wraps to a small, dark value.*
 
-**4. [Day 1 · HSV]** Why is HSV useful for finding a red object that is partly in shadow?
+**4. [Day 1 · BGR vs RGB]** A fruit classifier was trained on RGB images. In production, images come from cv2.imread with no conversion. Which classes suffer most?
 
-- A. HSV images use half the memory of RGB images
-- B. Shadows are removed automatically in HSV space
-- C. Hue barely changes in shadow; only Value drops ✔
-- D. Red is the only colour that exists in HSV space
-- *Answer C — In RGB the numbers change completely in shadow; in HSV the hue stays almost the same.*
+- A. Classes told apart mainly by their shape
+- B. Only the classes with the fewest images
+- C. Classes told apart mainly by their colour ✔
+- D. None, because CNNs do not use colour at all
+- *Answer C — OpenCV loads B, G, R, so red and blue swap. Classes that differ by colour (ripe vs unripe) are hit hardest.*
 
-**5. [Day 1 · Convolution by hand]** Patch rows are 0 0 9 / 0 0 9 / 0 0 9 and the kernel rows are −1 0 1 / −1 0 1 / −1 0 1. What is the output?
+**5. [Day 1 · Kernel as pattern detector]** A kernel has rows 1 1 1 / 0 0 0 / −1 −1 −1. Where does it give its largest positive output?
 
-- A. 27 ✔
-- B. 0
-- C. 9
-- D. −27
-- *Answer A — Each row gives 0·−1 + 0·0 + 9·1 = 9; three rows give 27.*
+- A. Where a bright band sits above a dark band ✔
+- B. Where a dark column sits left of a bright one
+- C. On a flat area that is bright everywhere
+- D. On a flat area that is dark everywhere
+- *Answer A — The kernel looks like bright-on-top, dark-below, so it fires on that horizontal edge. Flat areas give 0 because the weights sum to 0.*
 
-**6. [Day 1 · MLP parameter explosion]** A 224 × 224 × 3 image is flattened into an MLP whose first layer has 1,000 neurons. About how many weights is that?
+**6. [Day 1 · MLP has no neighbourhood]** You shuffle the pixel order of every image in the same fixed way, then retrain an MLP and a CNN. What happens?
 
-- A. About 150 thousand
-- B. About 150 million ✔
-- C. About 1.5 million
-- D. About 15 billion
-- *Answer B — 150,528 inputs × 1,000 neurons ≈ 150 million weights in the first layer alone.*
+- A. The MLP gets worse; the CNN learns as well as before
+- B. The CNN gets worse; the MLP learns as well as before ✔
+- C. Both get worse by about the same amount as before
+- D. Neither changes, since the pixel values are the same
+- *Answer B — The MLP never knew which pixels were neighbours. The CNN relies on neighbours, which shuffling destroys.*
 
-**7. [Day 1 · Conv parameters]** A conv layer has 64 kernels of size 3 × 3 on a 3-channel input. How many parameters does it have?
+**7. [Day 1 · Weight sharing]** A conv layer has 64 kernels of 3 × 3 on RGB input. You change the input from 32 × 32 to 64 × 64 pixels. What happens to its parameter count?
 
-- A. 1,728
-- B. 576
-- C. 192
-- D. 1,792 ✔
-- *Answer D — (k·k·C_in + 1)·C_out = (3·3·3 + 1)·64 = 1,792; the +1 is one bias per kernel.*
+- A. It doubles, to about 2×
+- B. It grows to about 4×
+- C. It halves, to about ½
+- D. It stays exactly the same ✔
+- *Answer D — The same kernels slide over any size of image. Parameters = (3·3·3 + 1)·64 whatever the width and height.*
 
-**8. [Day 1 · Output size with stride]** Input W = 64, K = 3, P = 1, S = 2. What is the output width?
+**8. [Day 1 · Output size formula]** A 32 × 32 input goes through a 3 × 3 conv (padding 0, stride 1), then 2 × 2 max pooling with stride 2. What is the output width?
 
-- A. 31
-- B. 64
-- C. 32 ✔
-- D. 33
-- *Answer C — ⌊(64 − 3 + 2) / 2⌋ + 1 = ⌊63 / 2⌋ + 1 = 31 + 1 = 32.*
+- A. 16
+- B. 14
+- C. 15 ✔
+- D. 30
+- *Answer C — Conv: (32 − 3)/1 + 1 = 30. Pooling halves it: 15.*
 
-**9. [Day 1 · Receptive field]** How large an area of the original image do three stacked 3 × 3 convolutions (stride 1) see?
+**9. [Day 1 · Stacked small kernels]** VGG uses two stacked 3 × 3 conv layers instead of one 5 × 5 layer. What does it gain?
 
-- A. 9 × 9
-- B. 7 × 7 ✔
-- C. 3 × 3
-- D. 5 × 5
-- *Answer B — Each extra 3 × 3 layer adds two pixels of view: 3 → 5 → 7.*
+- A. A wider 9 × 9 view with the same number of weights
+- B. The same 5 × 5 view, fewer weights, one more ReLU ✔
+- C. The same view, but no need for any pooling layers
+- D. Fewer layers in total, so training is much faster
+- *Answer B — Two 3 × 3 layers see 5 × 5 with 18 weights instead of 25, and add a non-linearity between them.*
 
-**10. [Day 1 · Activations]** What happens if you stack ten conv layers with no non-linear activation between them?
+**10. [Day 1 · Reading learning curves]** After 20 epochs, train loss and validation loss are both high, close together, and flat. What should you try?
 
-- A. They behave like a single linear layer ✔
-- B. They learn faster than with any ReLU
-- C. They become a convolutional transformer
-- D. They overfit less than shallow networks
-- *Answer A — Linear layers stacked together are still one linear function; non-linearity lets depth help.*
+- A. A bigger model or more training: it is underfitting ✔
+- B. More dropout and augmentation: it is overfitting
+- C. Stop now: the curves show a model that fits well
+- D. Tune on the test set to find the problem faster
+- *Answer A — Both curves high means underfitting. Dropout and augmentation fight overfitting, the opposite problem.*
 
-**11. [Day 1 · Training loop]** In a PyTorch training loop you forget `optimizer.zero_grad()`. What goes wrong?
+**11. [Day 1 · Augmentation that lies]** You train a handwritten digit reader (0–9). Which augmentation is wrong for this task?
 
-- A. The loss is never computed at all
-- B. The model stays in evaluation mode
-- C. The weights are reset after each step
-- D. Gradients pile up across batches ✔
-- *Answer D — PyTorch accumulates gradients; without zero_grad they add up from batch to batch — a silent bug.*
+- A. Small random crops
+- B. Slight brightness change
+- C. A little random blur
+- D. Random rotation by 180° ✔
+- *Answer D — Rotating 180° turns a 6 into a 9, so it changes the true label. The others keep the digit the same.*
 
-**12. [Day 1 · Data splits]** You pick your best learning rate by checking test-set accuracy each time. What is the problem?
+**12. [Day 1 · Train vs eval mode]** You evaluate the same trained CNN twice on the same test set and get 71.2%, then 70.6%. What is the most likely cause?
 
-- A. The training set becomes too small to learn from
-- B. The final test number is optimistic and unreliable ✔
-- C. The learning rate cannot be tuned in this way
-- D. Test accuracy is always lower than validation
-- *Answer B — Tuning on the test set leaks it into your choices; tune on validation, keep test sealed.*
+- A. The learning rate was set too high in training
+- B. model.eval() was not called before testing ✔
+- C. optimizer.zero_grad() was missing in training
+- D. The test set was shuffled between the two runs
+- *Answer B — In train mode dropout stays on and BatchNorm uses batch statistics, so predictions change from run to run.*
 
-**13. [Day 1 · Accuracy lies]** 100 X-rays: 95 healthy and 5 sick. A model always answers "healthy". What are its accuracy and recall for "sick"?
+**13. [Day 1 · Test set leakage]** A team tries 40 settings and keeps the one with the best test accuracy, 92%. In real use the model gets 81%. Why?
 
-- A. 95% accuracy, 95% recall
-- B. 5% accuracy, 100% recall
-- C. 95% accuracy, 0% recall ✔
-- D. 50% accuracy, 50% recall
-- *Answer C — It is right on all 95 healthy (95%) but finds 0 of 5 sick cases (recall 0%).*
+- A. The model was too small to learn the training set
+- B. Real images are always harder than any test set
+- C. Tuning on the test set made 92% an optimistic score ✔
+- D. Forty settings are too few to find a good model
+- *Answer C — The test set leaked into their choices. Tune on validation and open the test set once, at the end.*
 
-**14. [Day 1 · Train vs eval mode]** Why must you call `model.eval()` before testing a CNN that has dropout and BatchNorm?
+**14. [Day 1 · Residual connections]** A 56-layer plain network has worse TRAINING accuracy than a 20-layer one. How do skip connections fix this?
 
-- A. So dropout is off and BatchNorm uses saved statistics ✔
-- B. So the model can use the GPU instead of the CPU
-- C. So the gradients are computed faster than before
-- D. So the weights are saved to disk after each batch
-- *Answer A — In train mode dropout is on and BatchNorm uses batch statistics, so predictions change randomly.*
+- A. Extra blocks can learn F(x) = 0 and pass x through ✔
+- B. They stop overfitting by deleting half the layers
+- C. They make the kernels larger in the deeper layers
+- D. They give each block more labelled training data
+- *Answer A — With output = F(x) + x, a useless block can learn F(x) = 0, so extra depth no longer hurts training.*
 
-**15. [Day 1 · Residual connections]** What does a ResNet skip connection let a block learn?
+**15. [Day 1 · Freeze or fine-tune]** You have 400 labelled chest X-rays and an ImageNet-pretrained ResNet. Which strategy fits best?
 
-- A. A brand-new image that replaces its input
-- B. The class label directly, skipping the head
-- C. A larger kernel size for every conv layer
-- D. Only the change to its input, F(x) in F(x) + x ✔
-- *Answer D — Output = F(x) + x: the block learns only the residual, and can pass x through if it is useless.*
+- A. Train the whole network from random weights instead
+- B. Freeze every layer, including the new class head
+- C. Fine-tune all layers with a very large learning rate
+- D. Freeze most layers and fine-tune only the last blocks ✔
+- *Answer D — Little data and images unlike ImageNet: keep the general early layers, adapt the last blocks and the head.*
 
-**16. [Day 2 · Task choice]** A mall wants to know how many people entered today. Which task answers this?
+**16. [Day 2 · Task choice]** A factory must report what fraction of each steel sheet is covered in rust. Which is the simplest task that answers this?
 
-- A. Image classification
-- B. Semantic segmentation
-- C. Detection plus tracking ✔
-- D. Keypoint estimation
-- *Answer C — Counting entries needs identity over time: detect each frame, then track and count crossings.*
+- A. Classification
+- B. Object detection
+- C. Segmentation ✔
+- D. Video tracking
+- *Answer C — Measuring area needs the exact rust pixels. A box or a single label cannot measure area.*
 
-**17. [Day 2 · Box formats]** Image 640 × 480, box xyxy = (100, 120, 300, 360). What is the box in xywh (COCO)?
+**17. [Day 2 · Semantic vs instance]** A model colours every sheep pixel red. Sheep that touch come out as one red blob. Why can you not count them?
 
-- A. (200, 240, 200, 240)
-- B. (100, 120, 200, 240) ✔
-- C. (100, 120, 300, 360)
-- D. (0.31, 0.5, 0.31, 0.5)
-- *Answer B — COCO xywh keeps the top-left corner and stores width 300 − 100 = 200 and height 360 − 120 = 240.*
+- A. The model needs a higher confidence threshold set
+- B. Semantic masks give a class, not separate objects ✔
+- C. Red masks must be saved as PNG to keep the edges
+- D. Counting sheep needs keypoints, not any masks
+- *Answer B — Semantic segmentation labels pixels by class only. Counting touching objects needs instance masks.*
 
-**18. [Day 2 · Normalised coordinates]** All your drawn boxes are tiny and crammed into the top-left corner. What is the most likely bug?
+**18. [Day 2 · Box formats]** A YOLO label reads 0.5 0.5 0.2 0.4 (cx, cy, w, h, normalised) on a 1000 × 500 image. What is the box in pixel xyxy?
 
-- A. Normalised 0–1 boxes drawn as pixels ✔
-- B. The NMS threshold is set much too low
-- C. The model is still in training mode
-- D. The image was loaded in BGR order
-- *Answer A — Normalised coordinates must be multiplied by the image width and height before drawing.*
+- A. (400, 150, 600, 350) ✔
+- B. (500, 250, 700, 450)
+- C. (400, 100, 600, 400)
+- D. (500, 250, 200, 200)
+- *Answer A — Centre (500, 250), size 200 × 200 in pixels, so x from 400 to 600 and y from 150 to 350.*
 
-**19. [Day 2 · IoU]** Two identical boxes overlap perfectly. What is their IoU?
+**19. [Day 2 · IoU]** Two 10 × 10 boxes are identical except that box B is shifted 5 pixels to the right. What is their IoU?
 
-- A. 0.5
-- B. 0.0
-- C. 1.0 ✔
-- D. 2.0
-- *Answer C — Intersection equals union, so IoU = 1.*
+- A. 0.50
+- B. 0.25
+- C. 0.33 ✔
+- D. 0.67
+- *Answer C — Overlap = 5 × 10 = 50. Union = 100 + 100 − 50 = 150. IoU = 50 / 150 ≈ 0.33.*
 
-**20. [Day 2 · Anchors]** Faster R-CNN uses 3 scales × 3 aspect ratios on a 40 × 30 feature map. About how many anchors is that?
+**20. [Day 2 · Two-stage story]** Fast R-CNN runs its CNN only once, yet still takes about 2 seconds per image. What did Faster R-CNN change?
 
-- A. About 1,200
-- B. About 3,600
-- C. About 32,400
-- D. About 10,800 ✔
-- *Answer D — 9 anchors per position × 1,200 positions ≈ 10,800 anchors.*
+- A. It runs a separate CNN on every proposed region
+- B. It removes RoI pooling and classifies the pixels
+- C. It slides a window over the image at many sizes
+- D. The network learns to propose the regions itself ✔
+- *Answer D — The slow part was selective search on the CPU. The Region Proposal Network replaced it inside the same network.*
 
-**21. [Day 2 · Fast R-CNN]** What made Fast R-CNN much faster than R-CNN?
+**21. [Day 2 · Scale: FPN]** A detector finds people near the camera but misses people far away, about 20 pixels tall. Which change targets this?
 
-- A. Removing region proposals from the pipeline
-- B. One CNN pass, then cropping features (RoI pooling) ✔
-- C. Running a separate CNN on every single proposal
-- D. Replacing the CNN with hand-designed features
-- *Answer B — Crop the features, not the pixels: one CNN pass instead of about two thousand.*
+- A. Lower the NMS IoU threshold from 0.5 to 0.3
+- B. Add a Feature Pyramid Network to the backbone ✔
+- C. Raise the confidence threshold from 0.3 to 0.7
+- D. Convert every box from xyxy into cxcywh format
+- *Answer B — Tiny objects get lost in coarse deep maps. FPN brings deep meaning to the fine maps where small objects are found.*
 
-**22. [Day 2 · FPN]** What problem does a Feature Pyramid Network mainly solve?
+**22. [Day 2 · NMS by hand]** Scores: A 0.9, B 0.8, C 0.7. IoU(A,B) = 0.6, IoU(B,C) = 0.6, IoU(A,C) = 0.3. NMS threshold 0.5. Which boxes are kept?
 
-- A. Detecting objects at very different sizes ✔
-- B. Removing duplicate boxes on the same object
-- C. Tracking objects from one frame to the next
-- D. Choosing the confidence threshold for you
-- *Answer A — FPN passes deep meaning back to high-resolution maps: small objects on fine maps, large on coarse.*
-
-**23. [Day 2 · NMS]** Boxes A 0.95, B 0.90, C 0.80. IoU(A,B) = 0.7, IoU(A,C) = 0.1, IoU(B,C) = 0.2. With NMS at 0.5, which boxes are kept?
-
-- A. A and B
-- B. A and C ✔
-- C. A only
+- A. A and C ✔
+- B. A only
+- C. A and B
 - D. A, B and C
-- *Answer B — Keep A; remove B (0.7 > 0.5 with A); C overlaps A by only 0.1, so keep C.*
+- *Answer A — Keep A and remove B (0.6 > 0.5). C is compared only with kept boxes: IoU with A is 0.3, so C stays.*
 
-**24. [Day 2 · DETR]** Why does DETR need no NMS step?
+**23. [Day 2 · NMS in crowds]** A people counter at a busy queue reports too few people. The missed people stand very close to others. Most likely cause?
 
-- A. It predicts at most one box per image overall
-- B. It runs NMS inside the backbone automatically
-- C. It only detects large objects, never crowds
-- D. Training matches each object to one query only ✔
-- *Answer D — One-to-one matching during training forbids two queries claiming one object, so duplicates never form.*
+- A. The confidence threshold has been set too low
+- B. NMS deletes boxes that overlap a close neighbour ✔
+- C. The boxes are stored in xywh instead of xyxy
+- D. The video frame rate is too high for the model
+- *Answer B — Close neighbours have high-IoU boxes, so NMS treats one as a duplicate. Soft-NMS or NMS-free detectors help.*
 
-**25. [Day 2 · Licences]** You build a product on Ultralytics YOLO and ship it to customers. What does its AGPL-3.0 licence require?
+**24. [Day 2 · YOLO grid]** Ten small birds have their centres inside one cell of YOLOv1's 7 × 7 grid. YOLOv1 finds at most two of them. Why?
 
-- A. Nothing; it is free for any product use
-- B. Only a credit line in the user manual
-- C. Open-source your code or buy a licence ✔
-- D. Payment per image the model processes
-- *Answer C — AGPL-3.0: shipping it means you must open-source your code or buy an enterprise licence.*
+- A. NMS always keeps two boxes per image
+- B. The birds are too far from the centre
+- C. YOLOv1 has no class for birds at all
+- D. Each grid cell predicts only two boxes ✔
+- *Answer D — The cell holding an object's centre is responsible for it, and each cell predicts only 2 boxes.*
 
-**26. [Day 2 · True positive]** A prediction has the right class and IoU 0.8 with a ground-truth box that was already matched. How is it counted?
+**25. [Day 2 · DETR]** During DETR training, two object queries both predict a box on the same car. What does training do?
 
-- A. A false positive (a duplicate) ✔
-- B. A true positive like the first
-- C. A false negative for that object
-- D. It is ignored by the evaluation
-- *Answer A — A TP needs IoU ≥ threshold, the right class, and an unmatched ground truth; a second match is a duplicate FP.*
+- A. Keeps both and removes one later with a final NMS step
+- B. Averages the two boxes into one box for the car instead
+- C. Matches one query to the car; the other learns "no object" ✔
+- D. Counts both as correct because each one has a high IoU
+- *Answer C — One-to-one matching lets only one query claim each object, so the model learns not to produce duplicates.*
 
-**27. [Day 2 · Precision]** A detector makes 8 predictions: 5 are correct and 3 are wrong. There are 10 real objects. What are precision and recall?
+**26. [Day 2 · TP, FP, FN]** 3 real cats. Boxes: two on cat 1 (IoU 0.8 and 0.7), one on cat 2 (IoU 0.6), one on an empty wall. Threshold 0.5. Count them.
 
-- A. Precision 0.5, recall 0.625
-- B. Precision 0.625, recall 0.5 ✔
-- C. Precision 0.8, recall 0.5
-- D. Precision 0.625, recall 0.8
-- *Answer B — Precision = 5 / 8 = 0.625; recall = 5 / 10 = 0.5.*
+- A. TP 2, FP 2, FN 1 ✔
+- B. TP 3, FP 1, FN 0
+- C. TP 2, FP 1, FN 1
+- D. TP 3, FP 1, FN 1
+- *Answer A — Cat 1 and cat 2 are hits. The second box on cat 1 is a duplicate FP, the wall is an FP, and cat 3 is a miss.*
 
-**28. [Day 2 · mAP@0.5:0.95]** Why is mAP@0.5:0.95 always lower than mAP@0.5 for the same detector?
+**27. [Day 2 · AP by hand]** 3 real objects. 4 predictions sorted by confidence: TP, FP, TP, FP. Using interpolated precision, what is the AP?
 
-- A. It ignores every class except the largest one
-- B. It is computed only on the training images
-- C. It counts each false positive twice as bad
-- D. It also demands tighter boxes, up to IoU 0.95 ✔
-- *Answer D — It averages mAP over IoU thresholds 0.5 to 0.95, so loose boxes stop counting as hits.*
+- A. ≈ 0.67
+- B. ≈ 0.56 ✔
+- C. ≈ 0.44
+- D. ≈ 0.75
+- *Answer B — Recall 0 → 0.33 at precision 1.0, 0.33 → 0.67 at 0.67, never reaches 1.0. AP = 0.33 × 1 + 0.33 × 0.67 ≈ 0.56.*
 
-**29. [Day 2 · Segmentation metrics]** An image is 95% background. A model predicts "background" everywhere. Why is pixel accuracy misleading here?
+**28. [Day 2 · mAP@0.5 vs mAP@0.5:0.95]** Vendor A reports mAP@0.5 = 0.70. Vendor B reports mAP@0.5:0.95 = 0.48. Which detector is better?
 
-- A. It scores 95% while finding no objects ✔
-- B. It cannot be computed on such images
-- C. It always reports exactly 50% here
-- D. It counts only the object pixels
-- *Answer A — Imbalance again: doing nothing scores 95%; use mask IoU or Dice instead.*
+- A. Vendor A, because 0.70 is clearly the higher number
+- B. Vendor B, because a lower mAP always means fewer errors
+- C. Vendor A, because mAP@0.5 is the official COCO metric
+- D. You cannot tell: the two numbers use different rules ✔
+- *Answer D — mAP@0.5:0.95 demands tighter boxes and is always lower. Compare models only under the same definition.*
 
-**30. [Day 2 · ByteTrack]** What is ByteTrack's key idea compared with older trackers?
+**29. [Day 2 · Segmentation metrics]** Cracks cover 4% of each wall image. Model A: pixel accuracy 96%, Dice 0.10. Model B: pixel accuracy 93%, Dice 0.70. Which is better?
 
-- A. Throw away every box below 0.9 confidence first
-- B. Run a second detector to confirm every object
-- C. Also match low-confidence boxes to unmatched tracks ✔
-- D. Use colour histograms instead of box positions
-- *Answer C — A low score often means partly hidden; matching those boxes second keeps the person's ID.*
+- A. Model B: Dice shows it actually finds the cracks ✔
+- B. Model A: its pixel accuracy is the higher number
+- C. Model A: a lower Dice means fewer false alarms
+- D. Neither: these two metrics cannot be compared
+- *Answer A — Predicting "no crack" everywhere already scores 96% pixel accuracy. Dice measures overlap with the real cracks.*
+
+**30. [Day 2 · Tracking: predict, then match]** Why does a tracker predict where each track should be now, instead of matching new boxes to the track's box from the last frame?
+
+- A. Predicting removes the need to run the detector on most frames of the video
+- B. The prediction gives each object its class, so the detector can skip that step
+- C. A fast object may have moved so far that old and new boxes barely overlap ✔
+- D. Matching to the last frame is not possible because IoU needs two equal boxes
+- *Answer C — Matching uses IoU. Predicting the new position first keeps IoU high for fast objects, so IDs stay correct.*
 
 ## Pre-test ↔ post-test concept map
 
@@ -622,7 +622,7 @@ Counts how often the correct option is strictly the longest of the four. Rule: a
 |---|---|---|---|
 | Pre-test | 6 / 20 | 30% | ✅ |
 | Post-test | 2 / 20 | 10% | ✅ |
-| Theory exam | 9 / 30 | 30% | ✅ |
+| Theory exam | 8 / 30 | 27% | ✅ |
 
 Option-length rule: every option is within ±20 % of the mean length of its item; items whose options
 average under 8 characters (numbers, short formulas such as `(480, 640, 3)` or `0.60`) are exempt.

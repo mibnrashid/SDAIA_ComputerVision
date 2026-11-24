@@ -446,333 +446,333 @@ var TESTS = {
  ],
  "exam": [
   {
-   "q": "A detector box is x1, y1, x2, y2 = 200, 50, 400, 150. Which line crops it from a NumPy image?",
+   "q": "An app reads a photo of a receipt and returns the total, 87.50 SAR. Which field is this, and why?",
    "options": [
-    "img[200:400, 50:150]",
-    "img[50:150, 200:400]",
-    "img[50:400, 150:200]",
-    "img[150:50, 400:200]"
+    "Image processing: an image goes in, pixels get changed",
+    "Computer vision: an image goes in, meaning comes out",
+    "Computer graphics: a description goes in, an image out",
+    "Image processing: it only works on a single photo"
    ],
-   "topic": "Crop by slicing",
+   "topic": "Image processing vs vision",
    "day": 1
   },
   {
-   "q": "What does torchvision's `ToTensor()` do to a uint8 (H, W, C) image?",
+   "q": "A box spans x = 300 to 500 and y = 20 to 80 on a 480 × 640 image. A student crops it with img[300:500, 20:80]. What happens?",
    "options": [
-    "Only converts the array type, keeping 0–255",
-    "Resizes the image to 224 × 224 for the model",
-    "Converts the image from RGB to BGR channels",
-    "Moves channels first and scales values to 0–1"
+    "Python raises an IndexError because x is too large",
+    "The crop is correct but comes out rotated by 90°",
+    "The crop is correct because NumPy accepts both orders",
+    "A wrong region is cropped and no error is raised"
    ],
-   "topic": "ToTensor",
+   "topic": "x and y in NumPy",
    "day": 1
   },
   {
-   "q": "You resize a segmentation mask whose pixel values are class IDs. Which interpolation should you use?",
+   "q": "You brighten a uint8 photo by adding 60 to every pixel without changing the type. Which pixels end up darker than before?",
    "options": [
-    "Nearest neighbour",
-    "Bilinear averaging",
-    "Bicubic smoothing",
-    "Gaussian blurring"
+    "Pixels above 195, because they wrap past 255",
+    "Pixels below 60, because they wrap below zero",
+    "No pixels, because uint8 stops at 255 by itself",
+    "All pixels, because uint8 cannot store a sum"
    ],
-   "topic": "Interpolation for masks",
+   "topic": "uint8 overflow",
    "day": 1
   },
   {
-   "q": "Why is HSV useful for finding a red object that is partly in shadow?",
+   "q": "A fruit classifier was trained on RGB images. In production, images come from cv2.imread with no conversion. Which classes suffer most?",
    "options": [
-    "HSV images use half the memory of RGB images",
-    "Shadows are removed automatically in HSV space",
-    "Hue barely changes in shadow; only Value drops",
-    "Red is the only colour that exists in HSV space"
+    "Classes told apart mainly by their shape",
+    "Only the classes with the fewest images",
+    "Classes told apart mainly by their colour",
+    "None, because CNNs do not use colour at all"
    ],
-   "topic": "HSV",
+   "topic": "BGR vs RGB",
    "day": 1
   },
   {
-   "q": "Patch rows are 0 0 9 / 0 0 9 / 0 0 9 and the kernel rows are −1 0 1 / −1 0 1 / −1 0 1. What is the output?",
+   "q": "A kernel has rows 1 1 1 / 0 0 0 / −1 −1 −1. Where does it give its largest positive output?",
    "options": [
-    "27",
-    "0",
-    "9",
-    "−27"
+    "Where a bright band sits above a dark band",
+    "Where a dark column sits left of a bright one",
+    "On a flat area that is bright everywhere",
+    "On a flat area that is dark everywhere"
    ],
-   "topic": "Convolution by hand",
+   "topic": "Kernel as pattern detector",
    "day": 1
   },
   {
-   "q": "A 224 × 224 × 3 image is flattened into an MLP whose first layer has 1,000 neurons. About how many weights is that?",
+   "q": "You shuffle the pixel order of every image in the same fixed way, then retrain an MLP and a CNN. What happens?",
    "options": [
-    "About 150 thousand",
-    "About 150 million",
-    "About 1.5 million",
-    "About 15 billion"
+    "The MLP gets worse; the CNN learns as well as before",
+    "The CNN gets worse; the MLP learns as well as before",
+    "Both get worse by about the same amount as before",
+    "Neither changes, since the pixel values are the same"
    ],
-   "topic": "MLP parameter explosion",
+   "topic": "MLP has no neighbourhood",
    "day": 1
   },
   {
-   "q": "A conv layer has 64 kernels of size 3 × 3 on a 3-channel input. How many parameters does it have?",
+   "q": "A conv layer has 64 kernels of 3 × 3 on RGB input. You change the input from 32 × 32 to 64 × 64 pixels. What happens to its parameter count?",
    "options": [
-    "1,728",
-    "576",
-    "192",
-    "1,792"
+    "It doubles, to about 2×",
+    "It grows to about 4×",
+    "It halves, to about ½",
+    "It stays exactly the same"
    ],
-   "topic": "Conv parameters",
+   "topic": "Weight sharing",
    "day": 1
   },
   {
-   "q": "Input W = 64, K = 3, P = 1, S = 2. What is the output width?",
+   "q": "A 32 × 32 input goes through a 3 × 3 conv (padding 0, stride 1), then 2 × 2 max pooling with stride 2. What is the output width?",
    "options": [
-    "31",
-    "64",
-    "32",
-    "33"
+    "16",
+    "14",
+    "15",
+    "30"
    ],
-   "topic": "Output size with stride",
+   "topic": "Output size formula",
    "day": 1
   },
   {
-   "q": "How large an area of the original image do three stacked 3 × 3 convolutions (stride 1) see?",
+   "q": "VGG uses two stacked 3 × 3 conv layers instead of one 5 × 5 layer. What does it gain?",
    "options": [
-    "9 × 9",
-    "7 × 7",
-    "3 × 3",
-    "5 × 5"
+    "A wider 9 × 9 view with the same number of weights",
+    "The same 5 × 5 view, fewer weights, one more ReLU",
+    "The same view, but no need for any pooling layers",
+    "Fewer layers in total, so training is much faster"
    ],
-   "topic": "Receptive field",
+   "topic": "Stacked small kernels",
    "day": 1
   },
   {
-   "q": "What happens if you stack ten conv layers with no non-linear activation between them?",
+   "q": "After 20 epochs, train loss and validation loss are both high, close together, and flat. What should you try?",
    "options": [
-    "They behave like a single linear layer",
-    "They learn faster than with any ReLU",
-    "They become a convolutional transformer",
-    "They overfit less than shallow networks"
+    "A bigger model or more training: it is underfitting",
+    "More dropout and augmentation: it is overfitting",
+    "Stop now: the curves show a model that fits well",
+    "Tune on the test set to find the problem faster"
    ],
-   "topic": "Activations",
+   "topic": "Reading learning curves",
    "day": 1
   },
   {
-   "q": "In a PyTorch training loop you forget `optimizer.zero_grad()`. What goes wrong?",
+   "q": "You train a handwritten digit reader (0–9). Which augmentation is wrong for this task?",
    "options": [
-    "The loss is never computed at all",
-    "The model stays in evaluation mode",
-    "The weights are reset after each step",
-    "Gradients pile up across batches"
+    "Small random crops",
+    "Slight brightness change",
+    "A little random blur",
+    "Random rotation by 180°"
    ],
-   "topic": "Training loop",
+   "topic": "Augmentation that lies",
    "day": 1
   },
   {
-   "q": "You pick your best learning rate by checking test-set accuracy each time. What is the problem?",
+   "q": "You evaluate the same trained CNN twice on the same test set and get 71.2%, then 70.6%. What is the most likely cause?",
    "options": [
-    "The training set becomes too small to learn from",
-    "The final test number is optimistic and unreliable",
-    "The learning rate cannot be tuned in this way",
-    "Test accuracy is always lower than validation"
-   ],
-   "topic": "Data splits",
-   "day": 1
-  },
-  {
-   "q": "100 X-rays: 95 healthy and 5 sick. A model always answers \"healthy\". What are its accuracy and recall for \"sick\"?",
-   "options": [
-    "95% accuracy, 95% recall",
-    "5% accuracy, 100% recall",
-    "95% accuracy, 0% recall",
-    "50% accuracy, 50% recall"
-   ],
-   "topic": "Accuracy lies",
-   "day": 1
-  },
-  {
-   "q": "Why must you call `model.eval()` before testing a CNN that has dropout and BatchNorm?",
-   "options": [
-    "So dropout is off and BatchNorm uses saved statistics",
-    "So the model can use the GPU instead of the CPU",
-    "So the gradients are computed faster than before",
-    "So the weights are saved to disk after each batch"
+    "The learning rate was set too high in training",
+    "model.eval() was not called before testing",
+    "optimizer.zero_grad() was missing in training",
+    "The test set was shuffled between the two runs"
    ],
    "topic": "Train vs eval mode",
    "day": 1
   },
   {
-   "q": "What does a ResNet skip connection let a block learn?",
+   "q": "A team tries 40 settings and keeps the one with the best test accuracy, 92%. In real use the model gets 81%. Why?",
    "options": [
-    "A brand-new image that replaces its input",
-    "The class label directly, skipping the head",
-    "A larger kernel size for every conv layer",
-    "Only the change to its input, F(x) in F(x) + x"
+    "The model was too small to learn the training set",
+    "Real images are always harder than any test set",
+    "Tuning on the test set made 92% an optimistic score",
+    "Forty settings are too few to find a good model"
+   ],
+   "topic": "Test set leakage",
+   "day": 1
+  },
+  {
+   "q": "A 56-layer plain network has worse TRAINING accuracy than a 20-layer one. How do skip connections fix this?",
+   "options": [
+    "Extra blocks can learn F(x) = 0 and pass x through",
+    "They stop overfitting by deleting half the layers",
+    "They make the kernels larger in the deeper layers",
+    "They give each block more labelled training data"
    ],
    "topic": "Residual connections",
    "day": 1
   },
   {
-   "q": "A mall wants to know how many people entered today. Which task answers this?",
+   "q": "You have 400 labelled chest X-rays and an ImageNet-pretrained ResNet. Which strategy fits best?",
    "options": [
-    "Image classification",
-    "Semantic segmentation",
-    "Detection plus tracking",
-    "Keypoint estimation"
+    "Train the whole network from random weights instead",
+    "Freeze every layer, including the new class head",
+    "Fine-tune all layers with a very large learning rate",
+    "Freeze most layers and fine-tune only the last blocks"
+   ],
+   "topic": "Freeze or fine-tune",
+   "day": 1
+  },
+  {
+   "q": "A factory must report what fraction of each steel sheet is covered in rust. Which is the simplest task that answers this?",
+   "options": [
+    "Classification",
+    "Object detection",
+    "Segmentation",
+    "Video tracking"
    ],
    "topic": "Task choice",
    "day": 2
   },
   {
-   "q": "Image 640 × 480, box xyxy = (100, 120, 300, 360). What is the box in xywh (COCO)?",
+   "q": "A model colours every sheep pixel red. Sheep that touch come out as one red blob. Why can you not count them?",
    "options": [
-    "(200, 240, 200, 240)",
-    "(100, 120, 200, 240)",
-    "(100, 120, 300, 360)",
-    "(0.31, 0.5, 0.31, 0.5)"
+    "The model needs a higher confidence threshold set",
+    "Semantic masks give a class, not separate objects",
+    "Red masks must be saved as PNG to keep the edges",
+    "Counting sheep needs keypoints, not any masks"
+   ],
+   "topic": "Semantic vs instance",
+   "day": 2
+  },
+  {
+   "q": "A YOLO label reads 0.5 0.5 0.2 0.4 (cx, cy, w, h, normalised) on a 1000 × 500 image. What is the box in pixel xyxy?",
+   "options": [
+    "(400, 150, 600, 350)",
+    "(500, 250, 700, 450)",
+    "(400, 100, 600, 400)",
+    "(500, 250, 200, 200)"
    ],
    "topic": "Box formats",
    "day": 2
   },
   {
-   "q": "All your drawn boxes are tiny and crammed into the top-left corner. What is the most likely bug?",
+   "q": "Two 10 × 10 boxes are identical except that box B is shifted 5 pixels to the right. What is their IoU?",
    "options": [
-    "Normalised 0–1 boxes drawn as pixels",
-    "The NMS threshold is set much too low",
-    "The model is still in training mode",
-    "The image was loaded in BGR order"
-   ],
-   "topic": "Normalised coordinates",
-   "day": 2
-  },
-  {
-   "q": "Two identical boxes overlap perfectly. What is their IoU?",
-   "options": [
-    "0.5",
-    "0.0",
-    "1.0",
-    "2.0"
+    "0.50",
+    "0.25",
+    "0.33",
+    "0.67"
    ],
    "topic": "IoU",
    "day": 2
   },
   {
-   "q": "Faster R-CNN uses 3 scales × 3 aspect ratios on a 40 × 30 feature map. About how many anchors is that?",
+   "q": "Fast R-CNN runs its CNN only once, yet still takes about 2 seconds per image. What did Faster R-CNN change?",
    "options": [
-    "About 1,200",
-    "About 3,600",
-    "About 32,400",
-    "About 10,800"
+    "It runs a separate CNN on every proposed region",
+    "It removes RoI pooling and classifies the pixels",
+    "It slides a window over the image at many sizes",
+    "The network learns to propose the regions itself"
    ],
-   "topic": "Anchors",
+   "topic": "Two-stage story",
    "day": 2
   },
   {
-   "q": "What made Fast R-CNN much faster than R-CNN?",
+   "q": "A detector finds people near the camera but misses people far away, about 20 pixels tall. Which change targets this?",
    "options": [
-    "Removing region proposals from the pipeline",
-    "One CNN pass, then cropping features (RoI pooling)",
-    "Running a separate CNN on every single proposal",
-    "Replacing the CNN with hand-designed features"
+    "Lower the NMS IoU threshold from 0.5 to 0.3",
+    "Add a Feature Pyramid Network to the backbone",
+    "Raise the confidence threshold from 0.3 to 0.7",
+    "Convert every box from xyxy into cxcywh format"
    ],
-   "topic": "Fast R-CNN",
+   "topic": "Scale: FPN",
    "day": 2
   },
   {
-   "q": "What problem does a Feature Pyramid Network mainly solve?",
+   "q": "Scores: A 0.9, B 0.8, C 0.7. IoU(A,B) = 0.6, IoU(B,C) = 0.6, IoU(A,C) = 0.3. NMS threshold 0.5. Which boxes are kept?",
    "options": [
-    "Detecting objects at very different sizes",
-    "Removing duplicate boxes on the same object",
-    "Tracking objects from one frame to the next",
-    "Choosing the confidence threshold for you"
-   ],
-   "topic": "FPN",
-   "day": 2
-  },
-  {
-   "q": "Boxes A 0.95, B 0.90, C 0.80. IoU(A,B) = 0.7, IoU(A,C) = 0.1, IoU(B,C) = 0.2. With NMS at 0.5, which boxes are kept?",
-   "options": [
-    "A and B",
     "A and C",
     "A only",
+    "A and B",
     "A, B and C"
    ],
-   "topic": "NMS",
+   "topic": "NMS by hand",
    "day": 2
   },
   {
-   "q": "Why does DETR need no NMS step?",
+   "q": "A people counter at a busy queue reports too few people. The missed people stand very close to others. Most likely cause?",
    "options": [
-    "It predicts at most one box per image overall",
-    "It runs NMS inside the backbone automatically",
-    "It only detects large objects, never crowds",
-    "Training matches each object to one query only"
+    "The confidence threshold has been set too low",
+    "NMS deletes boxes that overlap a close neighbour",
+    "The boxes are stored in xywh instead of xyxy",
+    "The video frame rate is too high for the model"
+   ],
+   "topic": "NMS in crowds",
+   "day": 2
+  },
+  {
+   "q": "Ten small birds have their centres inside one cell of YOLOv1's 7 × 7 grid. YOLOv1 finds at most two of them. Why?",
+   "options": [
+    "NMS always keeps two boxes per image",
+    "The birds are too far from the centre",
+    "YOLOv1 has no class for birds at all",
+    "Each grid cell predicts only two boxes"
+   ],
+   "topic": "YOLO grid",
+   "day": 2
+  },
+  {
+   "q": "During DETR training, two object queries both predict a box on the same car. What does training do?",
+   "options": [
+    "Keeps both and removes one later with a final NMS step",
+    "Averages the two boxes into one box for the car instead",
+    "Matches one query to the car; the other learns \"no object\"",
+    "Counts both as correct because each one has a high IoU"
    ],
    "topic": "DETR",
    "day": 2
   },
   {
-   "q": "You build a product on Ultralytics YOLO and ship it to customers. What does its AGPL-3.0 licence require?",
+   "q": "3 real cats. Boxes: two on cat 1 (IoU 0.8 and 0.7), one on cat 2 (IoU 0.6), one on an empty wall. Threshold 0.5. Count them.",
    "options": [
-    "Nothing; it is free for any product use",
-    "Only a credit line in the user manual",
-    "Open-source your code or buy a licence",
-    "Payment per image the model processes"
+    "TP 2, FP 2, FN 1",
+    "TP 3, FP 1, FN 0",
+    "TP 2, FP 1, FN 1",
+    "TP 3, FP 1, FN 1"
    ],
-   "topic": "Licences",
+   "topic": "TP, FP, FN",
    "day": 2
   },
   {
-   "q": "A prediction has the right class and IoU 0.8 with a ground-truth box that was already matched. How is it counted?",
+   "q": "3 real objects. 4 predictions sorted by confidence: TP, FP, TP, FP. Using interpolated precision, what is the AP?",
    "options": [
-    "A false positive (a duplicate)",
-    "A true positive like the first",
-    "A false negative for that object",
-    "It is ignored by the evaluation"
+    "≈ 0.67",
+    "≈ 0.56",
+    "≈ 0.44",
+    "≈ 0.75"
    ],
-   "topic": "True positive",
+   "topic": "AP by hand",
    "day": 2
   },
   {
-   "q": "A detector makes 8 predictions: 5 are correct and 3 are wrong. There are 10 real objects. What are precision and recall?",
+   "q": "Vendor A reports mAP@0.5 = 0.70. Vendor B reports mAP@0.5:0.95 = 0.48. Which detector is better?",
    "options": [
-    "Precision 0.5, recall 0.625",
-    "Precision 0.625, recall 0.5",
-    "Precision 0.8, recall 0.5",
-    "Precision 0.625, recall 0.8"
+    "Vendor A, because 0.70 is clearly the higher number",
+    "Vendor B, because a lower mAP always means fewer errors",
+    "Vendor A, because mAP@0.5 is the official COCO metric",
+    "You cannot tell: the two numbers use different rules"
    ],
-   "topic": "Precision",
+   "topic": "mAP@0.5 vs mAP@0.5:0.95",
    "day": 2
   },
   {
-   "q": "Why is mAP@0.5:0.95 always lower than mAP@0.5 for the same detector?",
+   "q": "Cracks cover 4% of each wall image. Model A: pixel accuracy 96%, Dice 0.10. Model B: pixel accuracy 93%, Dice 0.70. Which is better?",
    "options": [
-    "It ignores every class except the largest one",
-    "It is computed only on the training images",
-    "It counts each false positive twice as bad",
-    "It also demands tighter boxes, up to IoU 0.95"
-   ],
-   "topic": "mAP@0.5:0.95",
-   "day": 2
-  },
-  {
-   "q": "An image is 95% background. A model predicts \"background\" everywhere. Why is pixel accuracy misleading here?",
-   "options": [
-    "It scores 95% while finding no objects",
-    "It cannot be computed on such images",
-    "It always reports exactly 50% here",
-    "It counts only the object pixels"
+    "Model B: Dice shows it actually finds the cracks",
+    "Model A: its pixel accuracy is the higher number",
+    "Model A: a lower Dice means fewer false alarms",
+    "Neither: these two metrics cannot be compared"
    ],
    "topic": "Segmentation metrics",
    "day": 2
   },
   {
-   "q": "What is ByteTrack's key idea compared with older trackers?",
+   "q": "Why does a tracker predict where each track should be now, instead of matching new boxes to the track's box from the last frame?",
    "options": [
-    "Throw away every box below 0.9 confidence first",
-    "Run a second detector to confirm every object",
-    "Also match low-confidence boxes to unmatched tracks",
-    "Use colour histograms instead of box positions"
+    "Predicting removes the need to run the detector on most frames of the video",
+    "The prediction gives each object its class, so the detector can skip that step",
+    "A fast object may have moved so far that old and new boxes barely overlap",
+    "Matching to the last frame is not possible because IoU needs two equal boxes"
    ],
-   "topic": "ByteTrack",
+   "topic": "Tracking: predict, then match",
    "day": 2
   }
  ]
